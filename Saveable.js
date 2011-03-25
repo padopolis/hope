@@ -29,9 +29,9 @@ hope.setGlobal("Saveable", Saveable);
 Saveable.prototype = {
 		// generic save url -- note that we encode the file name based on element.url
 // NOTE: THIS IS ALL KINDS OF UNSAFE!
-		saveUrl : "editor/save.php?file={{url}}",
+		saveUrl : "editor/php/save.php?file={{url}}",
 		
-		saveCheckUrl : "editor/saveCheck.php?file={{url}}",
+		saveCheckUrl : "editor/php/saveCheck.php?file={{url}}",
 
 		// if true, we automatically save after autoSaveDelay once we're set to dirty
 		autoSave : Attribute({name:"autoSave", type:"flag", update:true, inherit:true, 
