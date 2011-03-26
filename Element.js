@@ -116,9 +116,9 @@ hope.extend(E, {
 	// Given some HTML, inflate it to an ElementList of nodes (including text nodes).
 	// pass a @selector to pull the first matching element out
 	//	otherwise we'll return an ElementList of the childNodes
-	// NOTE: this does not initialize() the returned elements!
+	// NOTE: this DOES initialize() the returned elements!
 	inflate : function(html, selector) {
-		__CONTAINER.innerHTML = html;
+		__CONTAINER.innerHTML = html.expandUnaryTags();
 		Element.initializeElements(__CONTAINER.childNodes);
 		if (selector) {
 			var child = __CONTAINER.getChild(selector);

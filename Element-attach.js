@@ -260,7 +260,7 @@ Element.prototype.extend({
 		;
 		// if an 'event' attribute was defined, hook up innerHTML as a function
 		if (event) {
-			var args = element.getAttribute("args") || "";
+			var args = element.getAttribute("args") || "event";
 			var handler = new Function(args, script);
 			this.on(event, handler);
 		}

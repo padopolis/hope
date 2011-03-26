@@ -110,6 +110,7 @@ var XHR = {
 		request.open("GET", XHR.addCacheParam(url, cache), true);
 		XHR._makeReadyStateFn(request, url, callback, errback, scope);
 		request.send(null);
+		return request;
 	},
 	
 	

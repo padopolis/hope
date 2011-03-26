@@ -503,7 +503,6 @@ action {
   height: 30px;
   line-height: 29px;
   position: relative;
-  border: 1px outset black;
   cursor: pointer;
   white-space: nowrap;
   background-color: none;
@@ -530,6 +529,9 @@ action[icon][label] {
 }
 action[icon][label] > icon {
   left: -3px;
+}
+action label {
+  padding: 0 5px;
 }
 action[appearance~=black] {
   border-color: transparent;
@@ -1043,9 +1045,6 @@ toolbar[appearance~=top] {
 toolbar[appearance~=black] {
   background: url(theme/ios/toolbar-black.png) repeat-x;
   color: white;
-}
-toolbar[appearance~=black] label {
-  font-weight: bold;
 }
 /* "inset" appearance toolbar */
 toolbar[appearance~=inset] {
@@ -1722,6 +1721,9 @@ icon[disabled] {
 *[icon=silk-link] > icon {
   background-image: url(theme/silk/link.png);
 }
+*[icon=silk-lock] > icon {
+  background-image: url(theme/silk/locked.png);
+}
 *[icon=silk-medium] > icon {
   background-image: url(theme/silk/medium.png);
 }
@@ -1788,11 +1790,17 @@ icon[disabled] {
   height: 19px;
   left: -1px;
 }
+*[icon=light-left]:active > icon {
+  background-image: url(theme/ios/icon-light-left-active.png);
+}
 *[icon=light-right] > icon {
   background-image: url(theme/ios/icon-light-right.png);
   width: 16px;
   height: 19px;
   left: 1px;
+}
+*[icon=light-right]:active > icon {
+  background-image: url(theme/ios/icon-light-right-active.png);
 }
 /* small-light icons */
 *[icon=small-light-down] > icon {
@@ -1845,6 +1853,7 @@ icon[disabled] {
 *[icon|=dot] > icon, icon[icon|=dot] {
   width: 16px;
   height: 16px;
+  margin-top: -2px;
 }
 *[icon=dot-blue] > icon, icon[icon=dot-blue] {
   background-image: url(theme/ios/dot-blue.png);
