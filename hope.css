@@ -1724,6 +1724,9 @@ icon[disabled] {
 *[icon=silk-lock] > icon {
   background-image: url(theme/silk/locked.png);
 }
+*[icon=silk-locked] > icon {
+  background-image: url(theme/silk/locked.png);
+}
 *[icon=silk-medium] > icon {
   background-image: url(theme/silk/medium.png);
 }
@@ -1759,6 +1762,12 @@ icon[disabled] {
 }
 *[icon=silk-save] > icon {
   background-image: url(theme/silk/save.png);
+}
+*[icon=silk-stop] > icon {
+  background-image: url(theme/silk/stop.png);
+}
+*[icon=silk-unlocked] > icon {
+  background-image: url(theme/silk/unlocked.png);
 }
 *[icon=silk-up] > icon {
   background-image: url(theme/silk/up.png);

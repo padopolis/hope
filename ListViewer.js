@@ -37,8 +37,15 @@ new hope.Section.Subclass("hope.ListViewer", {
 		// first row we're currently displaying
 		startRow : Attribute({name:"startRow", type:"number", update:true, inherit:true, value:0}),
 
+		// if true, we're selectable
+		selectable : Attribute({name:"selectable", type:"flag", falseIf:[false,"false","no"]}),
+
 		// if true, we automatically deselect when updating the list
 		autoDeselect : false,
+
+		// current sort attribute, takes effect when our list is et
+		sortBy : Attribute("sortBy"),
+
 		
 		// .list is the list of data we're pointing to.  When it's changed:
 		//		- redraw the list
@@ -47,6 +54,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 			onChange : function(newList, oldList) {
 				// clear the selection
 				if (this.autoDeselect) this.selectedIndex = -1;
+				if (this.sortBy && newList.sortBy) newList.sortBy(this.sortBy);
 				this.fire("update");
 			}
 		}),
@@ -94,6 +102,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 		}),
 		
 		onRowClicked : function(event, row) {
+			if (!this.selectable) return;
 			var index = row.attr("index");
 			this.selectedIndex = index;
 		},

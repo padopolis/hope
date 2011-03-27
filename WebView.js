@@ -14,7 +14,7 @@ new hope.Section.Subclass("hope.WebView", {
 		autoShow : new Attribute({name:"autoShow", type:"flag", falseIf:[false,"false","no"] }),
 		
 		// clear automatically on hide?
-		autoClear : new Attribute({name:"autoHide", type:"flag", falseIf:[false,"false","no"] }),
+		autoClear : new Attribute({name:"autoClear", type:"flag", falseIf:[false,"false","no"] }),
 
 		url : Attribute({
 			name : "url",

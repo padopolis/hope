@@ -59,6 +59,8 @@ new Element.Subclass("hope.Textfield", {
 						type:"flag", trueIf:["",true,"true","yes"]
 					}),
 
+		// field type
+		type : Attribute({name:"type", inherit:true, value:"text"}),
 
 
 		// hint to show below the field
@@ -80,7 +82,7 @@ new Element.Subclass("hope.Textfield", {
 		
 		// template for rendering our actual input control
 //TODO: what about some non-standard input, like a slider we create ourselves, etc???
-		fieldTemplate : "<input type='text'>",
+		fieldTemplate : "<input type='{{type}}'>",
 		textareaTemplate : "<textarea></textarea>",
 
 		// update input + message field on update

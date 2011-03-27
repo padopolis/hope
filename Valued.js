@@ -15,6 +15,7 @@ var Valued = {
 			get : function() {
 				var binding = this.binding;
 				if (binding) return hope.get(binding);
+				if (this.getInputValue) return this.getInputValue();
 				return this._value;
 			},
 			
@@ -33,6 +34,8 @@ var Valued = {
 			var binding = this.binding;
 			if (binding) {
 				hope.set(binding, newValue);
+			} else if (this.updateInputValue) {
+				this.updateInputValue(newValue);
 			} else {
 				this._value = newValue;
 			}
