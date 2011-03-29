@@ -94,8 +94,8 @@ new Element.Subclass("hope.Textfield", {
 		},
 
 		// actually change the value of our input field to match our bound value
-		updateInputValue : function() {
-			var value = this.value;
+		updateInputValue : function(value) {
+			if (arguments.length == 0) value = this.value;
 			if (value == null) value = "";
 			if (this.trim) value = value.trim();
 			if (this.escape) value = unescape(value);
