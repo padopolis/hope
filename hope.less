@@ -60,7 +60,8 @@
 	notice,
 	panel,
 	title,
-	splitter
+	splitter,
+	keymap
 	{
 		position:relative;
 		display:block;
@@ -70,6 +71,7 @@
 	inline,
 	label,
 	output,
+	value,
 	tabselector,
 	message
 	{
@@ -83,7 +85,9 @@
 	/* add layout=vertical to make children fill the space vertically and stretch horizontally */
 	*[layout=vertical] {}
 
-	*[layout=vertical] > container {
+	*[layout=vertical] > container,
+	group[layout=vertical]
+	{
 		.box(vertical,stretch);
 	}
 	*[layout=vertical] > container > * {
@@ -93,7 +97,9 @@
 	/* add layout=vcenter to make children fill the space vertically and center horizontally */
 	*[layout=vcenter] {}
 	
-	*[layout=vcenter] > container {
+	*[layout=vcenter] > container,
+	group[layout=vcenter]
+	{
 		.box(vertical,center);
 	}
 	*[layout=vcenter] > container > * {
@@ -104,7 +110,9 @@
 	/* add layout=horizontal to make children fill the space horizontally and stretch vertically */
 	*[layout=horizontal] {}
 
-	*[layout=horizontal] > container {
+	*[layout=horizontal] > container,
+	group[layout=horizontal]
+	{
 		.box(horizontal,stretch);
 	}
 	*[layout=horizontal] > container > * {
@@ -114,7 +122,9 @@
 	/* add layout=hcenter to make children fill the space horizontally and center vertically */
 	*[layout=hcenter] {}
 
-	*[layout=hcenter] > container {
+	*[layout=hcenter] > container,
+	group[layout=hcenter]
+	{
 		.box(vertical,stretch);
 	}
 	*[layout=hcenter] > container > * {
@@ -229,7 +239,8 @@
 
 /*** Generic inputs ***/
 
-	input,
+	input[type=text],
+	input[type=password]
 	textarea
 	{
 		.fieldShadow;		
@@ -263,8 +274,6 @@
 	
 	input[type=search] {
 		font-size:18px;
-		width:180px;
-		max-width: 180px;
 	}
 
 /*** <ui> is the outer container of our user interface ***/
@@ -314,10 +323,10 @@
 			cursor:pointer;
 			white-space:nowrap;
 			background-color:none;
-			color:white;
-		    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
-			margin-left:2px;
-		    margin-right:2px;
+		}
+		
+		action > description {
+			display: none;
 		}
 
 		action[disabled] {
@@ -338,7 +347,7 @@
 			padding:0 5px;
 		}
 
-		action[title] {
+		action[label] {
 			padding:0 10px;
 		}
 		
@@ -349,10 +358,20 @@
 			left: -3px;
 		}
 
+		action[icon][label][iconright] > icon {
+			float:right;
+			left: 5px;
+		}
+
 		action label {
 			padding:0 5px;
 		}
 
+
+		action[appearance~=link] {
+			text-decoration:underline;
+			padding:0px;
+		}
 
 		action[appearance~=black],
 		action[appearance~=blue],
@@ -362,6 +381,10 @@
 		action[appearance~=yellow],
 		action[appearance~=white]
 		{
+			color:white;
+		    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+			margin-left:2px;
+		    margin-right:2px;
 		}
 
 
@@ -592,7 +615,19 @@
 		section[scroll=vertical] > container {
 			overflow-y:auto;
 		}
+
+/*** Label/Value tricks ***/
+	label[appearance~=big],
+	value[appearance~=big]
+	{
+		font-size: 1.5em;
+	}
 	
+	label[appearance~=small],
+	value[appearance~=small]
+	{
+		font-size: .8em;	
+	}
 
 
 /*** Editor: section subclass that manages item ***/
@@ -614,6 +649,10 @@
 	editor > container > rows > row > label {
 		text-align:right;
 		padding-right: 5px;
+	}
+	
+	editor value {
+		font-weight:bold;
 	}
 
 
@@ -680,7 +719,6 @@
 	listviewer[appearance=inset] > container {}
 
 	listviewer[appearance=inset] > container > rows > row > * {
-		border-bottom:1px solid #ccc;
 		border-top:1px solid #999;
 		line-height: 1.5;
 	}
@@ -709,6 +747,7 @@
 	}
 	itemViewer > container {
 		.flex;
+		overflow:auto;
 	}
 	
 	itemviewer > container > rows {}
@@ -720,6 +759,8 @@
 		cursor: default;
 	}
 
+/*** keymap ***/
+	keymap {}
 
 
 /*** Menu elements ***/
@@ -805,7 +846,6 @@
 
 	toolbar {
 		.box(horizontal,center);
-		height:43px;
 		padding:0px 5px;
 		width: 100%;
 	}
@@ -827,6 +867,7 @@
 	/* black toolbar */
 
 		toolbar[appearance~=black] {
+			height:43px;
 			background:url(theme/ios/toolbar-black.png) repeat-x;
 			color:white;
 		}
@@ -934,6 +975,7 @@
 
 /*** notice panels ***/
 	notice {
+		.flex;
 		position:relative;
 		display:block;
 		text-align:center;
@@ -941,8 +983,8 @@
 		font-size:1.5em;
 	}
 
-	*[appearance~=inset] notice,
-	notice[appearance=smoke] 
+	*[appearance~=inset] notice container,
+	notice[appearance=smoke] container
 	{
 		.round(20px);
 		opacity: .6;
@@ -1436,6 +1478,42 @@
 	}
 
 
+/*** Checkbox -- managed input type='checkbox' ***/
+	checkbox {
+		display:inline-block;
+	}
+	
+	checkbox > group > label {
+		padding:0 5px;
+		cursor:pointer;
+	}
+
+//TODO: abstract this
+	checkbox > message {
+		display: block;
+		margin-bottom: 3px;
+		height: 16px;
+	}
+	
+	checkbox > message.hint {
+		color: #666;
+		font-style: italic;
+		font-size: 90%;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	
+	checkbox > message.error {
+		color: darkred;
+		font-weight: bold;
+		padding-left: 18px;
+		background:url(theme/silk/critical.png) left center no-repeat;
+		line-height: 16px;
+	}
+
+
+
+
 
 /*** Combobox -- input field with menu semantics ***/
 	combobox {
@@ -1509,6 +1587,7 @@
 		/* silk icons -- they don't match but there are a lot of them! */
 		*[icon|=silk] > icon				{	width: 16px; height: 16px;	}
 		*[icon=silk-add] > icon				{	background-image:url(theme/silk/add.png);	}
+		*[icon=silk-critical] > icon		{	background-image:url(theme/silk/critical.png);	}
 		*[icon=silk-down] > icon			{	background-image:url(theme/silk/down.png);	}
 		*[icon=silk-horizontal] > icon		{	background-image:url(theme/silk/horizontal.png);	}
 		*[icon=silk-large] > icon 			{	background-image:url(theme/silk/large.png);	}
@@ -1532,6 +1611,7 @@
 		*[icon=silk-unlocked] > icon		{	background-image:url(theme/silk/unlocked.png);	}
 		*[icon=silk-up] > icon				{	background-image:url(theme/silk/up.png);	}
 		*[icon=silk-vertical] > icon		{	background-image:url(theme/silk/vertical.png);	}
+		*[icon=silk-warning] > icon			{	background-image:url(theme/silk/warning.png);	}
 		*[icon=silk-window] > icon			{	background-image:url(theme/silk/window.png);	}
 		*[icon=silk-windowChart] > icon		{	background-image:url(theme/silk/windowChart.png);	}
 		*[icon=silk-windowSwitch] > icon	{	background-image:url(theme/silk/windowSwitch.png);	}

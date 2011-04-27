@@ -7,6 +7,12 @@ new hope.Section.Subclass("hope.ItemViewer", {
 	tag : "itemviewer",
 	mixins : "Noticeable",
 	properties : {
+		onReady : function() {
+			this.$rows = this.getChild("rows");
+//			this.onChild("output", "mousedown", "onSelectOutput", this);
+//			this.onChild("output", "click", "onSelectOutput", this);
+		},
+		
 		template : "<container visible='no'><rows></rows></container>",
 		
 		// template to draw for each item
@@ -28,17 +34,11 @@ new hope.Section.Subclass("hope.ItemViewer", {
 		//	If empty, we'll draw ALL OF THE PROPERTIES OF THE ITEM.
 		columns : Attribute({name:"columns", type:"list", value:"", update:true}),
 
-		onReady : function() {
-			this.$rows = this.getChild("rows");
-			this.onChild("output", "mousedown", "onSelectOutput", this);
-			this.onChild("output", "click", "onSelectOutput", this);
-		},
-		
 		onSelectOutput : function(event, output) {
 			output.selectContents();
 		},
 
-		// full on redraw of the entire list
+		// full on redraw of the entire item
 		onUpdate : function() {
 			var item = this.item;
 			

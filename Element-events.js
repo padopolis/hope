@@ -4,6 +4,7 @@ Script.require("{{hope}}Element.js", function(){
 
 	// The global string STOP can be used to cancel events from propagating (eg: from .bubble)
 	window.STOP = "***STOP***";
+	window.CONTINUE = "***CONTINUE***";
 	
 
 	// debug events
@@ -50,18 +51,6 @@ Script.require("{{hope}}Element.js", function(){
 		event.preventDefault();
 	}
 	
-
-
-
-	// quick and dirty keymap
-	//	NOTE: to catch special keys (like escape, backspace, return, etc) trap onkeyDOWN
-	//		TODO: are these correct cross-browser?s
-	Event.KEYS = {
-		"return"	: 13,
-		"escape"	: 27,
-		"space"		: 32
-	};
-
 
 
 	//
@@ -299,7 +288,7 @@ Script.require("{{hope}}Element.js", function(){
 			return _observe(this, eventType, handler, scope, args, options)
 		},
 		
-		// Capture an event before it goes to childrn by catching it in the "capture" phase.
+		// Capture an event before it goes to children by catching it in the "capture" phase.
 		capture : function(eventType, handler, scope, args, options) {
 			if (!options) options = {};
 			options.capture = true;
@@ -444,6 +433,9 @@ Script.require("{{hope}}Element.js", function(){
 		// stub onWindowResized event
 		onWindowResized : function(event) {}
 	});
+
+
+//TODO: move into {{hope}}environment-ios.js  ???
 
 
 	//

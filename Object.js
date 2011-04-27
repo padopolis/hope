@@ -107,5 +107,14 @@ Object.toArray = function(object) {
 }
 
 
+Object.invertMap = function(map) {
+	var inverted = {};
+	for (var key in map) {
+		var value = map[key];
+		inverted[value] = key;
+	}
+	return inverted;
+}
+
 Script.loaded("{{hope}}Object.js");
 });// end Script.require()

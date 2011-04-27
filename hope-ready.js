@@ -1,6 +1,10 @@
 /* hope.ready -- wait for arbitrary condition(s) to be true before doing something. */
 
 // examples:
+//
+//		hope.onReady(somethingToDoWhenDomLoaded);
+//		hope.onReady("document", somethingToDoWhenDomLoaded);
+//
 //		hope.onReady("a,b,c",console.warn, console.error); 
 //		hope.onReady("b,c,d",console.warn, console.error,{once:true}); 
 //		hope.onReady("a", console.warn, console.error); 
@@ -32,7 +36,12 @@ var _readyHandlers 	= hope._readyHandlers = {};
 //	@returns thing you can use to `hope.un()` later
 var _defaultOptions = {};
 hope.onReady = function onReady(things, onready, onerror, options) {
-	if (typeof things === "string") things = things.split(",");
+	if (arguments.length === 1) {
+		onready = things;
+		things = ["document"];
+	} else if (typeof things === "string") {
+		things = things.split(",");
+	}
 	if (!options) options = _defaultOptions;
 
 	// bind methods if necessary
@@ -164,6 +173,7 @@ hope.unload(function() {
 
 // define window.body and window.header when the document has finished loading
 hope.onReady("document", function() {
+	hope.setGlobal("$html", select("html"));
 	hope.setGlobal("$body", select("body"));
 	hope.setGlobal("$head", select("head"));
 

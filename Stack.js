@@ -43,6 +43,7 @@ new hope.Section.Subclass("hope.Stack", {
 			},
 			
 			set : function(newValue) {
+				if (newValue instanceof Element) newValue = newValue.id;
 				var oldValue, pref = this.preference;
 				if (pref) 	oldValue = hope.preference(pref);
 				else		oldValue = this.data.selection;
@@ -99,6 +100,10 @@ new hope.Section.Subclass("hope.Stack", {
 			if (section.id) {
 				section.visible = false;
 				this.makeSelectorFor(section);
+				section.on("activate", function() {
+console.warn(section);
+					this.selection = section;
+				}.bind(this));
 			}
 			return section;
 		},
@@ -118,12 +123,16 @@ new hope.Section.Subclass("hope.Stack", {
 			if (!title || !id) return;
 			
 			var stack = this,
-				selector = new this.selectorConstructor({
+				attrs = { "for" : id }
+			;
+			if (section.shortcut) attrs.shortcut = section.shortcut;
+			
+			var	selector = new this.selectorConstructor({
 					html 	: title,
-					handler : function() {
+					attrs 	: attrs,
+					onActivate : function() {
 						stack.selection = id;
-					},
-					attrs : { "for" : id }
+					}
 				})
 			;
 			this.itemSelector.appendChild(selector);

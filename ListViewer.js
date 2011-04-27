@@ -22,39 +22,62 @@ new hope.Section.Subclass("hope.ListViewer", {
 			this.$rows.onChild("row", "click", "onRowClicked", this);
 		},
 
-		template : "<container><rows></rows></container>",
+		template : "<container>\
+						<action part='listViewer:$prev' appearance='black' label='Previous set' visible='no' onactivate='this.owner.showPrevSet()'/>\
+						<rows></rows>\
+						<action part='listViewer:$next' appearance='black' label='Next set' visible='no' onactivate='this.owner.showNextSet()'/>\
+					</container>",
 		
 		// template to draw for each item
 		rowTemplate : "<row></row>",
 		
 		// message to show when no items in the list
-		emptyMessage : "No items to show",
+		emptyMessage : "No items to show",		// TODO: attr, translate
 
-		// max number of rows to show
+		// max number of rows to show -- set to 0 to show all
 //TODO: make this a sliding window
 		maxRows : Attribute({name:"maxRows", type:"number", update:true, inherit:true, value:0}),
 		
 		// first row we're currently displaying
 		startRow : Attribute({name:"startRow", type:"number", update:true, inherit:true, value:0}),
 
+		// total rows in our current list (generated)
+		totalRows : Getter(function() {
+			return (this.list ? this.list.length : 0);
+		}),
+		
+		// last row we're displaying (generated)
+		endRow : Getter(function() {
+			if (this.maxRows == 0) return this.totalRows;
+			return Math.min(this.startRow + this.maxRows, this.totalRows);
+		}),
+
 		// if true, we're selectable
 		selectable : Attribute({name:"selectable", type:"flag", falseIf:[false,"false","no"]}),
 
 		// if true, we automatically deselect when updating the list
-		autoDeselect : false,
+		autoDeselect : false,				//TODO attr
 
 		// current sort attribute, takes effect when our list is et
-		sortBy : Attribute("sortBy"),
+		sortBy : Attribute({name:"sortBy",update:true}),
 
+		// element which shows our # of rows, set a sub-item as a @part='$rowCounter'
+		$rowCounter : null,
+		
+		// message to show in our rowCounter
+		rowCountMessage : Attribute({name:"rowCountMessage", inherit:true, value:"{{startRow+1}} to {{endRow}} of {{totalRows}}"}),
 		
 		// .list is the list of data we're pointing to.  When it's changed:
 		//		- redraw the list
 		list : new InstanceProperty({
 			name:"list", 
 			onChange : function(newList, oldList) {
+				this.startRow = 0;
+				
 				// clear the selection
 				if (this.autoDeselect) this.selectedIndex = -1;
 				if (this.sortBy && newList.sortBy) newList.sortBy(this.sortBy);
+				
 				this.fire("update");
 			}
 		}),
@@ -120,24 +143,41 @@ new hope.Section.Subclass("hope.ListViewer", {
 
 			// clear the old list items
 			this.$rows.empty();
+
+//TODO: show next/prev when not at start/end of list
 			
 			var index = this.startRow-1, 
-				length = this.list.length,
-				last = (this.maxRows == 0 ? length : Math.min(this.startRow + this.maxRows, length))
+				listLength = this.list.length,
+				last = (this.maxRows == 0 ? listLength : Math.min(this.startRow + this.maxRows, listLength))
 			;
 			while (++index < last) {
 				var item = this.list[index];
 				var row = this.getItemRow(item, index);
 				this.$rows.append(row);
 			}
+			
+			this.$prev.visible = (this.startRow > 0);
+			this.$next.visible = (this.endRow != listLength);
+			
 			this.updateRowIndices();
 			this.fixSelectionHighlight();
+
+			if (this.$rowCounter) {
+				var message = this.rowCountMessage.expand(this);
+				this.$rowCounter.html = message;
+			}
+		},
+
+		// return a single, expanded outer HTML element that represents a row for the list item
+		getItemRow : function(item, index) {
+			return this.rowTemplate.inflateFirst(item);
 		},
 		
 		// update the row indices to correspond to the list
 		updateRowIndices : function() {
+			var startRow = this.startRow;
 			this.$rows.getChildren("row").forEach(function(row, index) {
-				row.attr("index", index);
+				row.attr("index", index+startRow);
 			});
 		},
 
@@ -155,10 +195,21 @@ new hope.Section.Subclass("hope.ListViewer", {
 			}
 		},
 		
-		// return a single, expanded outer HTML element that represents a row for the list item
-		getItemRow : function(item, index) {
-			return this.rowTemplate.inflateFirst(item);
+		showPrevSet : function() {
+			if (this.startRow == 0) return;
+			
+			this.startRow = Math.max(0, this.startRow - this.maxRows);
+			this.fire("update");
+			
+		},
+		
+		showNextSet : function() {
+			if (this.startRow >= this.list.length) return;
+			
+			this.startRow = Math.min(this.startRow + this.maxRows, this.list.length-1);
+			this.soon("update");
 		}
+		
 	}
 });
 

@@ -60,7 +60,7 @@ window.select = document.select = document.getChild = function select(selector, 
 // URFF - ios 3.2 doesn't define webkitMatchesSelector
 EP._matches = EP.webkitMatchesSelector ||  EP.mozMatchesSelector;
 
-// define a reasonabley quick matches routine
+// define a reasonably quick matches() routine
 if (!EP._matches) {
 	EP._matches = (function() {
 		var parent = document.createElement("div"), 
@@ -712,7 +712,7 @@ hope.extend(E, {
 	// Returns null if an adapter can't be found, or if already adapted.
 	getAdapterFor : function (element) {
 		var tag = element.tagName;	//NOTE: dependent on tag names ALWAYS being reported upper case!
-		if (!_TagMap[tag]) return;
+//		if (!_TagMap[tag]) return;
 
 		// first check to see if there's a specific selector (eg:  "tag[attribute]")
 		if (_SelectorMap[tag]) {

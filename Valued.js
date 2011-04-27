@@ -1,6 +1,8 @@
 /*** Control class: a widget class that has a "value" or a "binding" ***/
 Script.require("{{hope}}Element-attach.js", function(){
 
+
+// TODO: convert to hope.Mixin
 var Valued = {
 	mixinTo : function(it) {
 		if (it.isAClass) it = it.prototype;
@@ -30,7 +32,9 @@ var Valued = {
 		_updateValue : function(newValue) {
 			var oldValue = this.value;
 			if (oldValue === newValue) return false;
-			
+
+//TODO: this is wacky, simplify or at least clarify
+
 			var binding = this.binding;
 			if (binding) {
 				hope.set(binding, newValue);

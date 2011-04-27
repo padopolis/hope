@@ -34,29 +34,44 @@ var Noticeable = {
 	mixinTo : function(it) {
 		if (it.isAClass) it = it.prototype;
 		hope.extendIf(it, Noticeable.properties);
+		it.childProcessors = "notice:initNotice";
 		return it;
 	},
 	properties : {
-		notice : new Attribute({name:"notice", update:true, 
+		notice : new Attribute({name:"notice", 
 					onChange : function(newMessage) {
-						// if no notice element, prepend one
-						if (!this.$notice) {
-							this.$notice = this.prepend(new hope.Notice({visible:"no"}));
-						}
+						// if no notice element, call initNotice to add one
+						if (!this.$notice) this.initNotice(new hope.Notice());
 
 						if (typeof newMessage === "string") newMessage = newMessage.expand(this);
 						this.$notice.message = newMessage;
 						
-						if (this.$container == this) return;
-						
-						var showMain = (this.$notice.message == "");
-						this.$container.visible = showMain;
-						if (this.$header) this.$header.visible = showMain;
-						if (this.$footer) this.$footer.visible = showMain;
+						if (this.$notice.visible) 	this.fire("noticeShown");
+						else						this.fire("noticeHidden");
 					}
-				})
+				}),
+
+		initNotice : function(notice) {
+			if (Element.debug) console.info(this, "processing notice", notice);
+			this.$container.parentNode.insertBefore(notice, this.$container);
+			this.classList.add("hasNotice");
+			this.$notice = notice;
+		},
+		
+		onNoticeShown : function() {
+			if (this.$container) this.$container.visible = false;
+//			if (this.$toolbar) this.$toolbar.visible = false;
+//			if (this.$footer) this.$footer.visible = false;		
+		},
+		
+		onNoticeHidden : function() {
+			if (this.$container) this.$container.visible = true;
+//			if (this.$toolbar) this.$toolbar.visible = true;
+//			if (this.$footer) this.$footer.visible = true;
+		}
 	}
 };
+//TODO: hope.Noticeable ?
 hope.setGlobal("Noticeable", Noticeable);
 
 Script.loaded("{{hope}}Notice.js");

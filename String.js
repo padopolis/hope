@@ -80,6 +80,7 @@ hope.extendIf(String.prototype, {
 	// NOTE: this is fairly slow...
 	specialCharsToEntities : function() {
 		var string = this;
+		string = string.replaceAll("•","&bull;");
 		string = string.replaceAll("®","&reg;");
 		string = string.replaceAll("©","&copy;");
 		string = string.replaceAll("“","&ldquo;");

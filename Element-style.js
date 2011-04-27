@@ -270,9 +270,11 @@ EP.extendIf({
 	
 	pageLeft : new Property({
 		get : function() {
-			var left = this.offsetLeft, parent = this.offsetParent;
-			while (parent && parent != $body) {
-				left += parent.offsetLeft;
+			var left = 0, 
+				parent = this
+			;
+			while (parent.offsetParent) {
+				left += parent.offsetLeft - parent.scrollLeft;
 				parent = parent.offsetParent;
 			}
 			return left;
@@ -285,9 +287,11 @@ EP.extendIf({
 	
 	pageTop : new Property({
 		get : function() {
-			var top = this.offsetTop, parent = this.offsetParent;
-			while (parent && parent != $body) {
-				top += parent.offsetTop;
+			var top = 0, 
+				parent = this
+			;
+			while (parent.offsetParent) {
+				top += parent.offsetTop - parent.scrollTop;
 				parent = parent.offsetParent;
 			}
 			return top;
@@ -361,6 +365,7 @@ EP.extendIf({
 */
 
 	// bounds as a percentage of our offsetParent
+	relativePrecision : 5,		// how precise are we?  TODO:  attribute?
 	relativeBounds : new Property({
 		get : function() {
 			if (!this.offsetParent) return {};
@@ -368,30 +373,31 @@ EP.extendIf({
 			var size = {},
 				styles = this.styles,
 				our = this.pageBounds, 
-				parent = this.offsetParent.pageBounds
+				parent = this.offsetParent.pageBounds,
+				precision = this.relativePrecision
 			;
 			var left = this.style.left || ""+styles.left;
 			if (!left.contains("%")) 
-				left = ((our.left - parent.left) / parent.width).toPercent(3)+"%"
+				left = ((our.left - parent.left) / parent.width).toPercent(precision)+"%"
 			size.left = left;
 
 			var top = this.style.top || ""+styles.top;
 			if (!top.contains("%")) 
-				top = ((our.top - parent.top) / parent.height).toPercent(3)+"%"
+				top = ((our.top - parent.top) / parent.height).toPercent(precision)+"%"
 			size.top = top;
 
 			var width = this.style.width || ""+styles.width;
 			if (!width.contains("%")) 
-				width = (our.width / parent.width).toPercent(3)+"%"
+				width = (our.width / parent.width).toPercent(precision)+"%"
 			size.width = width;
 
 			var height = this.style.height || ""+styles.height;
 			if (!height.contains("%")) 
-				height = (our.height / parent.height).toPercent(3)+"%"
+				height = (our.height / parent.height).toPercent(precision)+"%"
 			size.height = height;
 
-//			size.right = ((parseFloat(size.left)+parseFloat(size.width)) / 100).toPercent(3)+"%";
-//			size.bottom = ((parseFloat(size.top)+parseFloat(size.height)) / 100).toPercent(3)+"%";
+//			size.right = ((parseFloat(size.left)+parseFloat(size.width)) / 100).toPercent(precision)+"%";
+//			size.bottom = ((parseFloat(size.top)+parseFloat(size.height)) / 100).toPercent(precision)+"%";
 			return size;
 		},
 		
@@ -550,14 +556,16 @@ EP.extendIf({
 	revealChild : function(child) {
 		var top = child.offsetTop,
 			bottom = top + child.height,
-			container = this.$contianer || this,
+			container = this.$container || this,
 			
 			scrollTop = container.scrollTop,
 			scrollBottom = scrollTop + container.height
 		;
-		if      (scrollBottom < top) container.scrollTop = top;
-		else if (scrollTop > top) container.scrollTop = top;
-//console.warn(top, bottom, scrollTop, scrollBottom);
+		if (top > scrollTop && bottom < scrollBottom) return;
+		
+		if (scrollTop < top) container.scrollTop = top;
+		else if (scrollBottom < top) container.scrollTop = top;
+//console.warn(child, top, bottom, scrollTop, scrollBottom);
 	}
 		
 });// end extendIf

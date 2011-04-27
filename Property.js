@@ -41,6 +41,17 @@ hope.setProto(Setter.prototype, Property.prototype);
 hope.setGlobal("Setter", Setter);
 
 
+// alias one property for another
+function PropertyAlias(newName, originalName) {
+	return new Property({
+		get : function() { return this[originalName]; },
+		set : function(value) { return this[originalName] = value }
+	});
+}
+hope.setProto(PropertyAlias.prototype, Property.prototype);
+hope.setGlobal("PropertyAlias", PropertyAlias);
+
+
 function InstanceProperty(options) {
 	if (this === window) return new InstanceProperty(options);
 

@@ -200,20 +200,22 @@ group,
 notice,
 panel,
 title,
-splitter {
+splitter,
+keymap {
   position: relative;
   display: block;
 }
 inline,
 label,
 output,
+value,
 tabselector,
 message {
   display: inline-block;
 }
 /*** horizontal and vertical stretch boxes ***/
 /* add layout=vertical to make children fill the space vertically and stretch horizontally */
-*[layout=vertical] > container {
+*[layout=vertical] > container, group[layout=vertical] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -226,7 +228,7 @@ message {
   -moz-box-align: stretch;
 }
 /* add layout=vcenter to make children fill the space vertically and center horizontally */
-*[layout=vcenter] > container {
+*[layout=vcenter] > container, group[layout=vcenter] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -239,7 +241,7 @@ message {
   -moz-box-align: center;
 }
 /* add layout=horizontal to make children fill the space horizontally and stretch vertically */
-*[layout=horizontal] > container {
+*[layout=horizontal] > container, group[layout=horizontal] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -252,7 +254,7 @@ message {
   -moz-box-align: stretch;
 }
 /* add layout=hcenter to make children fill the space horizontally and center vertically */
-*[layout=hcenter] > container {
+*[layout=hcenter] > container, group[layout=hcenter] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -424,7 +426,7 @@ cell {
   display: table-cell !important;
 }
 /*** Generic inputs ***/
-input, textarea {
+input[type=text], input[type=password]textarea {
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
   -webkit-border-radius: 5px;
@@ -457,8 +459,6 @@ input[appearance~=translucent] {
 }
 input[type=search] {
   font-size: 18px;
-  width: 180px;
-  max-width: 180px;
 }
 /*** <ui> is the outer container of our user interface ***/
 ui {
@@ -506,10 +506,9 @@ action {
   cursor: pointer;
   white-space: nowrap;
   background-color: none;
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
-  margin-left: 2px;
-  margin-right: 2px;
+}
+action > description {
+  display: none;
 }
 action[disabled] {
   opacity: .2;
@@ -521,7 +520,7 @@ action:active, action.active {
 action[icon] {
   padding: 0 5px;
 }
-action[title] {
+action[label] {
   padding: 0 10px;
 }
 action[icon][label] {
@@ -530,8 +529,28 @@ action[icon][label] {
 action[icon][label] > icon {
   left: -3px;
 }
+action[icon][label][iconright] > icon {
+  float: right;
+  left: 5px;
+}
 action label {
   padding: 0 5px;
+}
+action[appearance~=link] {
+  text-decoration: underline;
+  padding: 0px;
+}
+action[appearance~=black],
+action[appearance~=blue],
+action[appearance~=lightBlue],
+action[appearance~=red],
+action[appearance~=green],
+action[appearance~=yellow],
+action[appearance~=white] {
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 action[appearance~=black] {
   border-color: transparent;
@@ -794,6 +813,13 @@ section[scroll=vertical] {
 section[scroll=vertical] > container {
   overflow-y: auto;
 }
+/*** Label/Value tricks ***/
+label[appearance~=big], value[appearance~=big] {
+  font-size: 1.5em;
+}
+label[appearance~=small], value[appearance~=small] {
+  font-size: .8em;
+}
 /*** Editor: section subclass that manages item ***/
 editor {
   position: relative;
@@ -831,6 +857,9 @@ editor > container > * {
 editor > container > rows > row > label {
   text-align: right;
   padding-right: 5px;
+}
+editor value {
+  font-weight: bold;
 }
 /*** Stack: section which shows one item at a time ***/
 stack {
@@ -908,7 +937,6 @@ listviewer > container > rows > row > cell {
 }
 /*	inset look	*/
 listviewer[appearance=inset] > container > rows > row > * {
-  border-bottom: 1px solid #ccc;
   border-top: 1px solid #999;
   line-height: 1.5;
 }
@@ -944,10 +972,12 @@ itemViewer > container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
+  overflow: auto;
 }
 itemviewer > container > rows > row > output {
   cursor: default;
 }
+/*** keymap ***/
 /*** Menu elements ***/
 contextmenu {
   left: 0;
@@ -1023,7 +1053,6 @@ toolbar {
   box-align: center;
   -webkit-box-align: center;
   -moz-box-align: center;
-  height: 43px;
   padding: 0px 5px;
   width: 100%;
 }
@@ -1043,6 +1072,7 @@ toolbar[appearance~=top] {
 }
 /* black toolbar */
 toolbar[appearance~=black] {
+  height: 43px;
   background: url(theme/ios/toolbar-black.png) repeat-x;
   color: white;
 }
@@ -1166,13 +1196,16 @@ tabselector.tight tab {
 }
 /*** notice panels ***/
 notice {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
   position: relative;
   display: block;
   text-align: center;
   font-weight: bold;
   font-size: 1.5em;
 }
-*[appearance~=inset] notice, notice[appearance=smoke] {
+*[appearance~=inset] notice container, notice[appearance=smoke] container {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -1621,6 +1654,33 @@ textfield[type=currency] input {
 textfield[type=url] input {
   width: 100%;
 }
+/*** Checkbox -- managed input type='checkbox' ***/
+checkbox {
+  display: inline-block;
+}
+checkbox > group > label {
+  padding: 0 5px;
+  cursor: pointer;
+}
+checkbox > message {
+  display: block;
+  margin-bottom: 3px;
+  height: 16px;
+}
+checkbox > message.hint {
+  color: #666;
+  font-style: italic;
+  font-size: 90%;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+checkbox > message.error {
+  color: darkred;
+  font-weight: bold;
+  padding-left: 18px;
+  background: url(theme/silk/critical.png) left center no-repeat;
+  line-height: 16px;
+}
 /*** Combobox -- input field with menu semantics ***/
 combobox {
   position: relative;
@@ -1706,6 +1766,9 @@ icon[disabled] {
 *[icon=silk-add] > icon {
   background-image: url(theme/silk/add.png);
 }
+*[icon=silk-critical] > icon {
+  background-image: url(theme/silk/critical.png);
+}
 *[icon=silk-down] > icon {
   background-image: url(theme/silk/down.png);
 }
@@ -1774,6 +1837,9 @@ icon[disabled] {
 }
 *[icon=silk-vertical] > icon {
   background-image: url(theme/silk/vertical.png);
+}
+*[icon=silk-warning] > icon {
+  background-image: url(theme/silk/warning.png);
 }
 *[icon=silk-window] > icon {
   background-image: url(theme/silk/window.png);

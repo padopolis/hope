@@ -35,33 +35,37 @@ new Element.Subclass("hope.Action", {
 			}
 		}),
 		
+		description : Getter(function() {
+			var description = this.attr("description");
+			if (!description) {
+				description = this.getChild("description");
+				if (description) description = description.html;
+			}
+			return description;
+		}),
 
-		// action to do when clicked
-//TODO: recast this as an event...  "onDo" ? "onActivated" (yuck)
-		handler : new Attribute({name:"handler", type:"function", args:"event"}),
+		// action to do when clicked or our shortcut is pressed
+		onActivate : new Attribute({name:"onactivate", type:"function", args:"event"}),
 
 		onMousedown : function(event) {
 			if (!this.enabled) return;
-			this.activate();
+			this.showActive(true);
 			document.body.once("mouseup", this.deactivate, this);
 		},
 		
-		// show as "active"
-		activate : function() {
-			this.classList.add("active");
-		},
-
-		// show as "inactive"
-		deactivate : function() {
-			this.classList.remove("active");
+		// show as "active" or inactive
+		showActive : function(active) {
+			if (active == null) active = true;
+			if (active)	this.classList.add("active");
+			else		this.classList.remove("active");
 		},
 
 		onMouseup : function(event) {
-			if (this.enabled) this.deactivate();
+			if (this.enabled) this.showActive(false);
 		},
 
 		onClick : function(event) {
-			if (this.enabled && this.handler) this.handler(event);
+			if (this.enabled) this.fire("activate", event);
 		},
 		
 		// When our parent is shown, check our visible, enabled and checked attributes.
@@ -72,7 +76,6 @@ new Element.Subclass("hope.Action", {
 			this.selected;
 		}
 	}
-
 });
 
 

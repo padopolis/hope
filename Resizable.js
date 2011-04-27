@@ -117,6 +117,16 @@ Resizable.prototype = {
 			element = clone = element.clone(true, true);
 		}
 
+		// if moving from the center, we're cloneable and the alt/option key is down
+		//	create a clone and move it instead.
+		if (element.cloneable && edge === "C" && event.metaKey) {
+			var name;
+			element = clone = element.clone(true, true);
+			if (element.prompt) {
+				name = element.prompt();
+			}
+		}
+
 		
 		var info = element._getResizeInfo(element, edge, !!clone);
 

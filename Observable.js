@@ -18,6 +18,11 @@ function Observable(props) {
 };
 hope.setGlobal("Observable", Observable);
 
+// make this look like a standard mixin
+Observable.id = "Observable";
+Observable.isAMixin = true;
+
+// mix observable methods into something
 Observable.mixinTo = function(it, toClass) {
 	// if mixing in to a class, mix into the prototype
 	if (toClass != true && it.hasOwnProperty("prototype")) it = it.prototype;

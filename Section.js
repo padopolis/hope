@@ -5,14 +5,16 @@ Script.require("{{hope}}Panel.js", function(){
 
 new hope.Panel.Subclass("hope.Section", {
 	tag : "section",
+	mixins : "Noticeable",
 	properties : {
 		template : "<container></container>",
 
-		childProcessors : "header:initHeader,footer:initFooter,notice:initNotice",
+		childProcessors : "header:initHeader,footer:initFooter,toolbar:initToolbar",
 
 		label 			: Attribute("label"), 
 
-//TODO: make this a pattern
+		// Header goes on top, above the container.
+		//	put a <headder/> element in your template to put it somewhere else
 		initHeader : function(header) {
 			if (Element.debug) console.info(this, "processing header", header, this.$container);
 			var templateHeader = this.getChild("header");
@@ -25,6 +27,8 @@ new hope.Panel.Subclass("hope.Section", {
 			this.$header = header;
 		},
 		
+		// Footer goes on bottom, below the container.
+		//	put a <footer/> element in your template to put it somewhere else
 		initFooter : function(footer) {
 			if (Element.debug) console.info(this, "processing footer", footer);
 			var templateFooter = this.getChild("footer");
@@ -36,32 +40,19 @@ new hope.Panel.Subclass("hope.Section", {
 			this.classList.add("hasFooter");
 			this.$footer = footer;
 		},
-		
-		// TODO: merge with "Noticeable" mixin?
-		initNotice : function(notice) {
-			if (Element.debug) console.info(this, "processing notice", notice);
-			var templateNotice = this.getChild("notice");
-			if (templateNotice) {
-				templateNotice.parentNode.replaceChild(notice, templateNotice);
-			} else {
-				this.$container.parentNode.insertBefore(notice, this.$container);
-			}
 
-			this.classList.add("hasNotice");
-			this.$notice = notice;
-		},
-		
-		
-		// Set our notice to some HTML message.
-		// If notice is not empty, shows the notice and hides our container.
-		// If notice is empty, shows the container and hides the notice.
-		setNotice : function(message) {
-			if (!this.$notice) {
-				this.initNotice(new hope.Notice());
+		// Toolbar goes on top, below the header by default
+		//	put a <toolbar/> element in your template to put it somewhere else
+		initToolbar : function(toolbar) {
+			if (Element.debug) console.info(this, "processing toolbar", toolbar);
+			var templateToolbar = this.getChild("toolbar");
+			if (templateToolbar) {
+				templateToolbar.parentNode.replaceChild(toolbar, templateToolbar);
+			} else {
+				this.$container.parentNode.insertBefore(toolbar, this.$container);
 			}
-			
-			this.$notice.message = message;
-			this.$container.visible = (!this.$notice.visible);
+			this.classList.add("hasToolbar");
+			if (!this.$toolbar) this.$toolbar = toolbar;
 		}
 	}
 });

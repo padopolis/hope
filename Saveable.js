@@ -87,9 +87,10 @@ Saveable.prototype = {
 			if (!this.url) throw "No @url specified to save "+this;
 			var saveUrl = this.saveUrl.expand(this);
 			
-			function saved() {
+			function saved(reply, request) {
+console.info(arguments);
 				if (this.dirtyBit) this.dirtyBit.state = "saved";
-				this.fire("saved", this);
+				this.fire("saved", this, reply, request);
 				if (callback) callback.call(scope, this);
 			}
 			function saveError() {
@@ -101,8 +102,11 @@ Saveable.prototype = {
 			// NOTE: mark us as not dirty NOW, before save completes
 			//			so we'll be re-marked as dirty if another change comes in while we're saving
 			this._dirty = false;
+			
+			var postBody = this.getSaveText();
+console.info("onSave:", saveUrl,"\n",postBody);
 
-			XHR.post(saveUrl, null, this.getSaveText(), saved, saveError, this);
+			XHR.post(saveUrl, null, postBody, saved, saveError, this);
 		},
 		
 		// Check to make sure we can be saved.
