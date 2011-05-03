@@ -3,16 +3,18 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 
 // TODO: convert to hope.Mixin
-var Valued = {
-	mixinTo : function(it) {
-		if (it.isAClass) it = it.prototype;
-		hope.extendIf(it, Valued.properties);
+new Mixin("Valued", {
+	mixinTo : function(it, asClass) {
+		if (it.isAClass || asClass) it = it.prototype;
+		hope.extendIf(it, this.properties);
 		it.attributeMap = "value:value";
 		it.listeners = "shown";
 		return it;
 	},
 	properties : {
 		binding : Attribute("binding"),
+
+		// HMMM, why is this not an attribute ?
 		value : Property({
 			get : function() {
 				var binding = this.binding;
@@ -51,8 +53,7 @@ var Valued = {
 			this.soon("update");
 		}
 	}
-};
-hope.setGlobal("Valued", Valued);
+});
 
 Script.loaded("{{hope}}Valued.js");
 });// end Script.require

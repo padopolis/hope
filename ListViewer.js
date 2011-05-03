@@ -108,7 +108,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 //console.warn(this.id+".selectedIndex changed to ",index);				
 					this.fixSelectionHighlight();					
 					var record = (this.list ? this.list[index] : null);
-					this.soon("selectionChanged", record, index);
+					this.soon(0, "selectionChanged", record, index);
 				}
 			}),
 

@@ -355,8 +355,8 @@ EP.extendIf({
 	attr : function(name, value) {
 		// TODO: check value before setting so as to not perturb the dom?
 		if (arguments.length === 1) return this.getAttribute(name);
-		if (value == null || value === "") 	this.removeAttribute(name);
-		else								this.setAttribute(name, value);
+		if (value == null) 	this.removeAttribute(name);
+		else				this.setAttribute(name, value);
 		return this;
 	},
 	
@@ -507,7 +507,7 @@ EP.extendIf({
 				child = this.firstChild
 			;
 			while (child) {
-				if (child.tagName) elements.append(child);
+				if (child.tagName) elements[elements.length] = child;
 				child = child.nextSibling;
 			}
 			return elements;
@@ -730,11 +730,21 @@ var _TagMap = E.TagMap,
 ;
 
 new Class("hope.Element", {
+	tag : "element",
 	prototype :document.createElement("element").attr("prototype","yes")._setUpData(),
 
 	makeSubclassConstructor : function(id, options) {
-		if (!options.tag) options.tag = id.toIdentifier().replace("$","").toLowerCase();
+		var superClass = options["super"];
+		if (!options.tag) {
+			if (superClass && superClass.tag && options.selector) {
+				options.tag = superClass.tag;
+			} else {
+				options.tag = id.toIdentifier().replace("$","").toLowerCase();
+			}
+		}
 		var tag = options.tag;
+		if (!tag) throw "You must provide a tag for your element subclass "+id;
+		
 		// create the constructor function in an eval so we can see it in firebug
 		var constructor;
 		eval("constructor = function "+id.toIdentifier()+"(properties) {\n\
@@ -752,7 +762,6 @@ new Class("hope.Element", {
 		var selector = options.selector;
 		
 		if (!selector && _TagMap[tag]) {
-debugger;
 			throw "You can't define two Element subclasses with the tag "+tag;
 		} else if (selector) {
 			_SelectorMap[tag] = _SelectorMap[tag] || {};

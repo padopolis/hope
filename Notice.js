@@ -28,13 +28,11 @@ new Element.Subclass("hope.Notice", {
 });
 
 
-
-//TODO: I like the pattern that Section uses for this better.
-var Noticeable = {
+// Noticeable mixin
+new Mixin("Noticeable", {
 	mixinTo : function(it) {
-		if (it.isAClass) it = it.prototype;
-		hope.extendIf(it, Noticeable.properties);
-		it.childProcessors = "notice:initNotice";
+		this.as("Mixin", arguments);
+		it.prototype.childProcessors = "notice:initNotice";
 		return it;
 	},
 	properties : {
@@ -70,9 +68,7 @@ var Noticeable = {
 //			if (this.$footer) this.$footer.visible = true;
 		}
 	}
-};
-//TODO: hope.Noticeable ?
-hope.setGlobal("Noticeable", Noticeable);
+});
 
 Script.loaded("{{hope}}Notice.js");
 });// end Script.require

@@ -45,7 +45,7 @@ new Element.Subclass("hope.Action", {
 		}),
 
 		// action to do when clicked or our shortcut is pressed
-		onActivate : new Attribute({name:"onactivate", type:"function", args:"event"}),
+		onActivate : new Attribute({name:"onactivate", type:"event", args:"event", inherit:true}),
 
 		onMousedown : function(event) {
 			if (!this.enabled) return;

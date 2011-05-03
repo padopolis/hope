@@ -36,7 +36,8 @@ var _readyHandlers 	= hope._readyHandlers = {};
 //	@returns thing you can use to `hope.un()` later
 var _defaultOptions = {};
 hope.onReady = function onReady(things, onready, onerror, options) {
-	if (arguments.length === 1) {
+	// special case:  if you just pass a single function argument, it's a document onready
+	if (arguments.length === 1 && typeof arguments[0] == "function") {
 		onready = things;
 		things = ["document"];
 	} else if (typeof things === "string") {
@@ -45,8 +46,9 @@ hope.onReady = function onReady(things, onready, onerror, options) {
 	if (!options) options = _defaultOptions;
 
 	// bind methods if necessary
-	if (onready && (options.scope || options.args)) 
+	if (onready && (options.scope || options.args)) {
 		onready = hope.bind(onready, options.scope, options.args);
+	}
 	if (onerror && options.scope) 		onerror = hope.bind(onerror, options.scope);
 
 	// check to make sure all things haven't already finished

@@ -21,6 +21,9 @@ hope.setGlobal("Observable", Observable);
 // make this look like a standard mixin
 Observable.id = "Observable";
 Observable.isAMixin = true;
+Observable.toString = function() {
+	return "[Mixin Observable]";
+}
 
 // mix observable methods into something
 Observable.mixinTo = function(it, toClass) {
@@ -182,11 +185,11 @@ Observable.soon = function(delay, object, method, args) {
 	if (!object || typeof object[method] !== "function") return;	//TOWARN
 	var timerProp = "__delayed_"+method+"__";
 	if (object[timerProp]) clearTimeout(object[timerProp]);
-	function doit() {
+	function soonTimeIsUp() {
 		delete object[timerProp];
 		object[method].apply(object, args);
 	}
-	object[timerProp] = setTimeout(doit, delay);
+	object[timerProp] = setTimeout(soonTimeIsUp, delay);
 	return object;
 }
 

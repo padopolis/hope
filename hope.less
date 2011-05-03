@@ -37,6 +37,13 @@
 		.selectable;
 	}
 	
+	input[disabled],
+	textarea[disabled] 
+	{
+		background-color:#eee;
+		border:1px solid #ccc;
+	}
+	
 	/* add flex to an element by giving it a flex attribute */
 	*[flex]		 	{	.urgentFlex(1);	}
 	*[flex='1'] 	{	.urgentFlex(1);	}
@@ -163,7 +170,8 @@
 	 properties,
 	 set,
 	 get,
-	 on
+	 on,
+	 scriptLoader
 	 {
 		display:none;
 	 }
@@ -279,9 +287,14 @@
 /*** <ui> is the outer container of our user interface ***/
 	ui {
 		position:absolute;
-		left:0; top:0;
-		width: 100%; height: 100%;
+		left:0; top:0; width:100%; height:100%;
 	}
+	ui > container {
+		width:100%; height:100%;
+		position:absolute;
+		.box(horizontal, stretch);
+	}
+
 
 
 /*** [appearance=inset] for sections, editors, etc ***/
@@ -981,14 +994,14 @@
 		text-align:center;
 		font-weight:bold;
 		font-size:1.5em;
+		padding: 2em;
 	}
 
 	*[appearance~=inset] notice container,
 	notice[appearance=smoke] container
 	{
 		.round(20px);
-		opacity: .6;
-		margin: 2em;
+		opacity: .8;
 		padding: 2em;
 		border:5px solid white;
 		background-color: black;
@@ -1002,6 +1015,42 @@
 	}
 
 
+/*** messageboard singleton ***/
+	messageboard {
+		display:block;
+		position:absolute;
+		right:5px;
+		top:45px;
+		width:225px;
+	}
+	
+	messageboard message {
+		.round(16px);
+		opacity: .9;
+		padding: .5em 40px .4em 1em;
+		border:2px solid rgba(255,255,255,.9);
+		background-color: black;
+		color: white;
+		width:100%;
+		font-weight:bold;
+		margin-bottom: .4em;
+		background-image:url(theme/ios/message-clear.png);
+		background-repeat:no-repeat;
+		background-position:right center;
+		cursor:pointer;
+
+		-webkit-transition-duration: 200ms;
+		-webkit-transition-property: opacity;
+		.shadow();
+	}
+
+	messageboard message.warning {
+		background-color:darkgoldenrod;
+	}
+
+	messageboard message.error {
+		background-color:darkred;
+	}
 
 /*** Overlay ***/
 
@@ -1083,7 +1132,14 @@
 		position:relative;
 		top:-4px;
 		.roundTop(20px);
+		padding-left:30px;
 		background-color:white;
+	}
+	overlay[appearance~=blue].hasHeader > mask > border > header > label {
+		color:black;
+		font-size: 1.3em;
+		font-weight:bold;
+		padding:5px;
 	}
 
 	overlay[appearance~=blue] > mask > border > container {
@@ -1345,7 +1401,7 @@
 
 /*** WebView -- full screen embedded web browser ***/
 	webview {
-		position:relative;
+		position:absolute;
 		.box(vertical,stretch);
 	}
 
@@ -1488,6 +1544,12 @@
 		cursor:pointer;
 	}
 
+	checkbox[disabled] > group > label {
+		opacity:.3;
+		cursor:default;
+	}
+
+
 //TODO: abstract this
 	checkbox > message {
 		display: block;
@@ -1608,6 +1670,7 @@
 		*[icon=silk-small] > icon 			{	background-image:url(theme/silk/small.png);	}
 		*[icon=silk-save] > icon 			{	background-image:url(theme/silk/save.png);	}
 		*[icon=silk-stop] > icon 			{	background-image:url(theme/silk/stop.png);	}
+		*[icon=silk-unlock] > icon			{	background-image:url(theme/silk/unlocked.png);	}
 		*[icon=silk-unlocked] > icon		{	background-image:url(theme/silk/unlocked.png);	}
 		*[icon=silk-up] > icon				{	background-image:url(theme/silk/up.png);	}
 		*[icon=silk-vertical] > icon		{	background-image:url(theme/silk/vertical.png);	}
@@ -1619,7 +1682,7 @@
 
 
 	/* light icons */
-		*[icon=light-action] > icon	{	background-image:url(theme/ios/icon-light-action.png);	width:28px; height:28px; }
+		*[icon=light-action] > icon	{	background-image:url(theme/ios/icon-light-action.png);	width:28px; height:28px; margin-left:4px; margin-right:-5px; margin-bottom:2px; }
 		*[icon=light-left] > icon 	{	background-image:url(theme/ios/icon-light-left.png);	width:16px; height:19px; left: -1px; }
 		*[icon=light-left]:active > icon 	{	background-image:url(theme/ios/icon-light-left-active.png); }
 		*[icon=light-right] > icon 	{	background-image:url(theme/ios/icon-light-right.png);	width:16px; height:19px; left: 1px; }

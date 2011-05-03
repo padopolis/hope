@@ -22,7 +22,7 @@
 .insetPanel {
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.5);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -154,6 +154,10 @@ input {
 textarea {
   -moz-user-select: text;
   -webkit-user-select: text;
+}
+input[disabled], textarea[disabled] {
+  background-color: #eee;
+  border: 1px solid #ccc;
 }
 /* add flex to an element by giving it a flex attribute */
 *[flex] {
@@ -320,7 +324,8 @@ js,
 properties,
 set,
 get,
-on {
+on,
+scriptLoader {
   display: none;
 }
 dataset {
@@ -468,11 +473,26 @@ ui {
   width: 100%;
   height: 100%;
 }
+ui > container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  position: relative;
+  display: box !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-align: stretch;
+  -webkit-box-align: stretch;
+  -moz-box-align: stretch;
+}
 /*** [appearance=inset] for sections, editors, etc ***/
 *[appearance~=inset] {
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.5);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -1204,13 +1224,13 @@ notice {
   text-align: center;
   font-weight: bold;
   font-size: 1.5em;
+  padding: 2em;
 }
 *[appearance~=inset] notice container, notice[appearance=smoke] container {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
-  opacity: .6;
-  margin: 2em;
+  opacity: .8;
   padding: 2em;
   border: 5px solid white;
   background-color: black;
@@ -1219,6 +1239,42 @@ notice {
 overlay[appearance~=blue] notice {
   color: white;
   padding: 50px;
+}
+/*** messageboard singleton ***/
+messageboard {
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 45px;
+  width: 225px;
+}
+messageboard message {
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+  opacity: .9;
+  padding: .5em 40px .4em 1em;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background-color: black;
+  color: white;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: .4em;
+  background-image: url(theme/ios/message-clear.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  cursor: pointer;
+  -webkit-transition-duration: 200ms;
+  -webkit-transition-property: opacity;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
+}
+messageboard message.warning {
+  background-color: darkgoldenrod;
+}
+messageboard message.error {
+  background-color: darkred;
 }
 /*** Overlay ***/
 .horizontal section overlay {
@@ -1305,7 +1361,14 @@ overlay[appearance~=blue].hasHeader > mask > border > header {
   -moz-border-radius-topleft: 20px;
   -webkit-border-top-right-radius: 20px;
   -webkit-border-top-left-radius: 20px;
+  padding-left: 30px;
   background-color: white;
+}
+overlay[appearance~=blue].hasHeader > mask > border > header > label {
+  color: black;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 5px;
 }
 overlay[appearance~=blue] > mask > border > container {
   padding: 10px;
@@ -1514,7 +1577,7 @@ checkswitch div.on {
 }
 /*** WebView -- full screen embedded web browser ***/
 webview {
-  position: relative;
+  position: absolute;
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1661,6 +1724,10 @@ checkbox {
 checkbox > group > label {
   padding: 0 5px;
   cursor: pointer;
+}
+checkbox[disabled] > group > label {
+  opacity: .3;
+  cursor: default;
 }
 checkbox > message {
   display: block;
@@ -1829,6 +1896,9 @@ icon[disabled] {
 *[icon=silk-stop] > icon {
   background-image: url(theme/silk/stop.png);
 }
+*[icon=silk-unlock] > icon {
+  background-image: url(theme/silk/unlocked.png);
+}
 *[icon=silk-unlocked] > icon {
   background-image: url(theme/silk/unlocked.png);
 }
@@ -1858,6 +1928,9 @@ icon[disabled] {
   background-image: url(theme/ios/icon-light-action.png);
   width: 28px;
   height: 28px;
+  margin-left: 4px;
+  margin-right: -5px;
+  margin-bottom: 2px;
 }
 *[icon=light-left] > icon {
   background-image: url(theme/ios/icon-light-left.png);

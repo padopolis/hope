@@ -326,7 +326,7 @@ Script.require("{{hope}}Element.js", function(){
 			}
 			return true;
 		},
-
+/*	
 		// Fire an event 'soon'.
 		//	@event is an event object or the string name of an event to fire
 		//	@args are arguments to pass to the observers
@@ -338,6 +338,33 @@ Script.require("{{hope}}Element.js", function(){
 			}
 			return this;
 		},
+*/	
+		// Fire an event 'soon'.
+		//	@event is an event object or the string name of an event to fire
+		//	@args are arguments to pass to the observers
+		soon : function soon(delay, event) {
+			var args;
+			if (typeof delay === "number") {
+				 args = $args(1);
+			} else {
+				 args = $args(0);
+				 delay = 0;
+			}
+			event = args[0];
+			
+			var timerProp = "__delayed_"+event+"__";
+			if (this[timerProp]) clearTimeout(this[timerProp]);
+			var me = this;
+			function soonTimeIsUp() {
+				clearTimeout(me[timerProp]);
+				delete me[timerProp];
+				me.fire.apply(me, args);
+			}
+			this[timerProp] = setTimeout(soonTimeIsUp, delay);
+			return this;
+		},
+		
+		
 		
 		// Hook up single event handler in a way that can be easily `.unhook()`ed later.
 		// Note: you can only hookup one handler for a each event in this manner,

@@ -66,12 +66,14 @@ new Element.Subclass("hope.Checkbox", {
 
 		// actually change the value of our input field to match our bound value
 		updateInputValue : function(value) {
+			if (!this.$input) return;
 			if (arguments.length == 0) value = this.value;
 			this.$input.checked = (value == this.checkedValue);
 		},
 		
 		// return the value actually stored in the input right now
 		getInputValue : function() {
+			if (!this.$input) return;
 			return (this.$input.checked ? this.checkedValue : this.uncheckedValue);
 		},
 		
@@ -87,31 +89,45 @@ new Element.Subclass("hope.Checkbox", {
 //				focus : "onInputFocusEvent",
 //				blur : "onInputBlurEvent"
 			});
-			
+
+			this.$input.enabled = this.enabled;
+
 			this.$label.html = this.label;
 			this.$label.on({
 				scope : this,
 				click : "onLabelClicked"
 			});
+			this.updateInputValue();
 		},
 		
+		// enable/disable our input as our enabled changes
+		onEnabled : function() {
+			if (this.$input) this.$input.enabled = true;
+		},
+		
+		onDisabled : function() {
+			if (this.$input) this.$input.enabled = false;		
+		},
+
+
 	//
 	//	handle events sent from the input -- translates them into our events
 	//
 		
 		onInputChangedEvent : function(event) {
-console.warn(this, "onInputChangeEvent");
-			this.soon(0,"inputChanged");
+			this.soon("inputChanged");
 			return true;
 		},
 
 		onLabelClicked : function() {
+			if (!this.enabled) return;
 			this.$input.checked = !this.$input.checked;
 			this.onInputChanged();
 		},
 		
 		// fired when the input value changes
 		onInputChanged : function(event) {
+console.warn("onInputChanged",this);
 			this._updateValue(this.getInputValue());
 		},
 		

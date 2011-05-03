@@ -49,13 +49,19 @@ new Element.Subclass("hope.Textfield", {
 					}),
 
 
+		// if true, we only allow identifier-legal fields in the field,
+		//	everything other than "_" "$", letters and numbers is converted to "_"
+		identifier : Attribute({name:"identifier", update:true,
+						type:"flag", trueIf:["",true,"true","yes"]
+					}),
+
 		// if true, we translate  "<" to "&lt;" and ">" to "&gt;" automatically
 		//	for multiline textfields only
 		htmlSafe : Attribute({name:"htmlSafe", update:true,
 						type:"flag", trueIf:["",true,"true","yes"]
 					}),
 
-		specialChars :	Attribute({name:"htmlSafe", update:true,
+		specialChars :	Attribute({name:"specialChars", update:true,
 						type:"flag", trueIf:["",true,"true","yes"]
 					}),
 
@@ -67,6 +73,13 @@ new Element.Subclass("hope.Textfield", {
 		hint : Attribute({name:"hint", update:true, 
 					onChange:function(newValue) {
 						this.updateMessage();
+					}
+				}),
+
+		// hint to show below the field
+		placeholder : Attribute({name:"placeholder", update:true, 
+					onChange:function(newValue) {
+						if (this.$input) this.$input.placeholder = newValue;
 					}
 				}),
 		
@@ -108,6 +121,7 @@ new Element.Subclass("hope.Textfield", {
 		getInputValue : function() {
 			var value = this.$input.value;
 			if (this.trim) value = value.trim();
+			if (this.identifier) value = value.toIdentifier();
 			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br>");
 			if (this.escape) value = escape(value);
 			if (this.multiline && this.htmlSafe) value = value.makeHTMLSafe();
@@ -125,6 +139,9 @@ new Element.Subclass("hope.Textfield", {
 			
 			var template = (this.multiline ? this.textareaTemplate : this.fieldTemplate);
 			this.$input = template.inflateFirst(this);
+
+			this.$input.enabled = this.enabled;
+			if (this.placeholder) this.$input.attr("placeholder", this.placeholder);
 			this.prepend(this.$input);
 			
 			this.$input.on({
@@ -135,6 +152,17 @@ new Element.Subclass("hope.Textfield", {
 				blur : "onInputBlurEvent"
 			});
 		},
+		
+		
+		// enable/disable our input as our enabled changes
+		onEnabled : function() {
+			if (this.$input) this.$input.enabled = true;
+		},
+		
+		onDisabled : function() {
+			if (this.$input) this.$input.enabled = false;		
+		},
+		
 		
 	//
 	//	handle events sent from the input -- translates them into our events

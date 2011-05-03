@@ -50,7 +50,11 @@ Function.prototype.each = function(set, arg1, arg2, etc) {
 //TODO: rename
 Function.makeCondition = function (args, script) {
 	if (script.indexOf("return") === -1) script = "return ("+script+")";
-	return new Function(args, script);
+	try {
+		return new Function(args, script);
+	} catch (e) {
+		console.error("Error creating condition for script: '"+script+"'");
+	}
 }
 
 

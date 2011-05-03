@@ -53,6 +53,7 @@ var scripts = [
 		"WebView.js",
 		"Stack.js",
 		"Tab.js",
+		"UI.js",
 		"Overlay.js",
 		"Palette.js",
 		"Resizable.js",
@@ -68,6 +69,7 @@ var scripts = [
 		"ListSelector.js",
 		"DirtyBit.js",
 		"SearchInput.js",
+		"MessageBoard.js",
 	]
 ;
 

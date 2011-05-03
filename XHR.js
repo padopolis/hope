@@ -167,7 +167,7 @@ var XHR = {
 	
 	// Save @data to a @file on the server.s
 	//	ASSUMES:
-	//		- "save.php" is in the "editor/" directory relative to main app file and is executable.
+	//		- "save.php" is in the "editor/" directory relative to main ui file and is executable.
 	//		- @file you're writing to is relative to save.php.
 	//		- Directory which owns file you're writing to is writeable.
 	//		- You know what the EFF you're doing.
@@ -181,8 +181,8 @@ hope.setGlobal("XHR", XHR);
 // set XHR.paths.page to the base URL of the page (minus any query stuff)
 XHR.addPath("page", XHR.path(""+window.location));
 
-// default XHR.paths.app to the same as XHR.paths.page	(app may change it in user code)
-XHR.addPath("app", XHR.paths.page);
+// default XHR.paths.ui to the same as XHR.paths.page	(ui may change it in user code)
+XHR.addPath("ui", XHR.paths.page);
 
 
 })();// end hidden from global scope

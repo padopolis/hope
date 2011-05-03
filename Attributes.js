@@ -64,7 +64,7 @@ window.Attribute = function Attribute(options) {
 			cache[_property] = newValue;
 			if (update) this.attr(attr, newValue);
 			if (onChange) onChange.call(this, newValue, oldValue);
-			if (dirty) this.dirty = true;
+			if (dirty && !this.__initializing__) this.dirty = true;
 		}	
 	}
 	options.descriptor = new Property({ get : options.get, set : options.set });

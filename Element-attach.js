@@ -36,6 +36,9 @@ hope.extend(Element, {
 			return;
 		}
 		
+		// flag so we know, eg, that we're not "dirty" when initializing the element
+		element.__initializing__ = true;
+		
 		// if we have an adapter for this type of element, reassign the element's prototype
 		// so it 'becomes' an instance of that class
 		var adapter = Element.getAdapterFor(element);
@@ -56,6 +59,7 @@ hope.extend(Element, {
 		
 		// and then initialize it whether it has an adapter or not
 		element.initialize();
+		delete element.__initializing__;
 		
 		return element;
 	}
@@ -372,7 +376,7 @@ Element.prototype.extend({
 //		 - make a global pointer to it, or
 //		 - replace it with an existing element globally available under it's name
 //
-//	The default is to store the global as `app[<element.id>]`, if you want to store somewhere
+//	The default is to store the global as `ui[<element.id>]`, if you want to store somewhere
 //	 else, set the @global attribute to the full path from the window where the element should go.
 //
 //	You can change the global root FOR ALL ELEMENTS by setting Element.GLOBAL_ROOT.
@@ -380,7 +384,7 @@ Element.prototype.extend({
 //
 
 
-Element.GLOBAL_ROOT = "app.";
+Element.GLOBAL_ROOT = "ui.";
 Element.prototype.extend({
 	// sub-parts, automatically attached to parent when initialized
 	global : new Attribute({
@@ -395,17 +399,17 @@ Element.prototype.extend({
 			// if there already is a global with that name, replace us with it
 			//	(NOTE: any attributes or children on the original object will be lost)
 			if (existing && this.parentNode) {
-				console.info("replacing global ",this,"\nfor previously declared ",existing);
-				this.parentNode.replace(existing, this);
-			} 
-			// assign a global pointer to the element
-			hope.setGlobal(id, this);
-			
-			// remove the @global attribute and set @_global
-			this.removeAttribute("global");
-			this.setAttribute("_global",id);
-			
-			this.data._global = id;
+				console.info("A global named ",id," already exists.  Skipping globalization for",this);
+			} else {
+				// assign a global pointer to the element
+				hope.setGlobal(id, this);
+				
+				// remove the @global attribute and set @_global
+				this.removeAttribute("global");
+				this.setAttribute("_global",id);
+				
+				this.data._global = id;
+			}
 		}
 	})
 });

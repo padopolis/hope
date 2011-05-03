@@ -12,21 +12,9 @@
  ***/
 
 Script.require("{{hope}}Element.js", function() {
-var Saveable = {
-	// mix methods into an element, but don't intialize
-	mixinTo : function(it) {
-		if (it.isAClass) it = it.prototype;
-		hope.extendIf(it, this.prototype);
-		return it;
-	},
-	
-	// apply directly to an element and set things up
-	applyTo : function(element) {
-		this.mixinTo(element);
-	}
-}
-hope.setGlobal("Saveable", Saveable);
-Saveable.prototype = {
+
+new Mixin("Saveable", {
+	properties : {
 		// generic save url -- note that we encode the file name based on element.url
 // NOTE: THIS IS ALL KINDS OF UNSAFE!
 		saveUrl : "editor/php/save.php?file={{url}}",
@@ -88,7 +76,6 @@ Saveable.prototype = {
 			var saveUrl = this.saveUrl.expand(this);
 			
 			function saved(reply, request) {
-console.info(arguments);
 				if (this.dirtyBit) this.dirtyBit.state = "saved";
 				this.fire("saved", this, reply, request);
 				if (callback) callback.call(scope, this);
@@ -104,7 +91,7 @@ console.info(arguments);
 			this._dirty = false;
 			
 			var postBody = this.getSaveText();
-console.info("onSave:", saveUrl,"\n",postBody);
+//console.info("onSave:", saveUrl,"\n",postBody);
 
 			XHR.post(saveUrl, null, postBody, saved, saveError, this);
 		},
@@ -124,7 +111,8 @@ console.info("onSave:", saveUrl,"\n",postBody);
 			var url = this.saveCheckUrl.expand(this)
 			XHR.get(url, success, failure, this);
 		}
-};
+	}
+});
 
 Script.loaded("{{hope}}Saveable.js");
 

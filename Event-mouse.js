@@ -16,7 +16,7 @@ Script.require("{{hope}}Event.js", function(){
 //			whether you have a pointer to the browser event or not
 
 	window.capture(Browser.EVENT.down, function(event) {
-		Event.mouse = event.which;
+		Event.mouse = (event.which === 1 ? "left" : event.which == 3 ? "right" : "unknown");
 		Event.downTarget = event.target;
 		Event.pageX = event.touch.pageX;
 		Event.pageY = event.touch.pageY;
@@ -35,8 +35,8 @@ Script.require("{{hope}}Event.js", function(){
 	});
 
 	hope.extend(Event, {
-		leftButtonIsDown : Getter(function(){ return Event.mouse === 0 }),
-		rightButtonIsDown : Getter(function(){ return !!Event.mouse }),
+		leftButtonIsDown : Getter(function(){ return Event.mouse === "left" }),
+		rightButtonIsDown : Getter(function(){ return Event.mouse === "right" }),
 		
 		// event X coordinate relative to some particular element
 		//	pass null to use the Event.mouseTarget

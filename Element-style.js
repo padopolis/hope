@@ -81,6 +81,7 @@ EP.extendIf({
 	},
 
 
+
 	//
 	//	enable/disable
 	//
@@ -88,14 +89,14 @@ EP.extendIf({
 	// enabled attribute -- sets @disabled to "yes" if the element is not enabled
 	//	You can define a @enableIf condition which will be checked when accessing @enabled.
 	enabled : new Attribute({
-		type : "conditional",
 		name : "disabled",
+		type : "conditional",
 		property : "enabled",
 		inherit : true,
 		value : true,
 		condition : "enableIf",
 		ifTrue : null,
-		ifFalse : "yes",
+		ifFalse : "",
 		onChange : function(newValue, oldValue) {
 //TODO: parentEnabled and parentDisabled ?
 			if (newValue) 	this.fire("enabled");
@@ -109,6 +110,7 @@ EP.extendIf({
 			this.enabled = this.enabled;
 		}
 	}),
+
 
 
 	//
@@ -411,8 +413,8 @@ EP.extendIf({
 	//	If allowOffscreen is true, we can go beyond the boundaries of the screen
 	// TODO: anchor
 	moveToEvent : function(event, allowOffscreen) {
-		var left = event.pageX,
-			top = event.pageY,
+		var left = (event ? event.pageX : Event.pageX),
+			top = (event ? event.pageY : Event.pageY),
 			maxX = window.innerWidth,
 			maxY = window.innerHeight
 		;
@@ -473,6 +475,19 @@ EP.extendIf({
 
 		set : function(bg) {
 			this.style.backgroundColor = bg;
+		}
+	}),
+
+	// background image
+	// TODO: merge with background color
+	bgImg : new Property({
+		get : function() {
+			return this.styles["background-image"];
+		},
+
+		set : function(bg) {
+			if (!bg.startsWith("url")) bg = "url("+bg+")";
+			this.style.backgroundImage = bg;
 		}
 	}),
 

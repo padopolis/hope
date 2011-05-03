@@ -59,8 +59,16 @@ new hope.Section.Subclass("hope.Stack", {
 		}),
 		
 		// pointer to our selected section
-		$selection : Getter(function() {
-			return this.getItem(this.selection);
+		$selection : Property({
+			get : function() {
+				return this.getItem(this.selection);
+			},
+			set : function(it) {
+				if (!it) return;
+				var id = it.id;
+				if (!id) return console.error("set stack.$selection: $selection must have @id. ",it);
+				this.selection = id;
+			}
 		}),
 
 		// called when one of our items is selected
