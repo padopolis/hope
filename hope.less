@@ -415,6 +415,7 @@
 		action[appearance~=black].active
 		{
 			.ButtonBorder(url(theme/ios/btn-yellow-active.png));
+			color:black;
 		}
 		
 
@@ -465,11 +466,13 @@
 
 		action[appearance~=yellow] {
 			.ButtonBorder(url(theme/ios/btn-yellow.png));
+			color:black;
 		}
 
 		action[appearance~=yellow]:active,
 		action[appearance~=yellow].active {
 			.ButtonBorder(url(theme/ios/btn-yellow-active.png));
+			color:black;
 		}
 
 		action[appearance~=white] {
@@ -1144,6 +1147,7 @@
 
 	overlay[appearance~=blue] > mask > border > container {
 		padding:10px;
+		color: white;
 	}
 	
 	overlay[appearance~=blue] label.head {

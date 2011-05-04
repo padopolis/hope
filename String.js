@@ -68,11 +68,11 @@ hope.extendIf(String.prototype, {
 	},
 
 	makeHTMLSafe : function() {
-		return this.replaceAll("<","&lt;").replaceAll(">","&gt;");
+		return this.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 	},
 
 	undoHTMLSafe : function() {
-		return this.replaceAll("&lt;","<").replaceAll("&gt;",">");
+		return this.replaceAll("&lt;","<").replaceAll("&gt;",">").replaceAll("&amp;","&");
 	},
 
 	// Convert mac-style special characters in this string to HTML entities.

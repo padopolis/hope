@@ -99,7 +99,8 @@ new Mixin("Resizable", {
 	
 			var element = this,
 				bounds = element.pageBounds,
-				edge = element.getEventEdge(event, bounds),
+				edge = (event && event instanceof Event ? element.getEventEdge(event, bounds)
+														: "C"),
 				clone
 			;
 			if (!edge) return;
@@ -109,17 +110,19 @@ new Mixin("Resizable", {
 			if (element.cloneable && edge === "C" && (Event.alt || clone)) {
 				element = clone = element.clone(true, true);
 			}
-	
-			// if moving from the center, we're cloneable and the alt/option key is down
-			//	create a clone and move it instead.
+
+/*	
+			// if moving from the center, we're cloneable and the command key is down
+			//	ask for a new name and create a clone and move it instead.
 			if (element.cloneable && edge === "C" && Event.command) {
 				var name;
 				element = clone = element.clone(true, true);
 				if (element.prompt) {
 					name = element.prompt();
+					if (!name) return;
 				}
 			}
-	
+*/	
 			
 			var info = element._getResizeInfo(element, edge, !!clone);
 	

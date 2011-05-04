@@ -80,7 +80,7 @@ Script.require("{{hope}}Event.js", function(){
 			if (Event.globalKeyIgnoreMap[Event.shortcut]) event.preventDefault();
 		}
 
-		console.info("down", event.keyCode, Event.shortcut);
+//		console.info("down", event.keyCode, Event.shortcut);
 	});
 	
 	// Reset which keys are active in keyUP BEFORE any other processing happens

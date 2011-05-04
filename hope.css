@@ -592,6 +592,7 @@ action[appearance~=black]:active, action[appearance~=black].active {
   border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
+  color: black;
 }
 action[appearance~=blue] {
   border-color: transparent;
@@ -669,6 +670,7 @@ action[appearance~=yellow] {
   border-image: url(theme/ios/btn-yellow.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-yellow.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-yellow.png) 0 5 0 5 repeat;
+  color: black;
 }
 action[appearance~=yellow]:active, action[appearance~=yellow].active {
   border-color: transparent;
@@ -676,6 +678,7 @@ action[appearance~=yellow]:active, action[appearance~=yellow].active {
   border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
+  color: black;
 }
 action[appearance~=white] {
   border-color: transparent;
@@ -1372,6 +1375,7 @@ overlay[appearance~=blue].hasHeader > mask > border > header > label {
 }
 overlay[appearance~=blue] > mask > border > container {
   padding: 10px;
+  color: white;
 }
 overlay[appearance~=blue] label.head {
   color: white;
