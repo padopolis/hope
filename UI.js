@@ -2,11 +2,11 @@
 		It's a section so it can have a header, footer, etc.
 */
 
-Script.require("{{hope}}Stack.js", function(){
+Script.require("{{hope}}Tab.js", function(){
 
 
-new hope.Stack.Subclass("hope.UI", {
-	tag : "ui",
+new hope.TabGroup.Subclass("hope.UI", {
+	tag : "hope-ui",
 	properties : {}
 });
 

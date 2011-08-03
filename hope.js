@@ -64,14 +64,17 @@ hope.cookie = function(name, value, expires) {
 
 
 // use this to get/set debug flag(s) for different sub systems
-hope.debug = function(what, onOrOff) {
-	if (hope.debug.TARGETS[what] === undefined) hope.debug.TARGETS[what] = onOrOff||false;
-
-	// if onOrOff not specified, just return the cookie value
-	if (arguments.length === 1) return hope.cookie("debug."+what);
+hope.debug = function(what, currentState) {
+	if (arguments.length == 2) {
+		currentState = (currentState == true);
+		hope.cookie("debug."+what, currentState);
+	} else {
+		currentState = (hope.cookie("debug."+what) == "true")
+	}
 	
-	// else set the cookie value and return it
-	return hope.cookie("debug."+what, onOrOff||null);
+	if (hope.debug.TARGETS[what] === undefined) hope.debug.TARGETS[what] = currentState;
+
+	return currentState;
 }
 hope.debug.TARGETS = {};
 hope.debug.TIME = {};

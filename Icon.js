@@ -3,7 +3,7 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 new Element.Subclass("hope.Icon", {
-	tag : "icon",
+	tag : "hope-icon",
 	properties : {
 		icon : Attribute({name:"icon", update:true})
 	}

@@ -1,5 +1,6 @@
-/* Textfield: input control with binding/error/etc semantics.
-	Default is to manage an <input type='text'> element, subclasses can have other $input types.
+/* 
+	Add method to HTML's <select> element
+
 */
 
 Script.require("{{hope}}Element-attach.js", function(){

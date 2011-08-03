@@ -5,7 +5,7 @@ Script.require("", function(){
 //TODO: associate directly with a dataset ?
 
 new Element.Subclass("hope.DirtyBit", {
-	tag : "dirtybit",
+	tag : "hope-dirtybit",
 	properties : {
 		onReady : function() {
 			if (!this.filename) this.filename = "Unknown file";

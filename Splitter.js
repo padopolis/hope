@@ -6,7 +6,7 @@ Script.require("{{hope}}Panel.js", function(){
 
 
 new hope.Panel.Subclass("hope.Splitter", {
-	tag : "splitter",
+	tag : "hope-splitter",
 	properties : {
 		
 		// direction is 'vertical' (default) or 'horizontal'

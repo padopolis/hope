@@ -4,7 +4,7 @@ Script.require("{{hope}}Section.js", function(){
 
 
 new hope.Section.Subclass("hope.Editor", {
-	tag : "editor",
+	tag : "hope-editor",
 	properties : {
 
 		onUpdate : function() {

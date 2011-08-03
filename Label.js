@@ -3,7 +3,7 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 new Element.Subclass("hope.Label", {
-	tag : "label",
+	tag : "hope-label",
 	properties : {}
 
 });

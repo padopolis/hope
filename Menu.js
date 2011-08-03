@@ -32,9 +32,9 @@ hope.onReady("document", function() {
 
 
 new Element.Subclass("hope.Menu", {
-	tag : "contextmenu",
+	tag : "hope-menu",
 	properties : {
-		template : "<container></container>",
+		template : "<hope-container/>",
 
 		visible : false,
 		autoHide : new Attribute({name:"autoHide", type:"flag", falseIf:[false,"false","no"]}),
@@ -63,6 +63,15 @@ new Element.Subclass("hope.Menu", {
 			
 			// tell the element that we're about to show!
 			element.fire("showingContextMenu");
+		},
+		
+		clearMenuItems : function() {
+			this.$container.html = "";
+		},
+		
+		addMenuItem : function(value, title) {
+			if (title == null) title = value;
+			this.$container.append("<row value='"+value+"'><label>"+title+"</label></row>");
 		}
 	},
 	
@@ -81,8 +90,8 @@ new Element.Subclass("hope.Menu", {
 
 
 new hope.Action.Subclass("hope.MenuAction", {
-	tag : "action",
-	selector : "action[type=menu]",
+	tag : "hope-action",
+	selector : "hope-action[type=menu]",
 	properties : {
 		menu : Attribute({name:"menu",update:true}),
 		$menu : Property({

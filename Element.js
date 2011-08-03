@@ -19,7 +19,7 @@ EP.constructor = E;
 E.debug = hope.debug("Element");
 
 // set the "ElementData" debug flag to put an attribute on each element
-//	so you can tell what has been given .data, and see who all's .data has been cleared.
+//	so you can tell what has been given .DATA, and see who all's .DATA has been cleared.
 E.debugData = hope.debug("ElementData");
 
 E.toRef = function(){ return "Element" };
@@ -141,9 +141,9 @@ EP.extendIf = hope.extendThisIf;
 //	Data access -- efficiently adding external stuff to an element
 //
 //	- Stick complex stuff (args, arrays, fns) 
-//			on element.data
+//			on element.DATA
 //		rather than on element directly
-//	- cache element.data.* in your function for efficiency if referring to it more than once
+//	- cache element.DATA.* in your function for efficiency if referring to it more than once
 //
 
 //TODO: observe DOM node deleted to clear data?
@@ -174,7 +174,7 @@ EP._setUpData = function () {
 //
 EP.extend({	
 	// data NOT inherited from superclasses
-	data : new Getter(
+	DATA : new Getter(
 		function getInstanceData() {
 			if (!this.hasOwnProperty("dataId")) this._setUpData();
 			return ELEMENT_INSTANCE_DATA[this.dataId];
@@ -254,8 +254,8 @@ hope.unload(function() {
 	// clean the Element data cache
 //LEAK: put this back
 	delete window.ELEMENT_INSTANCE_DATA;
-	delete window.data;
-	delete document.data;
+	delete window.DATA;
+	delete document.DATA;
 });
 
 
@@ -271,7 +271,7 @@ EP.extendIf({
 	// remove this element from our parent OR remove an element from us
 	remove : function(it) {
 		if (arguments.length === 0) {
-			this.parentNode.removeChild(this);
+			if (this.parentNode) this.parentNode.removeChild(this);
 		} else if (it instanceof E) {
 			this.removeChild(it);
 		} else if (it instanceof Array) {
@@ -343,6 +343,13 @@ EP.extendIf({
 		if (typeof selector === "string") return this._matches(selector);
 		if (typeof selector === "function") return !!selector.apply(this);
 	},
+
+	// return our child number in our parentNode
+	childNumber : Getter(function() {
+		var children = this.parentNode.elements, index = -1;
+		while (children[++index] != this) {}
+		return index;
+	}),
 
 
 	//
@@ -544,7 +551,7 @@ EP.extendIf({
 		if (deep == null) deep = true;
 		var it = this.cloneNode(!!deep);
 		
-		// clear the node.data cache from node and all descendants
+		// clear the node.DATA cache from node and all descendants
 		it.recurse(function() {
 			if (this.hasOwnProperty("dataId")) {
 				delete this.dataId;
@@ -593,7 +600,7 @@ EP.extend({
 //console.warn(this,"adding updater ",element,"to",this,"\n",updateString);
 		updateString = updateString.tupelize();
 
-		var updaters = this.data.updaters || (this.data.updaters = []);
+		var updaters = this.DATA.updaters || (this.DATA.updaters = []);
 		for (var what in updateString) {
 			var expression = updateString[what];
 			if (!expression) {
@@ -624,7 +631,7 @@ EP.extend({
 	},
 
 	update : function() {
-		var updaters = this.data.updaters;
+		var updaters = this.DATA.updaters;
 		if (!updaters) return;
 		var i = -1, updater;
 		while (updater = updaters[++i]) {
@@ -652,7 +659,7 @@ EP.extend({
 EP.extend({
 	addPart : function(part, partName) {
 		if (!part || !partName) return;		//TOTHROW
-		var parts = this.data.parts || (this.data.parts = {});
+		var parts = this.DATA.parts || (this.DATA.parts = {});
 //console.warn(this,"adding part ",partName,"to",part);
 		this[partName] = parts[partName] = part;
 		part.owner = this;
@@ -729,9 +736,10 @@ var _TagMap = E.TagMap,
 	_SelectorMap = E.SelectorMap
 ;
 
+// HMMM, should this be hope-element?
 new Class("hope.Element", {
-	tag : "element",
-	prototype :document.createElement("element").attr("prototype","yes")._setUpData(),
+	tag : "hope-element",
+	prototype :document.createElement("hope-element").attr("prototype","yes")._setUpData(),
 
 	makeSubclassConstructor : function(id, options) {
 		var superClass = options["super"];
@@ -870,7 +878,7 @@ new Class("hope.Element", {
 	
 	"static" : {
 		// default tag
-		tag : "element",
+		tag : "hope-element",
 
 		// if true, we recurse to `adapt()` child elements when we're being `adapt()`ed
 		adaptChildren : true,

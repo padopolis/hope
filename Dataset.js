@@ -7,7 +7,7 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 new Element.Subclass("hope.Dataset", {
-	tag : "dataset",
+	tag : "hope-dataset",
 	properties : {
 		listeners : "save",
 		visible : false,

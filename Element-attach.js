@@ -38,7 +38,7 @@ hope.extend(Element, {
 		
 		// flag so we know, eg, that we're not "dirty" when initializing the element
 		element.__initializing__ = true;
-		
+
 		// if we have an adapter for this type of element, reassign the element's prototype
 		// so it 'becomes' an instance of that class
 		var adapter = Element.getAdapterFor(element);
@@ -94,7 +94,7 @@ Element.prototype.extend({
 	
 	// Selector to use to find our childContainer.  
 	//	Override, eg, to put your children inside a scroller.
-	childContainerSelector : "container",
+	childContainerSelector : "hope-container",
 
 
 	// Initialize this element.  Called from `Element.initializeElement()`
@@ -243,10 +243,10 @@ Element.prototype.extend({
 //
 //TOOD: some way to set this up automatically?
 Element.prototype.childProcessors = {
-	"on" 		: "processOnTag", 
-	"js" 		: "processJsTag", 
-	"attribute"	: "processAttributeTag",
-	"properties": "processPropertiesTag"
+	"hope-on" 			: "processOnTag", 
+	"hope-js"	 		: "processJsTag", 
+	"hope-attribute"	: "processAttributeTag",
+	"hope-properties"	: "processPropertiesTag"
 };
 
 Element.prototype.extend({
@@ -284,7 +284,7 @@ Element.prototype.extend({
 	},
 	
 	// <attribute> tag: defines an Attribute().
-	//	NOTE: this returns undefined so <on> elements will be removed from the parent
+	//	NOTE: this returns undefined so <attribute> elements will be removed from the parent
 	processAttributeTag : function(element) {
 		var attrs = element.attrs, 
 			attr = attrs.name
@@ -296,7 +296,7 @@ Element.prototype.extend({
 	
 	
 	// <properties> tag: defines a set of properties
-	//	NOTE: this returns undefined so <on> elements will be removed from the parent
+	//	NOTE: this returns undefined so <properties> elements will be removed from the parent
 	processPropertiesTag : function(element) {
 		eval("element = "+element.textContent);
 		if (element) this.extend(element);
@@ -408,7 +408,7 @@ Element.prototype.extend({
 				this.removeAttribute("global");
 				this.setAttribute("_global",id);
 				
-				this.data._global = id;
+				this.DATA._global = id;
 			}
 		}
 	})
@@ -420,7 +420,7 @@ hope.unload(Element._clearGlobals);
 
 
 new Element.Subclass("hope.Group", {
-	tag : "group",
+	tag : "hope-group",
 	properties : {
 		ignoreWhitespace:true
 	}

@@ -4,9 +4,9 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 
 new hope.Section.Subclass("hope.WebView", {
-	tag : "webview",
+	tag : "hope-webview",
 	properties : {
-		template : "<iframe part='webview:$frame'></iframe>",
+		template : "<iframe part='hope-webview:$frame'/>",
 		childContainerSelector : "iframe",
 		listeners : "shown,hidden",
 		

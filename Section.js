@@ -4,12 +4,12 @@ Script.require("{{hope}}Panel.js", function(){
 
 
 new hope.Panel.Subclass("hope.Section", {
-	tag : "section",
+	tag : "hope-section",
 	mixins : "Noticeable",
 	properties : {
-		template : "<container></container>",
+		template : "<hope-container/>",
 
-		childProcessors : "header:initHeader,footer:initFooter,toolbar:initToolbar",
+		childProcessors : "hope-header:initHeader,hope-footer:initFooter,hope-toolbar:initToolbar",
 
 		label 			: Attribute("label"), 
 
@@ -17,7 +17,7 @@ new hope.Panel.Subclass("hope.Section", {
 		//	put a <headder/> element in your template to put it somewhere else
 		initHeader : function(header) {
 			if (Element.debug) console.info(this, "processing header", header, this.$container);
-			var templateHeader = this.getChild("header");
+			var templateHeader = this.getChild("hope-header");
 			if (templateHeader) {
 				templateHeader.parentNode.replaceChild(header, templateHeader);
 			} else {
@@ -31,7 +31,7 @@ new hope.Panel.Subclass("hope.Section", {
 		//	put a <footer/> element in your template to put it somewhere else
 		initFooter : function(footer) {
 			if (Element.debug) console.info(this, "processing footer", footer);
-			var templateFooter = this.getChild("footer");
+			var templateFooter = this.getChild("hope-footer");
 			if (templateFooter) {
 				templateFooter.parentNode.replaceChild(footer, templateFooter);
 			} else {
@@ -45,7 +45,7 @@ new hope.Panel.Subclass("hope.Section", {
 		//	put a <toolbar/> element in your template to put it somewhere else
 		initToolbar : function(toolbar) {
 			if (Element.debug) console.info(this, "processing toolbar", toolbar);
-			var templateToolbar = this.getChild("toolbar");
+			var templateToolbar = this.getChild("hope-toolbar");
 			if (templateToolbar) {
 				templateToolbar.parentNode.replaceChild(toolbar, templateToolbar);
 			} else {

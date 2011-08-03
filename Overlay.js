@@ -3,16 +3,16 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 new hope.Section.Subclass("hope.Overlay", {
-	tag : "overlay",
+	tag : "hope-overlay",
 				
 	properties : {
 		visible : false,
-		template : "<mask part='overlay:$mask'>\
-						<border part='overlay:$border'>\
-							<close part='overlay:$close' visible='no'></close>\
-							<container></container>\
-						</border>\
-					</mask>",
+		template : "<hope-mask part='hope-overlay:$mask'>\
+						<hope-border part='hope-overlay:$border'>\
+							<hope-close part='hope-overlay:$close' visible='no'/>\
+							<hope-container/>\
+						</hope-border>\
+					</hope-mask>",
 		autoHide : new Attribute({name:"autoHide", type:"flag", falseIf:[false,"false","no"] }),
 		listeners : "click:onClick",
 		
@@ -31,15 +31,15 @@ new hope.Section.Subclass("hope.Overlay", {
 
 // create an overlay w/id "loadingMessage" to show/hide messages when loading
 new hope.Overlay.Subclass("hope.LoadingMessage", {
-	tag : "overlay",
+	tag : "hope-overlay",
 	selector : "#loadingMessage",
 	properties : {
-		template : "<mask part='overlay:$mask'>\
-						<border part='overlay:$border'>\
-							<close part='overlay:$close' visible='no'></close>\
-							<container><notice part='overlay:$notice'></notice></container>\
-						</border>\
-					</mask>",
+		template : "<hope-mask part='hope-overlay:$mask'>\
+						<hope-border part='hope-overlay:$border'>\
+							<hope-close part='hope-overlay:$close' visible='no'/>\
+							<hope-container><hope-notice part='hope-overlay:$notice'/></hope-container>\
+						</hope-border>\
+					</hope-mask>",
 
 		showMessage : function(message) {
 			this.$notice.html = message;

@@ -33,7 +33,6 @@ var scripts = [
 		"Element-style.js",
 		"ElementList.js",
 		"Event.js",
-		"Event-mouse.js",
 		"Event-keys.js",
 		"Focusable.js",
 		"Animation.js",
@@ -56,6 +55,7 @@ var scripts = [
 		"UI.js",
 		"Overlay.js",
 		"Palette.js",
+		"Drag.js",
 		"Resizable.js",
 		"Reorderable.js",
 		"Editor.js",
@@ -66,10 +66,11 @@ var scripts = [
 		"Output.js",
 		"Combobox.js",
 		"CheckSwitch.js",
-		"ListSelector.js",
+		"PopoverMenu.js",
 		"DirtyBit.js",
 		"SearchInput.js",
 		"MessageBoard.js",
+		"Filter.js",
 	]
 ;
 

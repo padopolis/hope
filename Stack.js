@@ -7,7 +7,7 @@ Script.require("{{hope}}Element-attach.js", function(){
 //	- take up the full space of the stack
 //	- 
 new hope.Section.Subclass("hope.Stack", {
-	tag : "stack",
+	tag : "hope-stack",
 	properties : {
 		// set to a css selector for our child element to be used as a selector
 		//	to show different item in the stack
@@ -39,21 +39,21 @@ new hope.Section.Subclass("hope.Stack", {
 			name : "selection",
 			get : function() {
 				if (this.preference) return hope.preference(this.preference);
-				return this.data.selection;
+				return this.DATA.selection;
 			},
 			
 			set : function(newValue) {
 				if (newValue instanceof Element) newValue = newValue.id;
 				var oldValue, pref = this.preference;
 				if (pref) 	oldValue = hope.preference(pref);
-				else		oldValue = this.data.selection;
+				else		oldValue = this.DATA.selection;
 				if (oldValue !== newValue) {
 					if (oldValue) this.fire("deselectedItem", oldValue);
 	
 					if (pref) 	hope.preference(pref, newValue);
-					else		this.data.selection = newValue;
+					else		this.DATA.selection = newValue;
 					this.attr("selection", newValue);
-					if (newValue) this.fire("selectedItem", newValue);
+					if (newValue) this.fire("selectedItem", newValue, oldValue);
 				}
 			}
 		}),
@@ -109,7 +109,6 @@ new hope.Section.Subclass("hope.Stack", {
 				section.visible = false;
 				this.makeSelectorFor(section);
 				section.on("activate", function() {
-console.warn(section);
 					this.selection = section;
 				}.bind(this));
 			}

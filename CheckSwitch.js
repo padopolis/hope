@@ -4,11 +4,11 @@ Script.require("{{hope}}Element.js", function(){
 
 
 new Element.Subclass("hope.CheckSwitch", {
-	tag : "checkswitch",
+	tag : "hope-checkswitch",
 	mixins : "Valued",
 	properties : {
 		listeners : "click",
-		template : "<span><div part='checkswitch:$display'></div></span>",
+		template : "<span><div part='hope-checkswitch:$display' /></span>",
 
 		// update the display value -- this runs an animation if the browser supports it		
 		update : function() {

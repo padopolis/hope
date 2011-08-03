@@ -8,7 +8,7 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 new Element.Subclass("hope.Action", {
-	tag : "action",
+	tag : "hope-action",
 	properties : {
 
 //TODO: touchStart ???
@@ -18,8 +18,8 @@ new Element.Subclass("hope.Action", {
 		icon : new Attribute({name:"icon", update:true,
 			onChange : function(newValue) {
 				// make sure we have an icon sub-element
-				if (this.getChild("icon") == null) this.prepend(new hope.Icon());
-//console.warn(this,"changing icon to ",newValue, this.getChild("icon"));
+				if (this.getChild("hope-icon") == null) this.prepend(new hope.Icon());
+//console.warn(this,"changing icon to ",newValue, this.getChild("hope-icon"));
 				return newValue;			
 			}
 		}),
@@ -27,22 +27,26 @@ new Element.Subclass("hope.Action", {
 		// label for the action (user-visible)
 		label : new Attribute({name:"label", update:true,
 			onChange : function(newValue) {
-				// get a pointer to our <label> or create one if necessary
-				var label = this.getChild("label") || this.append(new hope.Label());
+				// get a pointer to our <hope-label> or create one if necessary
+				var label = this.getChild("hope-label") || this.append(new hope.Label());
 				label.html = newValue;
 //console.warn(this,"changing label to ",newValue, label);
 				return newValue;
 			}
 		}),
 		
+		// longer description
 		description : Getter(function() {
 			var description = this.attr("description");
 			if (!description) {
-				description = this.getChild("description");
+				description = this.getChild("hope-description");
 				if (description) description = description.html;
 			}
 			return description;
 		}),
+		
+		// appearance (used for css styling)
+		appearance : Attribute({name:"appearance", update:true}),
 
 		// action to do when clicked or our shortcut is pressed
 		onActivate : new Attribute({name:"onactivate", type:"event", args:"event", inherit:true}),

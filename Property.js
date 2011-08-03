@@ -64,11 +64,11 @@ function InstanceProperty(options) {
 	;
 	var descriptor =  new Property({
 		get : function() {	
-			var value = (inherit ? this : this.data)[_property];
+			var value = (inherit ? this : this.DATA)[_property];
 			return (value !== undefined ? value : defaultValue);
 		},
 		set : function(newValue) {
-			var cache = (inherit ? this : this.data);
+			var cache = (inherit ? this : this.DATA);
 			var oldValue = cache[_property];
 			if (oldValue === newValue) return;
 			cache[_property] = newValue;

@@ -68,7 +68,7 @@ Focusable.mixinTo(globalListener.constructor.prototype);
 // KeyMap class
 //
 new hope.Element.Subclass("hope.KeyMap", {
-	tag : "keymap",
+	tag : "hope-keymap",
 	properties : {
 		onReady : function() {
 			this.map = {};
@@ -120,7 +120,7 @@ new hope.Element.Subclass("hope.KeyMap", {
 //	Stick a <keymap> under any element to make it focusable.
 //
 Element.prototype.extend({
-	childProcessors : "keymap:initKeyMap",
+	childProcessors : "hope-keymap:initKeyMap",
 	initKeyMap : function() {
 		if (!this.focusable) Focusable.mixinTo(this);
 	}

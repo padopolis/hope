@@ -46,13 +46,13 @@ window.Attribute = function Attribute(options) {
 	;
 	if (!options.get) {
 		options.get = function getAttr() {
-			var cache = (inherit ? this : this.data);
+			var cache = (inherit ? this : this.DATA);
 			return cache[_property];
 		};
 	}
 	if (!options.set) {
 		options.set = function setAttr(newValue) {
-			var cache = (inherit ? this : this.data),
+			var cache = (inherit ? this : this.DATA),
 				oldValue = cache[_property]
 			;
 			// short circuit if no change
@@ -129,7 +129,7 @@ Attribute.initializers = {
 				_property = "_"+property
 			;	
 			options.get = function getAttr() {
-				var cache = (options.inherit ? this : this.data);
+				var cache = (options.inherit ? this : this.DATA);
 				return normalize(cache[_property]);
 			}
 		}
@@ -152,11 +152,11 @@ Attribute.initializers = {
 					this[property] = value;
 					return value;
 				}
-				return (inherit ? this : this.data)[_property];
+				return (inherit ? this : this.DATA)[_property];
 			}
 		} else {
 			options.get = function() {
-				return (inherit ? this : this.data)[_property];
+				return (inherit ? this : this.DATA)[_property];
 			}		
 		}
 		
@@ -166,7 +166,7 @@ Attribute.initializers = {
 								: (newValue ? ifTrue : ifFalse));
 			this.attr(attr, attrValue);
 
-			var cache = (inherit ? this : this.data), oldValue = cache[_property];
+			var cache = (inherit ? this : this.DATA), oldValue = cache[_property];
 			cache[_property] = newValue;
 			if (onChange && oldValue != newValue) onChange.call(this, newValue, oldValue);
 		}
@@ -245,7 +245,7 @@ Attribute.normalizers.event = Attribute.normalizers["function"];
 window.Child = function Child(options) {
 	if (typeof options === "string") options = {selector:options};
 	return new Getter(function() {
-		return this.getChild(options.selector).innerHTML;
+		return this.getChild(options.selector);
 	});
 }
 

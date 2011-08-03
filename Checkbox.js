@@ -6,7 +6,7 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 //TODO: is this
 new Element.Subclass("hope.Checkbox", {
-	tag : "checkbox",
+	tag : "hope-checkbox",
 	mixins : "Valued",
 	properties : {
 		// set things up and do the initial update when ready
@@ -16,11 +16,11 @@ new Element.Subclass("hope.Checkbox", {
 		},
 		
 		// template is our message display -- the input is created in initializeInput
-		template : "<group>\
-						<input part='checkbox:$input' type='checkbox'>\
-						<label part='checkbox:$label'></label>\
-					</group>\
-					<message part='$message' visible='no'/>",
+		template : "<hope-group>\
+						<input part='hope-checkbox:$input' type='checkbox'>\
+						<label part='hope-checkbox:$label'></label>\
+					</hope-group>\
+					<hope-message part='$message' visible='no'/>",
 
 		// value map for when checkbox is checked or unchecked
 		checkedValue : Attribute({name:"checkedValue", inherit:true, value:"yes" }),

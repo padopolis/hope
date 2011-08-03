@@ -14,7 +14,7 @@ Script.require("{{hope}}Section.js", function(){
 
 
 new hope.Section.Subclass("hope.ListViewer", {
-	tag : "listviewer",
+	tag : "hope-listviewer",
 	mixins : "Noticeable",
 	properties : {
 		onReady : function() {
@@ -22,11 +22,11 @@ new hope.Section.Subclass("hope.ListViewer", {
 			this.$rows.onChild("row", "click", "onRowClicked", this);
 		},
 
-		template : "<container>\
-						<action part='listViewer:$prev' appearance='black' label='Previous set' visible='no' onactivate='this.owner.showPrevSet()'/>\
-						<rows></rows>\
-						<action part='listViewer:$next' appearance='black' label='Next set' visible='no' onactivate='this.owner.showNextSet()'/>\
-					</container>",
+		template : "<hope-container>\
+						<action part='hope-listViewer:$prev' appearance='black' label='Previous set' visible='no' onactivate='this.owner.showPrevSet()'/>\
+						<rows/>\
+						<action part='hope-listViewer:$next' appearance='black' label='Next set' visible='no' onactivate='this.owner.showNextSet()'/>\
+					</hope-container>",
 		
 		// template to draw for each item
 		rowTemplate : "<row></row>",

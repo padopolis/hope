@@ -23,6 +23,13 @@ Script.require("{{hope}}Element.js,{{hope}}List.js", function(){
 				return -1;
 			}
 			return this.sort(comparitor);
+		},
+		
+		fire : function() {
+			for (var i = 0, last = this.length; i < last; i++) {
+				var it = this[i];
+				if (it) it.fire.apply(it, arguments);
+			}
 		}
 	
 	});

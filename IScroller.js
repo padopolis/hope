@@ -51,7 +51,7 @@ var _desktopCompatibility = false,
 ;
 
 new Element.Subclass("hope.IScroller", {
-	tag : "scroller",
+	tag : "hope-scroller",
 	properties : {
 		listeners : "reflow",
 		
@@ -728,12 +728,12 @@ function ScrollThumb (direction, parent, appearance) {
 	this.direction = direction;
 
 	// Create scrollbar wrapper
-	var wrapper = this.wrapper = Element.create("scroll-track", {	className:direction, 
+	var wrapper = this.wrapper = Element.create("hope-scroll-track", {	className:direction, 
 																	appearance:appearance
 																});
 
 	// Create main scrollbar
-	this.bar = Element.create("scroll-thumb");
+	this.bar = Element.create("hope-scroll-thumb");
 
 	// Add scrollbar to the DOM
 	wrapper.appendChild(this.bar);

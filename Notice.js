@@ -9,9 +9,9 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 
 new Element.Subclass("hope.Notice", {
-	tag : "notice",
+	tag : "hope-notice",
 	properties : {
-		template : "<container></container>",
+		template : "<hope-container/>",
 		message : Attribute({	
 			name : "message", 
 			onChange : function(newMessage) {
@@ -32,7 +32,7 @@ new Element.Subclass("hope.Notice", {
 new Mixin("Noticeable", {
 	mixinTo : function(it) {
 		this.as("Mixin", arguments);
-		it.prototype.childProcessors = "notice:initNotice";
+		it.prototype.childProcessors = "hope-notice:initNotice";
 		return it;
 	},
 	properties : {

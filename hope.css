@@ -194,32 +194,32 @@ input[disabled], textarea[disabled] {
 *[center] {
   text-align: center;
 }
-section,
-container,
-header,
-footer,
-ui,
-border,
-group,
-notice,
-panel,
-title,
-splitter,
-keymap {
+hope-section,
+hope-container,
+hope-header,
+hope-footer,
+hope-ui,
+hope-border,
+hope-group,
+hope-notice,
+hope-panel,
+hope-title,
+hope-splitter,
+hope-keymap {
   position: relative;
   display: block;
 }
-inline,
-label,
-output,
-value,
-tabselector,
-message {
+hope-inline,
+hope-label,
+hope-output,
+hope-value,
+hope-tabselector,
+hope-message {
   display: inline-block;
 }
 /*** horizontal and vertical stretch boxes ***/
 /* add layout=vertical to make children fill the space vertically and stretch horizontally */
-*[layout=vertical] > container, group[layout=vertical] {
+*[layout=vertical] > hope-container, hope-group[layout=vertical] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -232,7 +232,7 @@ message {
   -moz-box-align: stretch;
 }
 /* add layout=vcenter to make children fill the space vertically and center horizontally */
-*[layout=vcenter] > container, group[layout=vcenter] {
+*[layout=vcenter] > hope-container, hope-group[layout=vcenter] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -245,7 +245,7 @@ message {
   -moz-box-align: center;
 }
 /* add layout=horizontal to make children fill the space horizontally and stretch vertically */
-*[layout=horizontal] > container, group[layout=horizontal] {
+*[layout=horizontal] > hope-container, hope-group[layout=horizontal] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -258,7 +258,7 @@ message {
   -moz-box-align: stretch;
 }
 /* add layout=hcenter to make children fill the space horizontally and center vertically */
-*[layout=hcenter] > container, group[layout=hcenter] {
+*[layout=hcenter] > hope-container, hope-group[layout=hcenter] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -271,7 +271,7 @@ message {
   -moz-box-align: stretch;
 }
 /* add layout=center to make children center horizontally and vertically.  
-		You'll need a nested <container> for this to work. 
+		You'll need a nested <hope-container> for this to work. 
 	*/
 *[layout=center] {
   position: relative;
@@ -288,7 +288,7 @@ message {
   width: 100%;
   height: 100%;
 }
-*[layout=center] > container {
+*[layout=center] > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -304,10 +304,10 @@ message {
   -moz-box-align: center;
   height: 100%;
 }
-*[layout=center] > container > * {
+*[layout=center] > hope-container > * {
   display: block;
 }
-vbox {
+hope-vbox {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -320,15 +320,15 @@ vbox {
   -moz-box-align: stretch;
 }
 /*** Blocks of inline javascript or xml ***/
-js,
-properties,
-set,
-get,
-on,
-scriptLoader {
+hope-js,
+hope-properties,
+hope-set,
+hope-get,
+hope-on,
+hope-scriptLoader {
   display: none;
 }
-dataset {
+hope-dataset {
   display: block;
 }
 /*** Generic attribute stuff ***/
@@ -336,7 +336,7 @@ dataset {
 *[visible=no] {
   display: none !important;
 }
-hcenter {
+hope-hcenter {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -354,7 +354,7 @@ hcenter {
   -moz-box-flex: 0;
   box-flex: 0;
 }
-vcenter {
+hope-vcenter {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -385,8 +385,8 @@ vcenter {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/*** generic mask, centers contents horizontally and vertically.  dark mask.  ***/
-mask {
+/*** generic hope-mask, centers contents horizontally and vertically.  dark hope-mask.  ***/
+hope-mask {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -465,15 +465,15 @@ input[appearance~=translucent] {
 input[type=search] {
   font-size: 18px;
 }
-/*** <ui> is the outer container of our user interface ***/
-ui {
+/*** <ui> is the outer hope-container of our user interface ***/
+hope-ui {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
 }
-ui > container {
+hope-ui > hope-container {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -498,18 +498,18 @@ ui > container {
   border-radius: 10px;
   padding: 2px;
 }
-*[appearance~=inset] > header {
+*[appearance~=inset] > hope-header {
   padding: 5px;
 }
-*[appearance~=inset] > container {
+*[appearance~=inset] > hope-container {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.3);
   padding: 10px;
 }
-/* center and enlarge title of inset panel */
-*[appearance~=inset] > header > label {
+/* center and enlarge title of inset hope-panel */
+*[appearance~=inset] > hope-header > label {
   display: block;
   font-weight: bold;
   text-align: center;
@@ -517,7 +517,7 @@ ui > container {
 }
 /*** Action elements - basically, buttons ***/
 /* default for actions is to look like buttons */
-action {
+hope-action {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   height: 30px;
@@ -527,66 +527,66 @@ action {
   white-space: nowrap;
   background-color: none;
 }
-action > description {
+hope-action > hope-description {
   display: none;
 }
-action[disabled] {
+hope-action[disabled] {
   opacity: .2;
 }
-action:active, action.active {
+hope-action:active, hope-action.active {
   color: black;
   text-shadow: rgba(255, 255, 255, 0.4) 0px -1px 0;
 }
-action[icon] {
+hope-action[icon] {
   padding: 0 5px;
 }
-action[label] {
+hope-action[label] {
   padding: 0 10px;
 }
-action[icon][label] {
+hope-action[icon][label] {
   padding: 0 5px;
 }
-action[icon][label] > icon {
+hope-action[icon][label] > hope-icon {
   left: -3px;
 }
-action[icon][label][iconright] > icon {
+hope-action[icon][label][iconright] > hope-icon {
   float: right;
   left: 5px;
 }
-action label {
+hope-action label {
   padding: 0 5px;
 }
-action[appearance~=link] {
+hope-action[appearance~=link] {
   text-decoration: underline;
   padding: 0px;
 }
-action[appearance~=black],
-action[appearance~=blue],
-action[appearance~=lightBlue],
-action[appearance~=red],
-action[appearance~=green],
-action[appearance~=yellow],
-action[appearance~=white] {
+hope-action[appearance~=black],
+hope-action[appearance~=blue],
+hope-action[appearance~=lightBlue],
+hope-action[appearance~=red],
+hope-action[appearance~=green],
+hope-action[appearance~=yellow],
+hope-action[appearance~=white] {
   color: white;
   text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
   margin-left: 2px;
   margin-right: 2px;
 }
-action[appearance~=black] {
+hope-action[appearance~=black] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-black.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-black.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-black.png) 0 5 0 5 repeat;
 }
-action[appearance~=black]:hover {
+hope-action[appearance~=black]:hover {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-black-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-black-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-black-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=black]:active, action[appearance~=black].active {
+hope-action[appearance~=black]:active, hope-action[appearance~=black].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
@@ -594,77 +594,77 @@ action[appearance~=black]:active, action[appearance~=black].active {
   -webkit-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   color: black;
 }
-action[appearance~=blue] {
+hope-action[appearance~=blue] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-blue.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-blue.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-blue.png) 0 5 0 5 repeat;
 }
-action[appearance~=blue]:active, action[appearance~=blue].active {
+hope-action[appearance~=blue]:active, hope-action[appearance~=blue].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-blue-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-blue-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-blue-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=blue][selected] {
+hope-action[appearance~=blue][selected] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
 }
-action[appearance~=blue][selected]:active, action[appearance~=blue][selected].active {
+hope-action[appearance~=blue][selected]:active, hope-action[appearance~=blue][selected].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=lightBlue] {
+hope-action[appearance~=lightBlue] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-lightBlue.png) 0 5 0 5 repeat;
 }
-action[appearance~=lightBlue]:active, action[appearance~=lightBlue].active {
+hope-action[appearance~=lightBlue]:active, hope-action[appearance~=lightBlue].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-lightBlue-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=red] {
+hope-action[appearance~=red] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
 }
-action[appearance~=red]:active, action[appearance~=red].active {
+hope-action[appearance~=red]:active, hope-action[appearance~=red].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-red-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-red-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-red-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=green] {
+hope-action[appearance~=green] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-green.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-green.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-green.png) 0 5 0 5 repeat;
 }
-action[appearance~=green]:active, action[appearance~=green].active {
+hope-action[appearance~=green]:active, hope-action[appearance~=green].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-green-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-green-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-green-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=yellow] {
+hope-action[appearance~=yellow] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-yellow.png) 0 5 0 5 repeat;
@@ -672,7 +672,7 @@ action[appearance~=yellow] {
   -webkit-border-image: url(theme/ios/btn-yellow.png) 0 5 0 5 repeat;
   color: black;
 }
-action[appearance~=yellow]:active, action[appearance~=yellow].active {
+hope-action[appearance~=yellow]:active, hope-action[appearance~=yellow].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
@@ -680,21 +680,21 @@ action[appearance~=yellow]:active, action[appearance~=yellow].active {
   -webkit-border-image: url(theme/ios/btn-yellow-active.png) 0 5 0 5 repeat;
   color: black;
 }
-action[appearance~=white] {
+hope-action[appearance~=white] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
 }
-action[appearance~=white]:active, action[appearance~=white].active {
+hope-action[appearance~=white]:active, hope-action[appearance~=white].active {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
   border-image: url(theme/ios/btn-white-active.png) 0 5 0 5 repeat;
   -moz-border-image: url(theme/ios/btn-white-active.png) 0 5 0 5 repeat;
   -webkit-border-image: url(theme/ios/btn-white-active.png) 0 5 0 5 repeat;
 }
-action[appearance~=prev] {
+hope-action[appearance~=prev] {
   overflow: hidden;
   color: white;
   text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
@@ -707,14 +707,14 @@ action[appearance~=prev] {
   -moz-border-image: url(theme/ios/nav-back-black.png) 0 13 0 17 repeat;
   -webkit-border-image: url(theme/ios/nav-back-black.png) 0 13 0 17 repeat;
 }
-action[appearance~=prev]:active, action[appearance~=prev].active {
+hope-action[appearance~=prev]:active, hope-action[appearance~=prev].active {
   border-color: transparent;
   border-width: 0px 13px 0px 17px;
   border-image: url(theme/ios/nav-back-black-active.png) 0 13 0 17 repeat;
   -moz-border-image: url(theme/ios/nav-back-black-active.png) 0 13 0 17 repeat;
   -webkit-border-image: url(theme/ios/nav-back-black-active.png) 0 13 0 17 repeat;
 }
-action[appearance~=next] {
+hope-action[appearance~=next] {
   overflow: hidden;
   color: white;
   text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
@@ -727,42 +727,42 @@ action[appearance~=next] {
   -moz-border-image: url(theme/ios/nav-forward-black.png) 0 17 0 13 repeat;
   -webkit-border-image: url(theme/ios/nav-forward-black.png) 0 17 0 13 repeat;
 }
-action[appearance~=next]:active, action[appearance~=next].active {
+hope-action[appearance~=next]:active, hope-action[appearance~=next].active {
   border-color: transparent;
   border-width: 0px 17px 0px 13px;
   border-image: url(theme/ios/nav-forward-black-active.png) 0 17 0 13 repeat;
   -moz-border-image: url(theme/ios/nav-forward-black-active.png) 0 17 0 13 repeat;
   -webkit-border-image: url(theme/ios/nav-forward-black-active.png) 0 17 0 13 repeat;
 }
-/*** scroller for some content ***/
-scroller {
+/*** hope-scroller for some content ***/
+hope-scroller {
   display: block;
   position: absolute;
   -webkit-transition: -webkit-transform cubic-bezier(0, 0, 0.25, 1) 0;
   cursor: move;
 }
-scroller[direction=vertical] {
+hope-scroller[direction=vertical] {
   width: 100%;
   min-height: 100%;
 }
-scroller[direction=horizontal] {
+hope-scroller[direction=horizontal] {
   min-width: 100%;
   height: 100%;
 }
-scroller[direction=vertical].scrolling * {
+hope-scroller[direction=vertical].scrolling * {
   cursor: row-resize !important;
 }
-scroller[direction=horizontal].scrolling * {
+hope-scroller[direction=horizontal].scrolling * {
   cursor: col-resize !important;
 }
-.gecko scroller {
+.gecko hope-scroller {
   cursor: -moz-grab;
 }
-.gecko scroller.scrolling * {
+.gecko hope-scroller.scrolling * {
   cursor: -moz-grabbing !important;
 }
 /* scrollbar track */
-scroll-track {
+hope-scroll-track {
   position: absolute;
   z-index: 10;
   pointer-events: none;
@@ -774,20 +774,20 @@ scroll-track {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-scroll-track.horizontal {
+hope-scroll-track.horizontal {
   height: 6px;
   bottom: 0px;
   left: 0px;
   right: 0px;
 }
-scroll-track.vertical {
+hope-scroll-track.vertical {
   top: 0px;
   right: 3px;
   bottom: 0px;
   width: 6px;
 }
 /* scrollbar thumb */
-scroll-thumb {
+hope-scroll-thumb {
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -805,11 +805,11 @@ scroll-thumb {
   background: rgba(255, 255, 255, 0.4);
 }
 /* light appearance */
-scroll-track[appearance~=dark] scroll-thumb {
+hope-scroll-track[appearance~=dark] scroll-thumb {
   background: rgba(0, 0, 0, 0.7);
 }
-/*** Sections: can have header and footers ***/
-section {
+/*** Sections: can have hope-header and footers ***/
+hope-section {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -824,27 +824,39 @@ section {
   -moz-box-flex: 1;
   box-flex: 1;
 }
-section > container {
+hope-section[direction=horizontal] {
+  position: relative;
+  display: box !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-align: stretch;
+  -webkit-box-align: stretch;
+  -moz-box-align: stretch;
+}
+hope-section > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
 }
-/* if a section is supposed to scroll, scroll its contianer instead */
-section[scroll=vertical] {
+/* if a hope-section is supposed to scroll, scroll its contianer instead */
+hope-section[scroll=vertical] {
   overflow: hidden;
 }
-section[scroll=vertical] > container {
+hope-section[scroll=vertical] > hope-container {
   overflow-y: auto;
 }
 /*** Label/Value tricks ***/
-label[appearance~=big], value[appearance~=big] {
+label[appearance~=big], hope-value[appearance~=big] {
   font-size: 1.5em;
 }
-label[appearance~=small], value[appearance~=small] {
+label[appearance~=small], hope-value[appearance~=small] {
   font-size: .8em;
 }
-/*** Editor: section subclass that manages item ***/
-editor {
+/*** Editor: hope-section subclass that manages item ***/
+hope-editor {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -859,7 +871,7 @@ editor {
   -moz-box-flex: 1;
   box-flex: 1;
 }
-editor > container {
+hope-editor > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -874,18 +886,18 @@ editor > container {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-editor > container > * {
+hope-editor > hope-container > * {
   display: block;
 }
-editor > container > rows > row > label {
+hope-editor > hope-container > rows > row > label {
   text-align: right;
   padding-right: 5px;
 }
-editor value {
+hope-editor hope-value {
   font-weight: bold;
 }
-/*** Stack: section which shows one item at a time ***/
-stack {
+/*** Stack: hope-section which shows one item at a time ***/
+hope-stack {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -897,7 +909,7 @@ stack {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-stack > container {
+hope-stack > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -913,7 +925,7 @@ stack > container {
   -moz-box-align: stretch;
 }
 /*** ListViewer ***/
-listviewer {
+hope-listviewer {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -925,7 +937,7 @@ listviewer {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-listviewer > container {
+hope-listviewer > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -942,31 +954,31 @@ listviewer > container {
   overflow-y: auto;
   overflow-x: hidden;
 }
-listviewer > container > rows {
+hope-listviewer > hope-container > rows {
   border-collapse: separate;
   table-layout: fixed;
 }
-listviewer > container > rows > row {
+hope-listviewer > hope-container > rows > row {
   cursor: pointer;
 }
-listviewer > container > rows > row[selected] > * {
+hope-listviewer > hope-container > rows > row[selected] > * {
   background: white;
 }
-listviewer > container > rows > row > label {
+hope-listviewer > hope-container > rows > row > label {
   padding: 7px 5px;
 }
-listviewer > container > rows > row > cell {
+hope-listviewer > hope-container > rows > row > cell {
   padding: 7px 5px;
 }
 /*	inset look	*/
-listviewer[appearance=inset] > container > rows > row > * {
+hope-listviewer[appearance=inset] > hope-container > rows > row > * {
   border-top: 1px solid #999;
   line-height: 1.5;
 }
-listviewer[appearance=inset] > container > rows > row:first-child > * {
+hope-listviewer[appearance=inset] > hope-container > rows > row:first-child > * {
   border-top-width: 0;
 }
-listviewer[appearance=inset] > container > rows > row[selected] {
+hope-listviewer[appearance=inset] > hope-container > rows > row[selected] {
   -moz-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
   -webkit-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
   background-color: rgba(255, 223, 71, 0.8);
@@ -975,11 +987,11 @@ listviewer[appearance=inset] > container > rows > row[selected] {
   border-radius: 3px;
   font-weight: bold;
 }
-listviewer[appearance=inset] > container > rows > row[selected] > * {
+hope-listviewer[appearance=inset] > hope-container > rows > row[selected] > * {
   background: transparent;
 }
 /*** ItemViewer ***/
-itemviewer {
+hope-itemviewer {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -991,18 +1003,18 @@ itemviewer {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-itemViewer > container {
+itemViewer > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
   overflow: auto;
 }
-itemviewer > container > rows > row > output {
+hope-itemviewer > hope-container > rows > row > output {
   cursor: default;
 }
-/*** keymap ***/
+/*** hope-keymap ***/
 /*** Menu elements ***/
-contextmenu {
+hope-menu {
   left: 0;
   top: 0;
   position: absolute;
@@ -1018,54 +1030,61 @@ contextmenu {
   -moz-border-image: url(theme/ios/frame-popover.png) 25 15 30 15 repeat;
   -webkit-border-image: url(theme/ios/frame-popover.png) 25 15 30 15 repeat;
 }
-contextmenu > container {
+hope-menu > hope-container {
   margin: -18px -2px -13px -2px;
 }
-.mobile contextmenu {
+.mobile hope-menu {
   font-size: 150%;
 }
-contextmenu separator {
+hope-menu hope-separator {
   display: block;
   height: 4px;
   overflow: hidden;
 }
-contextmenu group {
+hope-menu hope-group {
   display: block;
 }
-contextmenu action {
+hope-menu hope-action {
   display: block;
   width: 100%;
   margin: 2px 0px;
 }
-Xcontextmenu action:hover {
-  background-color: #ffe933;
-}
-Xcontextmenu action:active {
-  background-color: lightblue;
-}
-Xscontextmenu action[disabled] {
-  opacity: .15;
-  background-color: white !important;
-  cursor: default;
-}
-Xcontextmenu action[icon] {
-  background-repeat: no-repeat;
-  background-position: 6px center;
-  padding-left: 29px !important;
-}
-Xcontextmenu[showchecks] action {
-  padding-right: 10px;
-  border-right-width: 20px;
-}
-Xcontextmenu action[selected] {
-  border-color: transparent;
-  border-width: 2px 20px 0px 0px;
-  border-image: url(theme/icons/menu-check.png) 2 20 0 0 stretch;
-  -moz-border-image: url(theme/icons/menu-check.png) 2 20 0 0 stretch;
-  -webkit-border-image: url(theme/icons/menu-check.png) 2 20 0 0 stretch;
-}
+/* NOT SURE WHY THESE ARE TURNED OFF...	
+	hope-menu hope-action:hover {
+		background-color:rgb(255,233,51);
+	}
+
+	hope-menu hope-action:active {
+		background-color:lightblue;
+	}
+
+	hope-menu hope-action[disabled] {
+		opacity:.15;
+		background-color:white !important;
+		cursor:default;
+	}
+
+
+	
+// menus with icons
+	hope-menu hope-action[icon] {
+		background-repeat:no-repeat;
+		background-position:6px center;
+		padding-left:29px !important;
+	}
+
+// menus with checks
+	hope-menu[showchecks] hope-action {
+		padding-right:10px;
+		border-right-width:20px;
+	}
+
+	hope-menu hope-action[selected] {
+		.borderImage(url(theme/icons/menu-check.png), 2 20 0 0, 2px 20px 0px 0px,stretch);
+	}
+*/
 /*** Toolbar ***/
-toolbar {
+hope-toolbar {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1079,39 +1098,39 @@ toolbar {
   padding: 0px 5px;
   width: 100%;
 }
-toolbar > * {
+hope-toolbar > * {
   display: block;
   vertical-align: middle;
 }
-toolbar > label {
+hope-toolbar > label {
   margin-left: 10px;
   margin-right: 10px;
 }
-toolbar[appearance~=top] {
+hope-toolbar[appearance~=top] {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-right-radius: 5px;
   -webkit-border-top-left-radius: 5px;
 }
-/* black toolbar */
-toolbar[appearance~=black] {
+/* black hope-toolbar */
+hope-toolbar[appearance~=black] {
   height: 43px;
   background: url(theme/ios/toolbar-black.png) repeat-x;
   color: white;
 }
-/* "inset" appearance toolbar */
-toolbar[appearance~=inset] {
+/* "inset" appearance hope-toolbar */
+hope-toolbar[appearance~=inset] {
   padding: 3px 10px 0 10px;
 }
-toolbar[appearance~=inset] label {
+hope-toolbar[appearance~=inset] label {
   line-height: 31px;
   font-weight: bold;
 }
-.gecko toolbar[appearance~=inset] label {
+.gecko hope-toolbar[appearance~=inset] label {
   line-height: 28px;
 }
 /*** Spring is a spacer which uses flex to greedily take up space ***/
-spring {
+hope-spring {
   -webkit-box-flex: 1 !important;
   -moz-box-flex: 1 !important;
   box-flex: 1 !important;
@@ -1119,13 +1138,13 @@ spring {
 /*** Spacer is a fixed-width spacer.  
  	 Default is 10px wide.  Use style='width:#px' to set width. 
 ***/
-spacer {
+hope-spacer {
   position: relative !important;
   display: inline-block;
   width: 10px;
 }
 /*** Tabs and TabBar ***/
-tabgroup {
+hope-tabgroup {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1137,7 +1156,7 @@ tabgroup {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-tabgroup > container {
+hope-tabgroup > hope-container {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -1152,16 +1171,16 @@ tabgroup > container {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-tabgroup > container > * {
+hope-tabgroup > hope-container > * {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
 }
-/* tabselector holds a bunch of actions which select tabgroup children */
-tabselector {
+/* hope-tabselector holds a bunch of actions which select hope-tabgroup children */
+hope-tabselector {
   white-space: nowrap;
 }
-tabselector tab {
+hope-tabselector hope-tab {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: inline-block;
   height: 30px;
@@ -1176,7 +1195,7 @@ tabselector tab {
   -moz-border-image: url(theme/ios/segment-black.png) 0 1 0 1 repeat;
   -webkit-border-image: url(theme/ios/segment-black.png) 0 1 0 1 repeat;
 }
-tabselector tab:first-child {
+hope-tabselector hope-tab:first-child {
   padding-left: 15px;
   border-color: transparent;
   border-width: 0px 1px 0px 6px;
@@ -1184,7 +1203,7 @@ tabselector tab:first-child {
   -moz-border-image: url(theme/ios/segment-black-start.png) 0 1 0 6 repeat;
   -webkit-border-image: url(theme/ios/segment-black-start.png) 0 1 0 6 repeat;
 }
-tabselector tab:last-child {
+hope-tabselector hope-tab:last-child {
   padding-right: 15px;
   border-color: transparent;
   border-width: 0px 6px 0px 1px;
@@ -1192,33 +1211,33 @@ tabselector tab:last-child {
   -moz-border-image: url(theme/ios/segment-black-end.png) 0 6 0 1 repeat;
   -webkit-border-image: url(theme/ios/segment-black-end.png) 0 6 0 1 repeat;
 }
-tabselector tab[selected] {
+hope-tabselector hope-tab[selected] {
   border-color: transparent;
   border-width: 0px 1px 0px 1px;
   border-image: url(theme/ios/segment-black-selected.png) 0 1 0 1 repeat;
   -moz-border-image: url(theme/ios/segment-black-selected.png) 0 1 0 1 repeat;
   -webkit-border-image: url(theme/ios/segment-black-selected.png) 0 1 0 1 repeat;
 }
-tabselector tab[selected]:first-child {
+hope-tabselector hope-tab[selected]:first-child {
   border-color: transparent;
   border-width: 0px 1px 0px 6px;
   border-image: url(theme/ios/segment-black-selected-start.png) 0 1 0 6 repeat;
   -moz-border-image: url(theme/ios/segment-black-selected-start.png) 0 1 0 6 repeat;
   -webkit-border-image: url(theme/ios/segment-black-selected-start.png) 0 1 0 6 repeat;
 }
-tabselector tab[selected]:last-child {
+hope-tabselector hope-tab[selected]:last-child {
   border-color: transparent;
   border-width: 0px 6px 0px 1px;
   border-image: url(theme/ios/segment-black-selected-end.png) 0 6 0 1 repeat;
   -moz-border-image: url(theme/ios/segment-black-selected-end.png) 0 6 0 1 repeat;
   -webkit-border-image: url(theme/ios/segment-black-selected-end.png) 0 6 0 1 repeat;
 }
-/** add tighter spacing to a tabselector by adding css class "tight" **/
-tabselector.tight tab {
+/** add tighter spacing to a hope-tabselector by adding css class "tight" **/
+hope-tabselector.tight hope-tab {
   padding: 0 5px;
 }
-/*** notice panels ***/
-notice {
+/*** hope-notice panels ***/
+hope-notice {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -1229,7 +1248,7 @@ notice {
   font-size: 1.5em;
   padding: 2em;
 }
-*[appearance~=inset] notice container, notice[appearance=smoke] container {
+*[appearance~=inset] hope-notice hope-container, hope-notice[appearance=smoke] hope-container {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -1239,19 +1258,19 @@ notice {
   background-color: black;
   color: white;
 }
-overlay[appearance~=blue] notice {
+hope-overlay[appearance~=blue] hope-notice {
   color: white;
   padding: 50px;
 }
-/*** messageboard singleton ***/
-messageboard {
+/*** hope-messageboard singleton ***/
+hope-messageboard {
   display: block;
   position: absolute;
   right: 5px;
   top: 45px;
   width: 225px;
 }
-messageboard message {
+hope-messageboard hope-message {
   -webkit-border-radius: 16px;
   -moz-border-radius: 16px;
   border-radius: 16px;
@@ -1273,20 +1292,20 @@ messageboard message {
   -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
 }
-messageboard message.warning {
+hope-messageboard hope-message.warning {
   background-color: darkgoldenrod;
 }
-messageboard message.error {
+hope-messageboard hope-message.error {
   background-color: darkred;
 }
 /*** Overlay ***/
-.horizontal section overlay {
+.horizontal hope-section hope-overlay {
   height: 768px;
 }
-.vertical section overlay {
+.vertical hope-section hope-overlay {
   height: 1024px;
 }
-overlay {
+hope-overlay {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -1294,7 +1313,7 @@ overlay {
   height: 100%;
   z-index: 10000;
 }
-overlay > mask > border {
+hope-overlay > hope-mask > hope-border {
   position: relative;
   display: block;
   width: 720px;
@@ -1305,7 +1324,7 @@ overlay > mask > border {
   max-height: 740px;
   margin-top: 10px;
 }
-overlay > mask > border > container {
+hope-overlay > hope-mask > hope-border > hope-container {
   width: 100%;
   height: 100%;
   position: relative;
@@ -1319,7 +1338,7 @@ overlay > mask > border > container {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-overlay > mask > border > close {
+hope-overlay > hope-mask > hope-border > hope-close {
   display: block;
   position: absolute;
   width: 42px;
@@ -1330,34 +1349,34 @@ overlay > mask > border > close {
   z-index: 10;
   cursor: pointer;
 }
-overlay.noclose > mask > border {
+hope-overlay.noclose > hope-mask > hope-border {
   margin-top: 0px;
 }
-overlay.noclose > mask > border > close {
+hope-overlay.noclose > hope-mask > hope-border > hope-close {
   display: none;
 }
-overlay[appearance~=white] > mask > border {
+hope-overlay[appearance~=white] > hope-mask > hope-border {
   background-color: white;
 }
-.desktop overlay[appearance~=white] > mask > border {
+.desktop hope-overlay[appearance~=white] > hope-mask > hope-border {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
-overlay[appearance~=white].hasHeader > mask > border > header {
+hope-overlay[appearance~=white].hasHeader > hope-mask > hope-border > hope-header {
   border-bottom: 1px solid #999;
 }
-/*** blue overlay ***/
-overlay[appearance~=blue] > mask > border {
+/*** blue hope-overlay ***/
+hope-overlay[appearance~=blue] > hope-mask > hope-border {
   background-color: #1b1e2b;
   border: 3px solid white;
 }
-.desktop overlay[appearance~=blue] > mask > border {
+.desktop hope-overlay[appearance~=blue] > hope-mask > hope-border {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
-overlay[appearance~=blue].hasHeader > mask > border > header {
+hope-overlay[appearance~=blue].hasHeader > hope-mask > hope-border > hope-header {
   position: relative;
   top: -4px;
   -moz-border-radius-topright: 20px;
@@ -1367,41 +1386,41 @@ overlay[appearance~=blue].hasHeader > mask > border > header {
   padding-left: 30px;
   background-color: white;
 }
-overlay[appearance~=blue].hasHeader > mask > border > header > label {
+hope-overlay[appearance~=blue].hasHeader > hope-mask > hope-border > hope-header > label {
   color: black;
   font-size: 1.3em;
   font-weight: bold;
   padding: 5px;
 }
-overlay[appearance~=blue] > mask > border > container {
+hope-overlay[appearance~=blue] > hope-mask > hope-border > hope-container {
   padding: 10px;
   color: white;
 }
-overlay[appearance~=blue] label.head {
+hope-overlay[appearance~=blue] label.head {
   color: white;
   text-align: left;
   font-size: 1.3em;
   font-weight: bold;
   margin: 1em;
 }
-/*** form overlay ***/
-overlay[appearance~=form] > mask > border {
+/*** form hope-overlay ***/
+hope-overlay[appearance~=form] > hope-mask > hope-border {
   background-color: #1b1e2b;
   border: 5px solid white;
   color: white;
 }
-.desktop overlay[appearance~=form] > mask > border {
+.desktop hope-overlay[appearance~=form] > hope-mask > hope-border {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
-overlay[appearance~=form].hasHeader > mask > border > header title {
+hope-overlay[appearance~=form].hasHeader > hope-mask > hope-border > hope-header title {
   display: block;
   font-size: 2em;
   font-weight: bold;
   margin: 10px 0;
 }
-overlay[appearance~=form] > mask > border > container {
+hope-overlay[appearance~=form] > hope-mask > hope-border > hope-container {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -1409,26 +1428,26 @@ overlay[appearance~=form] > mask > border > container {
   padding: 10px;
   color: white;
 }
-overlay[appearance~=form].hasHeader > mask > border > footer {
+hope-overlay[appearance~=form].hasHeader > hope-mask > hope-border > hope-footer {
   padding: 5px 10px;
 }
-/*** form section ***/
-section[appearance~=form] > container {
+/*** form hope-section ***/
+hope-section[appearance~=form] > hope-container {
   padding: 10px;
 }
-section[appearance~=form] > container > row > *, section[appearance~=form] > container > rows > row > * {
+hope-section[appearance~=form] > hope-container > row > *, hope-section[appearance~=form] > hope-container > rows > row > * {
   vertical-align: baseline;
 }
-section[appearance~=form] > container > row > label, section[appearance~=form] > container > rows > row > label {
+hope-section[appearance~=form] > hope-container > row > label, hope-section[appearance~=form] > hope-container > rows > row > label {
   text-align: right;
   font-weight: bold;
   opacity: .5;
   padding-left: 10px;
   padding-right: 5px;
 }
-/*** panel ***/
-/*** white panel/container ***/
-panel[appearance~=white], container[appearance~=white] {
+/*** hope-panel ***/
+/*** white hope-panel/hope-container ***/
+hope-panel[appearance~=white], hope-container[appearance~=white] {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -1439,39 +1458,39 @@ panel[appearance~=white], container[appearance~=white] {
   border: 1px solid #ccc;
   font-size: 1.3em;
 }
-panel[appearance~=white] > container > row, container[appearance~=white] > row {
+hope-panel[appearance~=white] > hope-container > row, hope-container[appearance~=white] > row {
   width: 100%;
 }
-panel[appearance~=white] > container > row > *, container[appearance~=white] > row > * {
+hope-panel[appearance~=white] > hope-container > row > *, hope-container[appearance~=white] > row > * {
   border-bottom: 1px solid #ccc;
   vertical-align: middle;
 }
-panel[appearance~=white] > container > row:last-child > *, container[appearance~=white] > row:last-child > * {
+hope-panel[appearance~=white] > hope-container > row:last-child > *, hope-container[appearance~=white] > row:last-child > * {
   border-bottom-width: 0;
 }
-panel[appearance~=white] > container > row > label, container[appearance~=white] > row > label {
+hope-panel[appearance~=white] > hope-container > row > label, hope-container[appearance~=white] > row > label {
   width: 100%;
   font-weight: bold;
 }
-panel[appearance~=white] {
+hope-panel[appearance~=white] {
   margin: 1em 10% 1.5em 10%;
   width: 80%;
   color: black;
 }
-panel[appearance~=white] > container > row > label {
+hope-panel[appearance~=white] > hope-container > row > label {
   width: 100%;
   font-weight: bold;
   padding-left: 1em;
   padding-right: 1em;
 }
-/*** grey panel ***/
-panel[appearance~=grey] {
+/*** grey hope-panel ***/
+hope-panel[appearance~=grey] {
   background-color: #40434f;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-panel[appearance~=grey] toolbar {
+hope-panel[appearance~=grey] hope-toolbar {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-right-radius: 5px;
@@ -1479,20 +1498,20 @@ panel[appearance~=grey] toolbar {
   height: 44px;
   background-image: url(theme/ios/toolbar-grey.png);
 }
-panel[appearance~=grey] toolbar action {
+hope-panel[appearance~=grey] hope-toolbar hope-action {
   border: 0px;
   margin-left: 10px;
   margin-right: -5px;
 }
-panel[appearance~=grey] toolbar label {
+hope-panel[appearance~=grey] hope-toolbar label {
   text-shadow: rgba(255, 255, 255, 0.4) 1px 1px 0;
   font-size: 1.6em;
   color: #717880;
   font-weight: bold;
   text-align: center;
 }
-/*** blue panel ***/
-panel[appearance~=blue] > header {
+/*** blue hope-panel ***/
+hope-panel[appearance~=blue] > hope-header {
   background-color: #444a63;
   -moz-border-radius-topright: 10px;
   -moz-border-radius-topleft: 10px;
@@ -1504,7 +1523,7 @@ panel[appearance~=blue] > header {
   text-align: center;
   font-weight: bold;
 }
-panel[appearance~=blue] > container {
+hope-panel[appearance~=blue] > hope-container {
   -moz-border-radius-bottomright: 10px;
   -moz-border-radius-bottomleft: 10px;
   -webkit-border-bottom-right-radius: 10px;
@@ -1512,8 +1531,8 @@ panel[appearance~=blue] > container {
   background: #32384e;
   color: white;
 }
-/*** popup panel (kinda a hybrid -- UI guidelines? ***/
-listSelector {
+/*** popup hope-panel (kinda a hybrid -- UI guidelines? ***/
+hope-popovermenu {
   position: absolute;
   display: block;
   border-color: transparent;
@@ -1522,11 +1541,16 @@ listSelector {
   -moz-border-image: url(theme/ios/popup-black.png) 50 15 15 15 repeat;
   -webkit-border-image: url(theme/ios/popup-black.png) 50 15 15 15 repeat;
   z-index: 10000;
+  min-width: 100px;
 }
-listSelector > container {
+hope-popovermenu > hope-container {
   margin: -20px -5px -5px;
+  padding-right: 16px;
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-listSelector > .arrow {
+hope-popovermenu > .arrow {
   position: absolute;
   left: 0;
   top: -48px;
@@ -1534,25 +1558,34 @@ listSelector > .arrow {
   height: 20px;
   background: url(theme/ios/popup-black-arrow-top.png) no-repeat top center;
 }
-listSelector label {
+hope-popovermenu row label {
   white-space: nowrap;
   padding: 8px 60px 8px 12px;
+  border-bottom: 1px solid #ccc;
 }
-listSelector row[selected] label {
+hope-popovermenu row:last-child label {
+  border-bottom-width: 0px;
+}
+hope-popovermenu row[selected] label {
   color: #1a4c8b;
   background: url(theme/ios/menu-check.png) no-repeat right center;
 }
-listSelectorButton {
-  padding: 10px 40px 10px 10px;
-  color: #1a4c8b;
-  background: url(theme/ios/menu-more.png) no-repeat right center;
+hope-popovermenubutton {
+  padding: 5px 0 0 0;
+  color: black;
   white-space: nowrap;
+  height: 30px;
+  border-color: transparent;
+  border-width: 0px 37px 0px 8px;
+  border-image: url(theme/ios/list-selector-button-inset.png) 0 37 0 8 repeat;
+  -moz-border-image: url(theme/ios/list-selector-button-inset.png) 0 37 0 8 repeat;
+  -webkit-border-image: url(theme/ios/list-selector-button-inset.png) 0 37 0 8 repeat;
 }
-/*** CheckSwitch - iOS style checkbox ***/
-checkswitch {
+/*** CheckSwitch - iOS style hope-checkbox ***/
+hope-checkswitch {
   height: 27px;
 }
-checkswitch > span {
+hope-checkswitch > span {
   position: relative;
   display: inline-block;
   width: 94px;
@@ -1562,7 +1595,7 @@ checkswitch > span {
   cursor: pointer;
   margin: 10px;
 }
-checkswitch div {
+hope-checkswitch div {
   display: inline-block;
   position: absolute;
   height: 27px;
@@ -1571,16 +1604,16 @@ checkswitch div {
   background-repeat: no-repeat;
   -webkit-transition: left ease-in 200ms;
 }
-checkswitch div.off {
+hope-checkswitch div.off {
   left: -55px;
   background: url(theme/ios/switch-off.png) no-repeat;
 }
-checkswitch div.on {
+hope-checkswitch div.on {
   left: 0px;
   background: url(theme/ios/switch-on.png) no-repeat;
 }
 /*** WebView -- full screen embedded web browser ***/
-webview {
+hope-webview {
   position: absolute;
   position: relative;
   display: box !important;
@@ -1593,21 +1626,21 @@ webview {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-webview > iframe {
+hope-webview > iframe {
   border: 0px;
   background: white;
 }
-.gecko webview > iframe {
+.gecko hope-webview > iframe {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
 }
-.webkit webview > iframe {
+.webkit hope-webview > iframe {
   width: 100%;
   height: 92%;
 }
 /*** Split pane (divides into horizontally or vertically stacked panes) ***/
-splitter {
+hope-splitter {
   position: relative;
   position: relative;
   display: box !important;
@@ -1619,8 +1652,11 @@ splitter {
   box-align: stretch;
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
 }
-splitter[direction=horizontal] {
+hope-splitter[direction=horizontal] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1632,10 +1668,10 @@ splitter[direction=horizontal] {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-splitter[direction=horizontal][visible=no] {
+hope-splitter[direction=horizontal][visible=no] {
   display: none !important;
 }
-splitter > splitbar {
+hope-splitter > splitbar {
   position: absolute;
   z-index: 2;
   left: 10px;
@@ -1643,16 +1679,16 @@ splitter > splitbar {
   height: 10px;
   background-color: green;
 }
-splitter[direction=horizontal] > splitbar {
+hope-splitter[direction=horizontal] > splitbar {
   top: 0;
   right: auto;
   height: 100%;
 }
 /*** Textfield -- managed input field w/error semantics/etc ***/
-textfield {
+hope-textfield {
   display: inline-block;
 }
-textfield[multiline] {
+hope-textfield[multiline] {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1664,38 +1700,38 @@ textfield[multiline] {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-textfield > input {
+hope-textfield > input {
   width: 100%;
 }
-.gecko textfield > textarea {
+.gecko hope-textfield > textarea {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
 }
-.webkit textfield > textarea {
+.webkit hope-textfield > textarea {
   position: absolute;
   width: 100%;
   height: 100%;
 }
-textfield.focus input {
+hope-textfield.focus input {
   background-color: #fffec7;
 }
-textfield.error input {
+hope-textfield.error input {
   background-color: pink;
 }
-textfield > message {
+hope-textfield > hope-message {
   display: block;
   margin-bottom: 3px;
   height: 16px;
 }
-textfield > message.hint {
+hope-textfield > hope-message.hint {
   color: #666;
   font-style: italic;
   font-size: 90%;
   padding-left: 1em;
   padding-right: 1em;
 }
-textfield > message.error {
+hope-textfield > hope-message.error {
   color: darkred;
   font-weight: bold;
   padding-left: 18px;
@@ -1703,14 +1739,14 @@ textfield > message.error {
   line-height: 16px;
 }
 /* specific type/apperance management */
-textfield[type=number] input {
+hope-textfield[type=number] input {
   text-align: right;
   width: 8em;
 }
-textfield[appearance~=small] input {
+hope-textfield[appearance~=small] input {
   width: 5em;
 }
-textfield[type=currency] input {
+hope-textfield[type=currency] input {
   background-image: url(theme/widgets/field-currency-dollar.png);
   background-position: 3px center;
   background-repeat: no-repeat;
@@ -1718,34 +1754,34 @@ textfield[type=currency] input {
   width: 8em;
   text-align: right;
 }
-textfield[type=url] input {
+hope-textfield[type=url] input {
   width: 100%;
 }
-/*** Checkbox -- managed input type='checkbox' ***/
-checkbox {
+/*** Checkbox -- managed input type='hope-checkbox' ***/
+hope-checkbox {
   display: inline-block;
 }
-checkbox > group > label {
+hope-checkbox > hope-group > label {
   padding: 0 5px;
   cursor: pointer;
 }
-checkbox[disabled] > group > label {
+hope-checkbox[disabled] > hope-group > label {
   opacity: .3;
   cursor: default;
 }
-checkbox > message {
+hope-checkbox > hope-message {
   display: block;
   margin-bottom: 3px;
   height: 16px;
 }
-checkbox > message.hint {
+hope-checkbox > hope-message.hint {
   color: #666;
   font-style: italic;
   font-size: 90%;
   padding-left: 1em;
   padding-right: 1em;
 }
-checkbox > message.error {
+hope-checkbox > hope-message.error {
   color: darkred;
   font-weight: bold;
   padding-left: 18px;
@@ -1753,7 +1789,7 @@ checkbox > message.error {
   line-height: 16px;
 }
 /*** Combobox -- input field with menu semantics ***/
-combobox {
+hope-combobox {
   position: relative;
   display: box !important;
   display: -webkit-box !important;
@@ -1765,7 +1801,7 @@ combobox {
   -webkit-box-align: center;
   -moz-box-align: center;
 }
-combobox > input {
+hope-combobox > input {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -1779,43 +1815,83 @@ combobox > input {
   -webkit-border-bottom-right-radius: 0;
   display: inline-block;
 }
-combobox > action {
+hope-combobox > hope-action {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
-  border-image: url(theme/ios/combo-action.png) 0 5 0 5 repeat;
-  -moz-border-image: url(theme/ios/combo-action.png) 0 5 0 5 repeat;
-  -webkit-border-image: url(theme/ios/combo-action.png) 0 5 0 5 repeat;
+  border-image: url(theme/ios/combo-hope-action.png) 0 5 0 5 repeat;
+  -moz-border-image: url(theme/ios/combo-hope-action.png) 0 5 0 5 repeat;
+  -webkit-border-image: url(theme/ios/combo-hope-action.png) 0 5 0 5 repeat;
   height: 25px !important;
   line-height: 25px;
   margin: 1px 3px 0 -3px;
 }
 /*** DirtyBit -- dot which represents the state of a file ***/
-dirtybit {
+hope-dirtybit {
   width: 16px;
   height: 16px;
   background-image: url(theme/ios/dot-grey.png);
 }
-dirtybit[state=saved] {
+hope-dirtybit[state=saved] {
   background-image: url(theme/ios/dot-green.png);
 }
-dirtybit[state=unloaded] {
+hope-dirtybit[state=unloaded] {
   background-image: url(theme/ios/dot-grey.png);
 }
-dirtybit[state=loading] {
+hope-dirtybit[state=loading] {
   background-image: url(theme/ios/dot-blue.png);
 }
-dirtybit[state=dirty] {
+hope-dirtybit[state=dirty] {
   background-image: url(theme/ios/dot-yellow.png);
 }
-dirtybit[state=loadError] {
+hope-dirtybit[state=loadError] {
   background-image: url(theme/ios/dot-red.png);
 }
-dirtybit[state=error] {
+hope-dirtybit[state=error] {
   background-image: url(theme/ios/dot-red.png);
+}
+/*** filter field -- set of fields which allow you to set filter criteria ***/
+hope-filter {
+  display: block;
+}
+hope-filter-clause {
+  display: inline-block;
+  border-color: transparent;
+  border-width: 0px 5px 0px 5px;
+  border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
+  -moz-border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
+  -webkit-border-image: url(theme/ios/btn-white.png) 0 5 0 5 repeat;
+  padding: 0px 6px 0px 0px;
+  margin: 2px;
+  white-space: nowrap;
+}
+hope-filter-clause[status=error] {
+  border-color: transparent;
+  border-width: 0px 5px 0px 5px;
+  border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
+  -moz-border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
+  -webkit-border-image: url(theme/ios/btn-red.png) 0 5 0 5 repeat;
+}
+hope-filter-clause input {
+  position: relative;
+  top: -1px;
+  padding: 0px;
+}
+hope-filter.clauses_1 > hope-filter-clause > hope-action {
+  width: 0px;
+  padding: 0;
+}
+hope-filter.clauses_1 > hope-filter-clause > hope-action > hope-icon {
+  background: none;
+}
+hope-filter-clause > select.parameter:before {
+  content: "and ";
+}
+hope-filter-clause:first-child > select.parameter:before {
+  content: "";
 }
 /*** Icons ***/
-/* icon element -- use this inside a button with border-image */
-icon {
+/* hope-icon element -- use this inside a button with border-image */
+hope-icon {
   display: inline-block;
   position: relative;
   background-position: left center;
@@ -1823,202 +1899,220 @@ icon {
   cursor: pointer;
   vertical-align: middle;
 }
-icon[disabled] {
+hope-icon[disabled] {
   opacity: .1;
   cursor: default;
 }
 /* Icon backgrounds -- attach by having a [icon] attribute on some element.
-	   It's up to your calling context to set where/how the icon shows up.			*/
+	   It's up to your calling context to set where/how the hope-icon shows up.			*/
 /* silk icons -- they don't match but there are a lot of them! */
-*[icon|=silk] > icon {
+*[icon|=silk] > hope-icon {
   width: 16px;
   height: 16px;
 }
-*[icon=silk-add] > icon {
+*[icon=silk-add] > hope-icon {
   background-image: url(theme/silk/add.png);
 }
-*[icon=silk-critical] > icon {
+*[icon=silk-critical] > hope-icon {
   background-image: url(theme/silk/critical.png);
 }
-*[icon=silk-down] > icon {
+*[icon=silk-down] > hope-icon {
   background-image: url(theme/silk/down.png);
 }
-*[icon=silk-horizontal] > icon {
+*[icon=silk-horizontal] > hope-icon {
   background-image: url(theme/silk/horizontal.png);
 }
-*[icon=silk-large] > icon {
+*[icon=silk-large] > hope-icon {
   background-image: url(theme/silk/large.png);
 }
-*[icon=silk-left] > icon {
+*[icon=silk-left] > hope-icon {
   background-image: url(theme/silk/left.png);
 }
-*[icon=silk-link] > icon {
+*[icon=silk-link] > hope-icon {
   background-image: url(theme/silk/link.png);
 }
-*[icon=silk-lock] > icon {
+*[icon=silk-lock] > hope-icon {
   background-image: url(theme/silk/locked.png);
 }
-*[icon=silk-locked] > icon {
+*[icon=silk-locked] > hope-icon {
   background-image: url(theme/silk/locked.png);
 }
-*[icon=silk-medium] > icon {
+*[icon=silk-medium] > hope-icon {
   background-image: url(theme/silk/medium.png);
 }
-*[icon=silk-moveBackwards] > icon {
+*[icon=silk-moveBackwards] > hope-icon {
   background-image: url(theme/silk/moveBackwards.png);
 }
-*[icon=silk-moveForwards] > icon {
+*[icon=silk-moveForwards] > hope-icon {
   background-image: url(theme/silk/moveForwards.png);
 }
-*[icon=silk-moveToBack] > icon {
+*[icon=silk-moveToBack] > hope-icon {
   background-image: url(theme/silk/moveToBack.png);
 }
-*[icon=silk-moveToFront] > icon {
+*[icon=silk-moveToFront] > hope-icon {
   background-image: url(theme/silk/moveToFront.png);
 }
-*[icon=silk-pencil] > icon {
+*[icon=silk-pencil] > hope-icon {
   background-image: url(theme/silk/pencil.png);
 }
-*[icon=silk-person] > icon {
+*[icon=silk-person] > hope-icon {
   background-image: url(theme/silk/person.png);
 }
-*[icon=silk-refresh] > icon {
+*[icon=silk-refresh] > hope-icon {
   background-image: url(theme/silk/refresh.png);
 }
-*[icon=silk-remove] > icon {
+*[icon=silk-remove] > hope-icon {
   background-image: url(theme/silk/remove.png);
 }
-*[icon=silk-right] > icon {
+*[icon=silk-right] > hope-icon {
   background-image: url(theme/silk/right.png);
 }
-*[icon=silk-small] > icon {
+*[icon=silk-small] > hope-icon {
   background-image: url(theme/silk/small.png);
 }
-*[icon=silk-save] > icon {
+*[icon=silk-save] > hope-icon {
   background-image: url(theme/silk/save.png);
 }
-*[icon=silk-stop] > icon {
+*[icon=silk-stop] > hope-icon {
   background-image: url(theme/silk/stop.png);
 }
-*[icon=silk-unlock] > icon {
+*[icon=silk-unlock] > hope-icon {
   background-image: url(theme/silk/unlocked.png);
 }
-*[icon=silk-unlocked] > icon {
+*[icon=silk-unlocked] > hope-icon {
   background-image: url(theme/silk/unlocked.png);
 }
-*[icon=silk-up] > icon {
+*[icon=silk-up] > hope-icon {
   background-image: url(theme/silk/up.png);
 }
-*[icon=silk-vertical] > icon {
+*[icon=silk-vertical] > hope-icon {
   background-image: url(theme/silk/vertical.png);
 }
-*[icon=silk-warning] > icon {
+*[icon=silk-warning] > hope-icon {
   background-image: url(theme/silk/warning.png);
 }
-*[icon=silk-window] > icon {
+*[icon=silk-window] > hope-icon {
   background-image: url(theme/silk/window.png);
 }
-*[icon=silk-windowChart] > icon {
+*[icon=silk-windowChart] > hope-icon {
   background-image: url(theme/silk/windowChart.png);
 }
-*[icon=silk-windowSwitch] > icon {
+*[icon=silk-windowSwitch] > hope-icon {
   background-image: url(theme/silk/windowSwitch.png);
 }
-*[icon=silk-windowTile] > icon {
+*[icon=silk-windowTile] > hope-icon {
   background-image: url(theme/silk/windowTile.png);
 }
 /* light icons */
-*[icon=light-action] > icon {
-  background-image: url(theme/ios/icon-light-action.png);
+*[icon=light-hope-action] > hope-icon {
+  background-image: url(theme/ios/icon-light-hope-action.png);
   width: 28px;
   height: 28px;
   margin-left: 4px;
   margin-right: -5px;
   margin-bottom: 2px;
 }
-*[icon=light-left] > icon {
+*[icon=light-left] > hope-icon {
   background-image: url(theme/ios/icon-light-left.png);
   width: 16px;
   height: 19px;
   left: -1px;
 }
-*[icon=light-left]:active > icon {
+*[icon=light-left]:active > hope-icon {
   background-image: url(theme/ios/icon-light-left-active.png);
 }
-*[icon=light-right] > icon {
+*[icon=light-right] > hope-icon {
   background-image: url(theme/ios/icon-light-right.png);
   width: 16px;
   height: 19px;
   left: 1px;
 }
-*[icon=light-right]:active > icon {
+*[icon=light-right]:active > hope-icon {
   background-image: url(theme/ios/icon-light-right-active.png);
 }
 /* small-light icons */
-*[icon=small-light-down] > icon {
+*[icon=small-light-down] > hope-icon {
   background-image: url(theme/ios/icon-small-light-down.png);
   width: 11px;
   height: 9px;
   margin-top: -1px;
 }
-*[icon=small-light-up] > icon {
+*[icon=small-light-up] > hope-icon {
   background-image: url(theme/ios/icon-small-light-up.png);
   width: 11px;
   height: 9px;
 }
 /* circle icons */
-*[icon|=circle] > icon {
+*[icon|=circle] > hope-icon {
   width: 29px;
   height: 29px;
 }
-*[icon=circle-add-blue] > icon {
+*[icon=circle-add-blue] > hope-icon {
   background-image: url(theme/ios/circle-add-blue.png);
 }
-*[icon=circle-add-green] > icon {
+*[icon=circle-add-green] > hope-icon {
   background-image: url(theme/ios/circle-add-green.png);
 }
-*[icon=circle-checked-red] > icon {
+*[icon=circle-checked-red] > hope-icon {
   background-image: url(theme/ios/circle-checked-red.png);
 }
-*[icon=circle-delete-red] > icon {
+*[icon=circle-delete-red] > hope-icon {
   background-image: url(theme/ios/circle-delete-red.png);
 }
-*[icon=circle-error-red] > icon {
+*[icon=circle-down-blue] > hope-icon {
+  background-image: url(theme/ios/circle-down-blue.png);
+}
+*[icon=circle-error-red] > hope-icon {
   background-image: url(theme/ios/circle-error-red.png);
 }
-*[icon=circle-error-red] > icon {
+*[icon=circle-error-red] > hope-icon {
   background-image: url(theme/ios/circle-error-red.png);
 }
-*[icon=circle-left-blue] > icon {
+*[icon=circle-left-blue] > hope-icon {
   background-image: url(theme/ios/circle-left-blue.png);
 }
-*[icon=circle-minus-blue] > icon {
+*[icon=circle-minus-blue] > hope-icon {
   background-image: url(theme/ios/circle-minus-blue.png);
 }
-*[icon=circle-minus-red] > icon {
+*[icon=circle-minus-red] > hope-icon {
   background-image: url(theme/ios/circle-minus-red.png);
 }
-*[icon=circle-right-blue] > icon {
+*[icon=circle-right-blue] > hope-icon {
   background-image: url(theme/ios/circle-right-blue.png);
 }
+*[icon=circle-up-blue] > hope-icon {
+  background-image: url(theme/ios/circle-up-blue.png);
+}
 /* status dots */
-*[icon|=dot] > icon, icon[icon|=dot] {
+*[icon|=dot] > hope-icon, hope-icon[icon|=dot] {
   width: 16px;
   height: 16px;
   margin-top: -2px;
 }
-*[icon=dot-blue] > icon, icon[icon=dot-blue] {
+*[icon=dot-blue] > hope-icon, hope-icon[icon=dot-blue] {
   background-image: url(theme/ios/dot-blue.png);
 }
-*[icon=dot-gold] > icon, icon[icon=dot-gold] {
+*[icon=dot-gold] > hope-icon, hope-icon[icon=dot-gold] {
   background-image: url(theme/ios/dot-gold.png);
 }
-*[icon=dot-green] > icon, icon[icon=dot-green] {
+*[icon=dot-green] > hope-icon, hope-icon[icon=dot-green] {
   background-image: url(theme/ios/dot-green.png);
 }
-*[icon=dot-grey] > icon, icon[icon=dot-grey] {
+*[icon=dot-grey] > hope-icon, hope-icon[icon=dot-grey] {
   background-image: url(theme/ios/dot-grey.png);
 }
-*[icon=dot-red] > icon, icon[icon=dot-red] {
+*[icon=dot-red] > hope-icon, hope-icon[icon=dot-red] {
   background-image: url(theme/ios/dot-red.png);
+}
+/* status dots */
+*[icon|=field-clear] > hope-icon, hope-icon[icon|=field-clear] {
+  width: 19px;
+  height: 19px;
+  margin-top: -2px;
+}
+*[icon=field-clear] > hope-icon, hope-icon[icon=field-clear] {
+  background-image: url(theme/ios/field-clear.png);
+}
+*[icon=field-clear-white] > hope-icon, hope-icon[icon=field-clear-white] {
+  background-image: url(theme/ios/field-clear-white.png);
 }

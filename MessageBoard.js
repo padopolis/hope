@@ -8,12 +8,12 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 
 new Element.Subclass("hope.MessageBoard", {
-	tag : "messageboard",
+	tag : "hope-messageboard",
 	properties : {
 		onReady : function() {
 			// start the timer which decays messages every second
 			this.$interval = setInterval(this.decayMessages.bind(this), 1000);
-			this.onChild("message", "click", "onMessageClick");
+			this.onChild("hope-message", "click", "onMessageClick");
 		},
 				
 		// decay time in SECONDS
@@ -31,7 +31,7 @@ new Element.Subclass("hope.MessageBoard", {
 			this._addToBoard("error", message);
 		},
 		
-		messageTemplate : "<message class='{{className}}' timestamp='{{timestamp}}'>{{message}}</message>",
+		messageTemplate : "<hope-message class='{{className}}' timestamp='{{timestamp}}'>{{message}}</hope-message>",
 		
 		_addToBoard : function(className, message) {
 			var $message = this.messageTemplate.inflateFirst({
@@ -44,7 +44,7 @@ new Element.Subclass("hope.MessageBoard", {
 		
 		decayMessages : function() {
 			var decayIfBefore = (Date.now() - this.decay * 1000);
-			var messages = this.getChildren("message"),
+			var messages = this.getChildren("hope-message"),
 				stillShowing = 0
 			;
 			messages.forEach(function(message) {
@@ -77,7 +77,7 @@ new Element.Subclass("hope.MessageBoard", {
 new Mixin("Noticeable", {
 	mixinTo : function(it) {
 		this.as("Mixin", arguments);
-		it.prototype.childProcessors = "notice:initNotice";
+		it.prototype.childProcessors = "hope-notice:initNotice";
 		return it;
 	},
 	properties : {

@@ -367,7 +367,7 @@ Array.toRef = function(){return "Array"};
 hope.extendIf(Array.prototype, listMethods);
 
 // make apply methods for each specified instance method
-//	overall return value of is the list, for chaining
+//	overall return value of the applier is the list, for chaining
 List.makeAppliers = function(constructor, methods, firstOnly) {
 	methods = methods.split(",");
 	var proto = constructor.prototype, index = -1, method;
@@ -375,9 +375,10 @@ List.makeAppliers = function(constructor, methods, firstOnly) {
 		proto[method] = (firstOnly 
 			? new Function("if (this[0] != null && typeof this[0]."+method+" === 'function') "
 							 +"return this[0]."+method+".apply(this[0], arguments);")
-		    : new Function("this.forEach(function(it){\
+		    : new Function("var args = arguments;\
+		    					this.forEach(function(it){\
 			    				var fn = it['"+method+"'];\
-			    				if (typeof fn === 'function') fn.apply(it,arguments);\
+			    				if (typeof fn === 'function') fn.apply(it,args);\
 			    			});\
 		    				return this")
 		);

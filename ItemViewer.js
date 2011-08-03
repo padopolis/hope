@@ -4,7 +4,7 @@ Script.require("{{hope}}Section.js", function(){
 
 
 new hope.Section.Subclass("hope.ItemViewer", {
-	tag : "itemviewer",
+	tag : "hope-itemviewer",
 	mixins : "Noticeable",
 	properties : {
 		onReady : function() {
@@ -13,10 +13,10 @@ new hope.Section.Subclass("hope.ItemViewer", {
 //			this.onChild("output", "click", "onSelectOutput", this);
 		},
 		
-		template : "<container visible='no'><rows></rows></container>",
+		template : "<hope-container visible='no'><rows /></hope-container>",
 		
 		// template to draw for each item
-		rowTemplate : "<row><label>{{key}}</label><output>{{value}}</output></row>",
+		rowTemplate : "<row><label>{{key}}</label><hope-output>{{value}}</hope-output></row>",
 		
 		// message to show when no items in the list
 		emptyMessage : "",

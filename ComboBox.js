@@ -7,12 +7,12 @@ Script.require("{{hope}}Textfield.js", function(){
 
 //TODO: is this
 new hope.Textfield.Subclass("hope.Combobox", {
-	tag : "combobox",
+	tag : "hope-combobox",
 	properties : {
 		// template for rendering our actual input control
 //TODO: what about some non-standard input, like a slider we create ourselves, etc???
 		template : "<input part='$input' type='text' appearance='translucent'>"
-				 + "<action part='$button' icon='small-light-down'/>",
+				 + "<hope-action part='$button' icon='small-light-down'/>",
 
 		// update input + message field on update
 		onUpdate : function() {

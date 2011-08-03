@@ -12,6 +12,10 @@ var	_CACHE_PARAMS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var XHR = {
 	debug : hope.debug("XHR"),
 	
+	// constants for http method
+	GET 	: "GET",
+	POST 	: "POST",
+	
 	// don't cache things by default
 	cache : false,
 
@@ -46,7 +50,7 @@ var XHR = {
 		return url;
 	},
 	
-	// IF XHR.dontCache is true,
+	// IF XHR.cache is false or you pass flase into `cache`,
 	//	to defeat browser caching, append a 'unique-y' parameter to the end of a url.
 	// 	Note: We use a single letter, which is not quite so random, but makes the cache param short.
 	addCacheParam : function(url, cache) {
@@ -85,7 +89,7 @@ var XHR = {
 		request.onreadystatechange = function() {
 			if (request.readyState !== 4) return;
 			// iOS local XHR returns status "0" for complete
-			if (request.status === 200 || request.status == 0) {
+			if (request.status === 200) {// || request.status === 0) {
 				var response = request.responseText;
 				if (callback) {
 					callback.call(scope, response, request);
@@ -107,7 +111,7 @@ var XHR = {
 	get : function (url, callback, errback, scope, cache) {
 		var request = new XMLHttpRequest();
 		url = XHR.expand(url);
-		request.open("GET", XHR.addCacheParam(url, cache), true);
+		request.open(XHR.GET, XHR.addCacheParam(url, cache), true);
 		XHR._makeReadyStateFn(request, url, callback, errback, scope);
 		request.send(null);
 		return request;
@@ -120,7 +124,7 @@ var XHR = {
 	getImmediately : function (url, errback, scope, cache) {
 		var request = new XMLHttpRequest();
 		url = XHR.expand(url);
-		request.open("GET", XHR.addCacheParam(url, cache), false);
+		request.open(XHR.GET, XHR.addCacheParam(url, cache), false);
 		request.send(null);
 		if (request.status === 200 || request.status === 0) {
 			return request.responseText;
@@ -144,9 +148,13 @@ var XHR = {
 	post : function(url, urlParams, postBody, callback, errback, scope) {
 		url = XHR.expand(url).appendParameters(urlParams);
 		var request = new XMLHttpRequest();
-		request.open("POST", url, true);
+		request.open(XHR.POST, url, true);
 		XHR._makeReadyStateFn(request, url, callback, errback, scope);
+		if (typeof postBody == "object") {
+			postBody = this.encode(postBody);
+		}
 		request.send(postBody);
+		return request;
 	},
 	
 	// SYNCHRONOUSLY post some data via XHR.
@@ -155,7 +163,7 @@ var XHR = {
 	postImmediately : function (url, urlParams, postBody, callback, errback, scope) {
 		url = XHR.expand(url).appendParameters(urlParams);
 		var request = new XMLHttpRequest();
-		request.open("POST", url, false);
+		request.open(XHR.POST, url, false);
 		request.send(postBody);
 		if (request.status === 200 || request.status === 0) {
 			return request.responseText;

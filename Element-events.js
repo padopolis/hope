@@ -1,58 +1,6 @@
 /*** Element event management ***/
 
 Script.require("{{hope}}Element.js", function(){
-
-	// The global string STOP can be used to cancel events from propagating (eg: from .bubble)
-	window.STOP = "***STOP***";
-	window.CONTINUE = "***CONTINUE***";
-	
-
-	// debug events
-	Event.debug = hope.debug("Events");
-	Event.showEvents = hope.debug("showEvents");
-
-
-	hope.extend(Event.prototype, {
-		//
-		//	`event.stop()` does both stopPropagation and preventDefault().
-		//
-		stop : function stop() {
-			this.preventDefault();
-			this.stopPropagation();
-		},
-	
-		// return the first changedTouches object (for gesture event handling)
-		//	on desktops, returns the element itself
-		//	maps correctly for desktops
-		touch : Getter(function() {
-				return (this.changedTouches ? this.changedTouches[0] : this);
-			}
-		),
-		
-		// Return the event's x-coordinate in terms of an element's offsetParent.
-		elementX : function(target) {
-			if (!target) target = event.target;
-			return (this.touch.pageX - target.pageLeft);
-		},
-		
-		// Return the event's y-coordinate in terms of an element's offsetParent.
-		elementY : function(target) {
-			if (!target) target = event.target;
-			return (this.touch.pageY - target.pageTop);
-		}
-	});
-
-
-
-
-	// Static method to prevent event default behavior.
-	//	You can pass this to an event handler to turn that event off.
-	Event.preventDefault = function(event) {
-		event.preventDefault();
-	}
-	
-
-
 	//
 	//	observation and event handling
 	//
@@ -74,7 +22,7 @@ Script.require("{{hope}}Element.js", function(){
 		//DEBUG: this was throwing an error occasionally in FF -- looks like a race condition
 		//NOTE:  the try...catch is actually pretty slow...
 		try {
-			var methods = element.data[eventName];
+			var methods = element.DATA[eventName];
 		} catch (e) { 
 			console.error(element, event, args); 
 		}
@@ -107,7 +55,7 @@ Script.require("{{hope}}Element.js", function(){
 	
 	// cleanup the element after removing an event
 	function _cleanupAfterRemove(element, eventType) {
-		var data = element.data,
+		var data = element.DATA,
 			eventName = "on" + eventType.capitalize()
 			methods = data[eventName]
 		;
@@ -122,7 +70,6 @@ Script.require("{{hope}}Element.js", function(){
 			data.events = (data.events ? data.events.remove(eventType) : null);
 			if (Event.showEvents && element.attr) element.attr("_events", data.events.join(","));
 		}
-	 
 	}
 	
 	function _observe(element, eventType, handler, scope, args, options) {
@@ -200,7 +147,7 @@ Script.require("{{hope}}Element.js", function(){
 	}
 	
 	function _addToEventList(element, eventType, handler) {
-		var data = element.data, eventName = "on"+eventType.capitalize();
+		var data = element.DATA, eventName = "on"+eventType.capitalize();
 		if (!data[eventName]) {
 			// actually attach the standard event listener
 			element.addEventListener(eventType, _eventHandler, false);
@@ -231,7 +178,7 @@ Script.require("{{hope}}Element.js", function(){
 		//					setter sets events with { eventName:handler, eventName:handler} syntax
 		events : new Property({
 			get : function() {
-				return this.data.events;
+				return this.DATA.events;
 			},
 			
 			set :function(events) {
@@ -249,7 +196,7 @@ Script.require("{{hope}}Element.js", function(){
 	
 		// are we observing some event at all?
 		observing : function(eventType) {
-			return (this.data["on"+eventType.capitalze()] != null);
+			return (this.DATA["on"+eventType.capitalze()] != null);
 		},
 	
 		// Attach a single event handler, or a map of event handlers.
@@ -272,7 +219,7 @@ Script.require("{{hope}}Element.js", function(){
 				this.removeEventListener(eventType, boundHandler, true);
 			} else {
 				// now remove from our event list mechanism
-				var handlers = this.data["on"+eventType.capitalize()];
+				var handlers = this.DATA["on"+eventType.capitalize()];
 				if (handlers) {
 					Observable._removeObservations(handlers, boundHandler);
 					if (!handlers.length) _cleanupAfterRemove(this, eventType);
@@ -372,7 +319,7 @@ Script.require("{{hope}}Element.js", function(){
 		hookup : function(event, handler, scope) {
 			if (typeof event === "string") {
 				var eventKey = event + (scope ? scope.dataId : "");
-				var hooked = (this.data.hooked || (this.data.hooked = {}));
+				var hooked = (this.DATA.hooked || (this.DATA.hooked = {}));
 				if (hooked[eventKey]) this.un(event, hooked[eventKey]);
 				hooked[eventKey] = this.on(event, handler, scope);
 			} else if (event) {
@@ -387,7 +334,7 @@ Script.require("{{hope}}Element.js", function(){
 			var id = (scope ? scope.dataId : "");
 			if (typeof event === "string") {
 				var eventKey = event + (scope ? scope.dataId : "");
-				var hooked = this.data.hooked;
+				var hooked = this.DATA.hooked;
 				if (hooked && hooked[eventKey]) {
 					this.un(event, hooked[eventKey]);
 					delete hooked[eventKey];
@@ -417,11 +364,11 @@ Script.require("{{hope}}Element.js", function(){
 	hope.extend(Element.prototype, eventMethods);
 
 	// add observation methods to window
-	window.data = {};
+	window.DATA = {};
 	hope.extend(window, eventMethods);
 
 	// add observation methods to document
-	document.data = {};
+	document.DATA = {};
 	hope.extend(document, eventMethods);
 
 

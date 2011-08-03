@@ -413,7 +413,7 @@ EP.extendIf({
 	//	If allowOffscreen is true, we can go beyond the boundaries of the screen
 	// TODO: anchor
 	moveToEvent : function(event, allowOffscreen) {
-		var left = (event ? event.pageX : Event.pageX),
+		var left = (event ? event.pageX : Event.pageX) - (this.width/2),
 			top = (event ? event.pageY : Event.pageY),
 			maxX = window.innerWidth,
 			maxY = window.innerHeight

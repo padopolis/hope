@@ -7,7 +7,7 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 //TODO: is this
 new Element.Subclass("hope.Textfield", {
-	tag : "textfield",
+	tag : "hope-textfield",
 	mixins : "Valued",
 	properties : {
 		// set things up and do the initial update when ready
@@ -20,7 +20,7 @@ new Element.Subclass("hope.Textfield", {
 									inherit:true, value:500}),
 		
 		// template is our message display -- the input is created in initializeInput
-		template : "<message part='$message' visible='no'/>",
+		template : "<hope-message part='$message' visible='no'/>",
 
 		// if trim is true, we trim whitespace into and out of the field
 		trim : Attribute({name:"trim", update:true,
@@ -93,6 +93,10 @@ new Element.Subclass("hope.Textfield", {
 				}),
 		
 		
+		// if set, we call this <hope-action> when the return key is pressed in us
+		returnAction : Attribute("returnAction"),
+		
+		
 		// template for rendering our actual input control
 //TODO: what about some non-standard input, like a slider we create ourselves, etc???
 		fieldTemplate : "<input type='{{type}}'>",
@@ -146,6 +150,7 @@ new Element.Subclass("hope.Textfield", {
 			
 			this.$input.on({
 				scope : this,
+				keydown : "onInputKeyDownEvent",
 				keypress : "onInputKeyPressEvent",
 				change : "onInputChangeEvent",
 				focus : "onInputFocusEvent",
@@ -168,6 +173,19 @@ new Element.Subclass("hope.Textfield", {
 	//	handle events sent from the input -- translates them into our events
 	//
 		
+		onInputKeyDownEvent : function(event) {
+			// if our returnAction attribute is set,
+			//	that's a global selector for a <hope-action> to execute
+			//	when the return key is pressed in us
+			if (!this.returnAction) return;
+			
+			if (event.keyCode == Event.keyDownKeyMap["return"]) {
+				var $action = select(this.returnAction);
+				if ($action) $action.fire("activate");
+			}
+		},
+		
+
 		onInputKeyPressEvent : function(event) {
 			this.soon(this.keypressDelay,"inputChanged");
 		},
@@ -213,7 +231,13 @@ new Element.Subclass("hope.Textfield", {
 		selectText : function() {
 			try {
 				this.$input.select();
-			} catch (e) {}
+			} catch (e) {
+				try {
+					this.$input.focus();
+				} catch (e) {
+					console.error(this,".selectText(): exception", e);
+				}
+			}
 		},
 		
 		

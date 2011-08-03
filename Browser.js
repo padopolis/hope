@@ -59,7 +59,8 @@ browserClasses.push("v"+version);
 if (parseInt(version) !== version) browserClasses.push("v"+parseInt(version));
 
 // capability checking stubs
-Browser.cssTransitions = Browser.webkit || (Browser.gecko && Browser.version > 4);
+// TODO:  Gecko>4 SHOULD be able to do CSS transitions, but this isn't currently working
+Browser.cssTransitions = Browser.webkit;// || (Browser.gecko && Browser.version > 4);
 Browser.cssAnimation   = Browser.cssTransitions && !Browser.ios;
 
 // css custom property prefix

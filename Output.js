@@ -5,7 +5,7 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 // GRRRR... you can't take over an  <output>'s @value attribute in WebKit
 new Element.Subclass("hope.Output", {
-	tag : "output",
+	tag : "hope-output",
 	mixins : "Valued",
 	properties : {
 		onUpdate : function() {
@@ -17,7 +17,7 @@ new Element.Subclass("hope.Output", {
 });
 
 new Element.Subclass("hope.Value", {
-	tag : "value",
+	tag : "hope-value",
 	mixins : "Valued",
 	properties : {
 		onUpdate : function() {
