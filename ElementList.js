@@ -7,7 +7,7 @@ Script.require("{{hope}}Element.js,{{hope}}List.js", function(){
 	new List.Subclass("ElementList");
 
 	// give ElementList the same api as Element
-	List.makeAppliers(ElementList, "on,attr,destroy");
+	List.makeAppliers(ElementList, "on,attr,destroy,remove");
 	List.makeAppliers(ElementList, "select,selectAll,matches",true);
 	List.makeAccessors(ElementList, "width,height,left,top,opacity,selected");
 	List.makeAccessors(ElementList, "innerHTML,className,style,bg,radius", true);
