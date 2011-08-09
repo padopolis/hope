@@ -253,8 +253,14 @@ window.Child = function Child(options) {
 window.ChildHTML = function ChildHTML(options) {
 	if (typeof options === "string") options = {selector:options};
 	return new Getter(function() {
-		var it = this.getChild(options.selector);
-		return (it ? it.innerHTML : "");
+		var $child = this.getChild(options.selector);
+		if ($child) {
+			var value = $child.innerHTML;
+			if (options.fixAmpersands) value = value.replaceAll("&amp;","&");
+		} else {
+			value = "";
+		}
+		return value;
 	});
 }
 

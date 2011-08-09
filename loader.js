@@ -64,7 +64,7 @@ var scripts = [
 		"Textfield.js",
 		"Checkbox.js",
 		"Output.js",
-		"Combobox.js",
+//		"Combobox.js",
 		"CheckSwitch.js",
 		"PopoverMenu.js",
 		"DirtyBit.js",
