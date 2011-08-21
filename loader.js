@@ -67,6 +67,7 @@ var scripts = [
 //		"Combobox.js",
 		"CheckSwitch.js",
 		"PopoverMenu.js",
+		"LinkMenu.js",
 		"DirtyBit.js",
 		"SearchInput.js",
 		"MessageBoard.js",

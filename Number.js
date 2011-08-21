@@ -37,7 +37,7 @@ hope.extendIf(Number.prototype, {
 	},
 	
 	// Convert a float between 0 and 1 to a percentage value, with X @digits of precision.
-	//	@digits defaults to 0
+	// if @digits is not a number, will NOT round percentage.
 	toPercent : function(digits) {
 		var percent = this * 100;
 		if (typeof digits === "number") percent = percent.precision(digits);

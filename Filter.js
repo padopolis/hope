@@ -158,6 +158,7 @@ new Element.Subclass("hope.FilterClause", {
 					<select class='parameter' part='$parameter'/>\
 					<select class='operator' part='$operator'/>\
 					<input class='value' part='$value' />",
+//					<hope-action icon='silk-add' part='$adder' />",
 
 		textOperators : {
 			"icontains"	: "contains",
