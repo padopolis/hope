@@ -1884,12 +1884,8 @@ hope-filter-clause input {
   top: -1px;
   padding: 0px;
 }
-hope-filter.clauses_1 > hope-filter-clause > hope-action {
-  width: 0px;
-  padding: 0;
-}
-hope-filter.clauses_1 > hope-filter-clause > hope-action > hope-icon {
-  background: none;
+hope-filter.clauses_1 > hope-filter-clause > hope-action[icon='field-clear-white'] {
+  display: none;
 }
 /*** Icons ***/
 /* hope-icon element -- use this inside a button with border-image */
