@@ -1313,6 +1313,9 @@ hope-overlay {
   height: 100%;
   z-index: 10000;
 }
+.desktop hope-overlay {
+  position: fixed;
+}
 hope-overlay > hope-mask > hope-border {
   position: relative;
   display: block;
@@ -1571,6 +1574,7 @@ hope-popovermenu row[selected] label {
   background: url(theme/ios/menu-check.png) no-repeat right center;
 }
 hope-popovermenubutton {
+  display: inline-block;
   padding: 5px 0 0 0;
   color: black;
   white-space: nowrap;
@@ -1864,6 +1868,10 @@ hope-filter-clause {
   margin: 2px;
   white-space: nowrap;
 }
+hope-filter-clause hope-action[part='$adder'] {
+  padding: 0px;
+  top: -2px;
+}
 hope-filter-clause[status=error] {
   border-color: transparent;
   border-width: 0px 5px 0px 5px;
@@ -1882,12 +1890,6 @@ hope-filter.clauses_1 > hope-filter-clause > hope-action {
 }
 hope-filter.clauses_1 > hope-filter-clause > hope-action > hope-icon {
   background: none;
-}
-hope-filter-clause > select.parameter:before {
-  content: "and ";
-}
-hope-filter-clause:first-child > select.parameter:before {
-  content: "";
 }
 /*** Icons ***/
 /* hope-icon element -- use this inside a button with border-image */
@@ -2103,6 +2105,12 @@ hope-icon[disabled] {
 }
 *[icon=dot-red] > hope-icon, hope-icon[icon=dot-red] {
   background-image: url(theme/ios/dot-red.png);
+}
+/* status dots */
+*[icon=close] > hope-icon, hope-icon[icon=close] {
+  width: 31px;
+  height: 32px;
+  background-image: url(theme/ios/closebox.png);
 }
 /* status dots */
 *[icon|=field-clear] > hope-icon, hope-icon[icon|=field-clear] {

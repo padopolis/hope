@@ -1078,6 +1078,9 @@
 		z-index:10000;
 	}
 	
+	.desktop hope-overlay {
+		position:fixed;
+	}
 	
 	hope-overlay > hope-mask > hope-border {
 		position:relative;
@@ -1374,6 +1377,7 @@
 	}
 
 	hope-popovermenubutton {
+		display:inline-block;
 		padding:5px 0 0 0;
 		color: black;
 		white-space:nowrap;
@@ -1656,6 +1660,11 @@
 		white-space:nowrap;
 	}
 
+	hope-filter-clause hope-action[part='$adder'] {
+		padding:0px;
+		top:-2px;
+	}
+
 	hope-filter-clause[status=error] {
 		.ButtonBorder(url(theme/ios/btn-red.png));
 	}
@@ -1671,13 +1680,6 @@
 	}
 	hope-filter.clauses_1 > hope-filter-clause > hope-action > hope-icon {
 		background:none;
-	}
-
-	hope-filter-clause > select.parameter:before {
-		content:"and ";
-	}
-	hope-filter-clause:first-child > select.parameter:before {
-		content:"";
 	}
 
 
@@ -1776,6 +1778,8 @@
 		*[icon=dot-red] > hope-icon,		hope-icon[icon=dot-red]	{	background-image:url(theme/ios/dot-red.png);	}
 		
 		
+	/* status dots */
+		*[icon=close] > hope-icon,		hope-icon[icon=close]		{	width: 31px; height: 32px; background-image:url(theme/ios/closebox.png);	}
 
 
 	/* status dots */

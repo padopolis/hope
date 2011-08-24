@@ -181,6 +181,33 @@ var XHR = {
 	//		- You know what the EFF you're doing.
 	save : function(file, data, callback, errback) {
 		XHR.post("editor/save.php", {file:file}, data, callback, errback);
+	},
+	
+	
+	
+	// Submit a URL request to another domain through a URL proxy.
+	//	
+	//	NOTE: this is not necessarily safe -- using this can open you up to 
+	//			Cross-Site-Scripting (XSS) attacks!
+	//
+	//	NOTE: For this to work, you need to set `XHR.proxyUrl` to a URL 
+	//			which can be used to proxy a proxy from your server.
+	//			In `XHR.proxyURL`, use `{{url}}` to indicate where the desired URL should go.
+	//			Also, note that the `{{url}}` passed in will be URL-encoded.
+	//
+	proxyUrl : null,
+	
+	proxy : function(url, callback, errback, scope, cache) {
+		var proxyUrl = XHR.proxyUrl;
+		if (!proxyUrl) throw "You must define XHR.proxyUrl to use the XHR.proxy() method";
+
+		// substitute the escaped URL in the proxyUrl
+		proxyUrl = proxyUrl.expand({url:escape(url)});
+		
+		// and just call as a normal get
+		var request = XHR.get(proxyUrl, callback, errback, scope, cache);
+		window.request = request;
+		return request;
 	}
 };
 hope.setGlobal("XHR", XHR);

@@ -16,7 +16,7 @@ new hope.Section.Subclass("hope.Overlay", {
 		autoHide : new Attribute({name:"autoHide", type:"flag", falseIf:[false,"false","no"] }),
 		listeners : "click:onClick",
 		
-		onReady : function() {
+		onShown : function() {
 			this.$close.visible = this.autoHide;
 		},
 		

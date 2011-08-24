@@ -8,12 +8,8 @@ Script.require("{{hope}}Element-attach.js", function(){
 new Element.Subclass("hope.Filter", {
 	tag : "hope-filter",
 	properties : {
-		template : "<hope-action visible='no' part='$adder' appearance='black' label='Add Expression' icon='silk-add' />",
 		onReady : function() {
 			// set up events
-// TODO: setting it up this way causes activate to fire twice... ???
-//			this.$adder.on("activate", this.onAdderPressed, this);
-			this.$adder.on("click", this.onAdderPressed, this);
 		},
 		
 		$clauses : Children("hope-filter-clause"),
@@ -24,7 +20,6 @@ new Element.Subclass("hope.Filter", {
 			onChange : function(parameterSet) {
 				// clear all the old clauses
 				this.clearClauses();
-				this.$adder.visible = !!parameterSet;
 				this.makeClause();
 			
 				// create a new lcause
@@ -57,7 +52,7 @@ new Element.Subclass("hope.Filter", {
 		
 		addNewClause : function(param, operator, value) {
 			var $clause = this.makeClause(param, operator, value);
-			this.insertBefore($clause, this.$adder);
+			this.append($clause);
 			return $clause;
 		},
 		
@@ -144,6 +139,7 @@ new Element.Subclass("hope.FilterClause", {
 			this.$clearBtn.on("activate", this.onClearPressed, this);
 			this.$parameter.on("change", this.onParameterChanged, this);
 			this.$operator.on("change", this.onOperatorChanged, this);
+			this.$adder.on("activate", this.onAdderPressed, this);
 
 			this.$value.on({
 				scope : this,
@@ -157,8 +153,8 @@ new Element.Subclass("hope.FilterClause", {
 		template : "<hope-action icon='field-clear-white' part='$clearBtn'/>\
 					<select class='parameter' part='$parameter'/>\
 					<select class='operator' part='$operator'/>\
-					<input class='value' part='$value' />",
-//					<hope-action icon='silk-add' part='$adder' />",
+					<input class='value' part='$value' />\
+					<hope-action icon='silk-add' part='$adder' />",
 
 		textOperators : {
 			"icontains"	: "contains",
@@ -263,14 +259,18 @@ new Element.Subclass("hope.FilterClause", {
 		onClearPressed : function(event) {
 			this.$filter.onClearPressed(this);
 		},
+		
+		onAdderPressed : function(event) {
+			this.$filter.onAdderPressed(event);
+		},
 
 		onParameterChanged : function(event) {
 			this.parameter = this.$parameter.value;
 			this.soon(0,"valueChanged");		
 		},
 
-		onOpearatorChanged : function(event) {
-			this.parameter = this.$parameter.value;
+		onOperatorChanged : function(event) {
+			this.operator = this.$operator.value;
 			this.soon(0,"valueChanged");		
 		},
 
