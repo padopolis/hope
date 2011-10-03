@@ -248,7 +248,10 @@
 /*** Generic inputs ***/
 
 	input[type=text],
-	input[type=password]
+	input[type=currency],
+	input[type=password],
+	input[type=url],
+	input[type=urlfragment],
 	textarea
 	{
 		.fieldShadow;		
@@ -272,16 +275,11 @@
 		.clearAppearance;
 		.fieldShadow;
 		.round(12px);
+		height:24px;
 		border:0px;
 		background:url(theme/ios/field-searchIcon.png) white no-repeat 5px center;
-		color:black;
-		min-height:24px !important;
 		padding-left:30px;
 		min-width: 80px;
-	}
-	
-	input[type=search] {
-		font-size:18px;
 	}
 
 /*** <ui> is the outer hope-container of our user interface ***/
@@ -1705,24 +1703,26 @@
 
 		/* silk icons -- they don't match but there are a lot of them! */
 		*[icon|=silk] > hope-icon				{	width: 16px; height: 16px;	}
-		*[icon=silk-add] > hope-icon				{	background-image:url(theme/silk/add.png);	}
+		*[icon=silk-add] > hope-icon			{	background-image:url(theme/silk/add.png);	}
 		*[icon=silk-critical] > hope-icon		{	background-image:url(theme/silk/critical.png);	}
 		*[icon=silk-down] > hope-icon			{	background-image:url(theme/silk/down.png);	}
+		*[icon=silk-gear] > hope-icon			{	background-image:url(theme/silk/gear.png);	}
 		*[icon=silk-horizontal] > hope-icon		{	background-image:url(theme/silk/horizontal.png);	}
 		*[icon=silk-large] > hope-icon 			{	background-image:url(theme/silk/large.png);	}
 		*[icon=silk-left] > hope-icon			{	background-image:url(theme/silk/left.png);	}
 		*[icon=silk-link] > hope-icon			{	background-image:url(theme/silk/link.png);	}
+		*[icon=silk-link-error] > hope-icon		{	background-image:url(theme/silk/link-error.png);	}
 		*[icon=silk-lock] > hope-icon			{	background-image:url(theme/silk/locked.png);	}
 		*[icon=silk-locked] > hope-icon			{	background-image:url(theme/silk/locked.png);	}
-		*[icon=silk-medium] > hope-icon 			{	background-image:url(theme/silk/medium.png);	}
+		*[icon=silk-medium] > hope-icon 		{	background-image:url(theme/silk/medium.png);	}
 		*[icon=silk-moveBackwards] > hope-icon	{	background-image:url(theme/silk/moveBackwards.png);	}
 		*[icon=silk-moveForwards] > hope-icon	{	background-image:url(theme/silk/moveForwards.png);	}
 		*[icon=silk-moveToBack] > hope-icon		{	background-image:url(theme/silk/moveToBack.png);	}
-		*[icon=silk-moveToFront] > hope-icon		{	background-image:url(theme/silk/moveToFront.png);	}
+		*[icon=silk-moveToFront] > hope-icon	{	background-image:url(theme/silk/moveToFront.png);	}
 		*[icon=silk-pencil] > hope-icon			{	background-image:url(theme/silk/pencil.png);	}
 		*[icon=silk-person] > hope-icon			{	background-image:url(theme/silk/person.png);	}
-		*[icon=silk-refresh] > hope-icon			{	background-image:url(theme/silk/refresh.png);	}
-		*[icon=silk-remove] > hope-icon 			{	background-image:url(theme/silk/remove.png);	}
+		*[icon=silk-refresh] > hope-icon		{	background-image:url(theme/silk/refresh.png);	}
+		*[icon=silk-remove] > hope-icon 		{	background-image:url(theme/silk/remove.png);	}
 		*[icon=silk-right] > hope-icon			{	background-image:url(theme/silk/right.png);	}
 		*[icon=silk-small] > hope-icon 			{	background-image:url(theme/silk/small.png);	}
 		*[icon=silk-save] > hope-icon 			{	background-image:url(theme/silk/save.png);	}
@@ -1731,9 +1731,10 @@
 		*[icon=silk-unlocked] > hope-icon		{	background-image:url(theme/silk/unlocked.png);	}
 		*[icon=silk-up] > hope-icon				{	background-image:url(theme/silk/up.png);	}
 		*[icon=silk-vertical] > hope-icon		{	background-image:url(theme/silk/vertical.png);	}
-		*[icon=silk-warning] > hope-icon			{	background-image:url(theme/silk/warning.png);	}
+		*[icon=silk-video] > hope-icon			{	background-image:url(theme/silk/film.png);	}
+		*[icon=silk-warning] > hope-icon		{	background-image:url(theme/silk/warning.png);	}
 		*[icon=silk-window] > hope-icon			{	background-image:url(theme/silk/window.png);	}
-		*[icon=silk-windowChart] > hope-icon		{	background-image:url(theme/silk/windowChart.png);	}
+		*[icon=silk-windowChart] > hope-icon	{	background-image:url(theme/silk/windowChart.png);	}
 		*[icon=silk-windowSwitch] > hope-icon	{	background-image:url(theme/silk/windowSwitch.png);	}
 		*[icon=silk-windowTile] > hope-icon		{	background-image:url(theme/silk/windowTile.png);	}
 

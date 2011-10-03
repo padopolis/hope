@@ -69,6 +69,7 @@ new Element.Subclass("hope.Checkbox", {
 			if (!this.$input) return;
 			if (arguments.length == 0) value = this.value;
 			this.$input.checked = (value == this.checkedValue);
+console.info(this, value, this.checkedValue, this.$input.checked);
 		},
 		
 		// return the value actually stored in the input right now
@@ -127,7 +128,7 @@ new Element.Subclass("hope.Checkbox", {
 		
 		// fired when the input value changes
 		onInputChanged : function(event) {
-console.warn("onInputChanged",this);
+console.warn("onInputChanged",this, this.getInputValue());
 			this._updateValue(this.getInputValue());
 		},
 		

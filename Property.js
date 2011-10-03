@@ -222,26 +222,26 @@ InstanceList.prototype = new Property({
 function Preference(options) {
 	if (this === window) return new Preference(options);
 
-	var settingName = options.name,
+	var prefName = options.name,
 		onChange = options.onChange || options.onchange,
 		normalizer = options.normalize,
 		defaultValue = options.value
 	;
 	// remember the name, since we can't iterate through localStorage directly
-	Preference.names[settingName] = defaultValue;
+	Preference.names[prefName] = defaultValue;
 	return new Property({
 		init : function(it, key) {
 			Object.defineProperty(it, key, {
 				get : function() {
-					var value = hope.preference(settingName);
+					var value = hope.preference(prefName);
 					if (value === undefined) value = defaultValue;
 					if (normalizer) value = normalizer.call(this, value);
 					return value;
 				},
 				set : function(newValue) {
-					var oldValue = hope.preference(settingName);
+					var oldValue = hope.preference(prefName);
 					if (normalizer) newValue = normalizer.call(this, newValue);
-					hope.preference(settingName, newValue);
+					hope.preference(prefName, newValue);
 					if (onChange && oldValue !== newValue) onChange.call(this, newValue, oldValue);
 				}
 			});
@@ -264,21 +264,13 @@ Preference.clearAll = function() {
 }
 
 
-//TODO: onchange
+// Boolean preference flag.  Set to 'true' or true to turn on.
+//	You can pass 'value' as true or false if you like.
 function PreferenceFlag(options) {
-	var prefId = options.id;
-
-	return new Property({
-		get : function() {
-			var id = prefId.expand(this);
-			return (hope.preference(id) === "true");
-		},
-		set : function(value) {
-			value = !!value;
-			var id = prefId.expand(this);
-			hope.preference(id, (value ? "true" : null));
-		}
-	});
+	if (!options.normalize) options.normalize = function(value){
+		return value === true || value === "true" || value == "yes"
+	};	
+	return Preference(options);
 }
 hope.setGlobal("PreferenceFlag",PreferenceFlag);
 

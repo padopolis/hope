@@ -12,8 +12,10 @@ new Mixin("Valued", {
 		return it;
 	},
 	properties : {
+		// a 'binding' is a simple property value you can us to dynamically retrieve
+		//	the value of this object. eg:  hope.get(binding)  will return the current value.
 		binding : Attribute("binding"),
-
+		
 		// HMMM, why is this not an attribute ?
 		value : Property({
 			get : function() {

@@ -62,6 +62,7 @@ var scripts = [
 		"Valued.js",
 		"Select.js",
 		"Textfield.js",
+		"Searchfield.js",
 		"Checkbox.js",
 		"Output.js",
 //		"Combobox.js",
@@ -69,7 +70,6 @@ var scripts = [
 		"PopoverMenu.js",
 		"LinkMenu.js",
 		"DirtyBit.js",
-		"SearchInput.js",
 		"MessageBoard.js",
 		"Filter.js",
 	]

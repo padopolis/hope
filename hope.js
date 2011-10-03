@@ -490,7 +490,7 @@ hope.preference.number = function(key, value) {
 	return value;
 }
 
-// store a number as a preference (retrieved as a number)
+// store a number as a preference (retrieved as a boolean)
 hope.preference.boolean = function(key, value) {
 	value = hope.preference(key,value);
 	if (value && typeof value == "string") return (value == "true");	

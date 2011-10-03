@@ -9,12 +9,12 @@ Script.require("{{hope}}Element-attach.js", function(){
 
 
 //TODO: is this
-new Element.Subclass("hope.SearchInput", {
-	tag : "input",
-	selector : "input[type=search]",
+new hope.Textfield.Subclass("hope.Searchfield", {
+	tag : "hope-searchfield",
 	properties : {
 		// monitor events so we can call inputChanged
 		onReady : function() {
+			this.as(hope.Textfield);
 			this.on({
 				scope : this,
 				keydown : "onDelaySearchChanged",
@@ -27,12 +27,19 @@ new Element.Subclass("hope.SearchInput", {
 									inherit:true, value:500}),
 
 
+		type : "search",
+
 	//
 	//	event handling
 	//
 
-		onDelaySearchChanged : function() {
-			this.soon(this.keypressDelay, "searchChangedEvent");
+		onDelaySearchChanged : function(event) {
+			// FIREFOX:  call searchChanged manually
+			if (Event.shortcut == 'return') {
+				this.soon(0, "searchChangedEvent");				
+			} else {
+				this.soon(this.keypressDelay, "searchChangedEvent");
+			}
 		},
 		
 		onImmediateSearchChanged : function() {
@@ -42,12 +49,11 @@ new Element.Subclass("hope.SearchInput", {
 		onSearchChangedEvent : function() {
 			if (this.value === this._lastSearchTerm) return;
 			this._lastSearchTerm = this.value;
-console.warn("onSearchChangedEvent");
 			this.fire("searchChanged", this.value);
 		}
 	}
 });
 
 
-Script.loaded("{{hope}}SearchInput.js");
+Script.loaded("{{hope}}Searchfield.js");
 });

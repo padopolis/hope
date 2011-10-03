@@ -54,6 +54,7 @@ new Mixin("Resizable", {
 		
 		// Called when the cursor is moving over us, to show the appropriate resize cursor
 		onResizeMove : function(event) {
+			// if we're in the middle of resizing, skip this
 			if (this._resizeInfo || !this.isResizable) return;
 			var edge = this.getEventEdge(event),
 				info = this._resizeMoveInfo || (this._resizeMoveInfo = {})
@@ -81,7 +82,11 @@ new Mixin("Resizable", {
 //		},
 		
 		// Called when the mouse goes down in us.
-		onResizeStart : function(event, clone) {
+		//	 Pass "info" to pre-seed any 
+		onResizeStart : function(event, clone, info) {
+			// bail if we're currently resizing!
+			if (this._resizeInfo) return;
+
 			//console.warn("onResizeStart");
 			
 			// if not currently resizable, fire "clickWhenNotResizable" so we can otherwise process.
@@ -99,8 +104,8 @@ new Mixin("Resizable", {
 	
 			var element = this,
 				bounds = element.pageBounds,
-				edge = (event && event instanceof Event ? element.getEventEdge(event, bounds)
-														: "C"),
+				eventEdge =  (event instanceof Event ? element.getEventEdge(event, bounds) : "C"),
+				edge = (info && info.edge ? info.edge : eventEdge),
 				clone
 			;
 			if (!edge) return;
@@ -111,22 +116,7 @@ new Mixin("Resizable", {
 				element = clone = element.clone(true, true);
 			}
 
-/*	
-			// if moving from the center, we're cloneable and the command key is down
-			//	ask for a new name and create a clone and move it instead.
-			if (element.cloneable && edge === "C" && Event.command) {
-				var name;
-				element = clone = element.clone(true, true);
-				if (element.prompt) {
-					name = element.prompt();
-					if (!name) return;
-				}
-			}
-*/	
-			
-			var info = element._getResizeInfo(element, edge, !!clone);
-	
-	
+			info = element._getResizeInfo(element, edge, !!clone, info);
 			// call updateSize to set all properties initially
 			element.updateSize(null, info);
 	
@@ -139,9 +129,12 @@ new Mixin("Resizable", {
 				if (event) {
 					info.offsetX = element.pageLeft - Event.pageX;
 					info.offsetY = element.pageTop - Event.pageY;
+				} else if (info.nextEdge) {
+					info.offsetX = -1 * 10;
+					info.offsetY = -1 * 10;
 				} else {
 					info.offsetX = -1 * Math.round(element.width / 2);
-					info.offsetY = -1 * Math.round(element.height / 2);
+					info.offsetY = -1 * Math.round(element.height / 2);				
 				}
 	
 				if (element.cloneable && Event.alt) {
@@ -152,10 +145,9 @@ new Mixin("Resizable", {
 				info.min = element.resizeMin;
 			}
 			
-	//console.dir(info);
 			// show the appropriate cursor
-			element.style.cursor =  document.body.style.cursor = element.getEdgeCursor(edge);
-			
+			element.style.cursor =  document.body.style.cursor = element.getEdgeCursor(edge, info);
+
 			// have the body notify us of events so we can manipulate our size
 			document.body.hookup(Resizable.bodyEventMap, element);
 	
@@ -164,20 +156,22 @@ new Mixin("Resizable", {
 		},
 		
 		//PRIVATE
-		_getResizeInfo : function(element, edge, cloned) {
-			var info = element._resizeInfo = {
-				// name of the resize edge
-				edge 		: edge,
-				
-				// parent coordinates
-				parent 		: element.offsetParent.pageBounds,
-	
-				// current cursor
-				cursor 		: (this._resizeMoveInfo ? this._resizeMoveInfo.cursor 
-													: element.style.cursor),
+		_getResizeInfo : function(element, edge, cloned, info) {
+			if (info == null) info = {};
+
+			// name of the resize edge
+			if (!info.edge) info.edge = edge;
+
+			// parent coordinates
+			if (!info.parent) info.parent = element.offsetParent.pageBounds;
+
+			// current cursor
+			if (!info.cursor) info.cursor = (this._resizeMoveInfo ? this._resizeMoveInfo.cursor 
+													: element.style.cursor);
 													
-				size		: element.bounds
-			}
+			if (!info.size)	info.size = element.bounds;
+
+			element._resizeInfo = info;
 			if (cloned) info.cloned = true;
 			return info;
 		},
@@ -213,17 +207,21 @@ new Mixin("Resizable", {
 						}
 					}
 				} else {
-					this.style.cursor = "move";
+					var cursor = "move";
+					if (info.nextEdge && info.nextEdge == "SE") {
+						 cursor = "NW-resize";
+					}
+					this.style.cursor = document.body.style.cursor = cursor;
 					delete info.direction;
 					delete info.startX;
 					delete info.startY;
 				}
-				this.onResizeCenter(info, Event.pageX, Event.pageY);
+				this.onResizeCenter(Event.pageX, Event.pageY);
 			} else {
-				if (info.N) 		this.onResizeTop(info, Event.pageX, Event.pageY);
-				else if (info.S)	this.onResizeBottom(info, Event.pageX, Event.pageY);
-				if (info.W) 		this.onResizeLeft(info, Event.pageX, Event.pageY);
-				else if (info.E)  	this.onResizeRight(info, Event.pageX, Event.pageY);
+				if (info.N) 		this.onResizeTop(Event.pageX, Event.pageY);
+				else if (info.S)	this.onResizeBottom(Event.pageX, Event.pageY);
+				if (info.W) 		this.onResizeLeft(Event.pageX, Event.pageY);
+				else if (info.E)  	this.onResizeRight(Event.pageX, Event.pageY);
 			}
 	
 			// fire the "resizing" event		
@@ -247,10 +245,19 @@ new Mixin("Resizable", {
 			delete this._resizeInfo;
 			
 			if (info.resized) this.fire("resized");
+			
+			if (info.nextEdge) {
+				this.onResizeStart(null, null, {edge:info.nextEdge});
+			}
 		},
 			
 		
-		onResizeCenter : function(info, eventX, eventY) {
+		onResizeCenter : function(eventX, eventY) {
+			info = this._resizeInfo;
+			if (!info) return;
+			if (eventX == null) eventX = Event.pageX;
+			if (eventY == null) eventY = Event.pageY;
+		
 			// adjust for the initial mouse offset for the TL of the element
 			var newLeft = eventX - info.parent.left + info.offsetX,
 				newTop = eventY - info.parent.top + info.offsetY
@@ -275,7 +282,12 @@ new Mixin("Resizable", {
 			this.updateSize({left:newLeft, top:newTop}, info);
 		},
 	
-		onResizeLeft : function(info, eventX, eventY) {
+		onResizeLeft : function(eventX, eventY) {
+			info = this._resizeInfo;
+			if (!info) return;
+			if (eventX == null) eventX = Event.pageX;
+			if (eventY == null) eventY = Event.pageY;
+
 			var newLeft = eventX - info.parent.left;
 			if (this.constrain && newLeft < 0) newLeft = 0;
 			var delta = newLeft - this.left,
@@ -289,7 +301,12 @@ new Mixin("Resizable", {
 			this.updateSize({left:newLeft, width:newWidth}, info);
 		},
 	
-		onResizeTop : function(info, eventX, eventY) {
+		onResizeTop : function(eventX, eventY) {
+			info = this._resizeInfo;
+			if (!info) return;
+			if (eventX == null) eventX = Event.pageX;
+			if (eventY == null) eventY = Event.pageY;
+
 			var newTop = eventY - info.parent.top;
 			if (this.constrain && newTop < 0) newTop = 0;
 			
@@ -305,7 +322,12 @@ new Mixin("Resizable", {
 			this.updateSize({top:newTop, height:newHeight}, info);
 		},
 	
-		onResizeRight : function(info, eventX, eventY) {
+		onResizeRight : function(eventX, eventY) {
+			info = this._resizeInfo;
+			if (!info) return;
+			if (eventX == null) eventX = Event.pageX;
+			if (eventY == null) eventY = Event.pageY;
+
 			var newWidth = eventX - this.pageLeft;
 			if (this.constrain && this.pageLeft + newWidth > info.parent.right) {
 				newWidth = info.parent.width - this.left;
@@ -315,6 +337,11 @@ new Mixin("Resizable", {
 		},
 	
 		onResizeBottom : function(info, eventX, eventY) {
+			info = this._resizeInfo;
+			if (!info) return;
+			if (eventX == null) eventX = Event.pageX;
+			if (eventY == null) eventY = Event.pageY;
+
 			var newHeight = eventY - this.pageTop;
 			if (this.constrain && this.pageTop + newHeight > info.parent.bottom) {
 				newHeight = info.parent.height - this.top;
@@ -386,8 +413,15 @@ new Mixin("Resizable", {
 		},
 		
 		// return the resize cursor to show according to an 'edge'
-		getEdgeCursor : function(edge) {
-			return (edge === "C" ? "move" : edge+"-resize");
+		getEdgeCursor : function(edge, info) {
+			if (edge === "C") {
+				// TODO: this is encoded twice
+				if (info && info.nextEdge) {
+					return "NW-resize";
+				}
+				return "move";
+			}
+			return edge+"-resize";
 		}
 	}
 });

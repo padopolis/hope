@@ -346,6 +346,7 @@ EP.extendIf({
 
 	// return our child number in our parentNode
 	childNumber : Getter(function() {
+		if (!this.parentNode) return -1;
 		var children = this.parentNode.elements, index = -1;
 		while (children[++index] != this) {}
 		return index;
@@ -864,7 +865,6 @@ new Class("hope.Element", {
 	makeSubclassPrototype : function(id, options) {
 		var superProto = options["super"].prototype;
 		var proto = document.createElement(options.tag).attr("prototype","yes");
-
 		// NOTE: this MUST occur BEFORE _setUpData
 		hope.setProto(proto, superProto);
 
