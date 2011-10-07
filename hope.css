@@ -1086,6 +1086,9 @@ hope-menu hope-action {
 */
 /*** Toolbar ***/
 hope-toolbar {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
   position: relative;
   display: box !important;
   display: -webkit-box !important;

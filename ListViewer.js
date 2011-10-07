@@ -23,9 +23,9 @@ new hope.Section.Subclass("hope.ListViewer", {
 		},
 
 		template : "<hope-container>\
-						<action part='hope-listViewer:$prev' appearance='black' label='Previous set' visible='no' onactivate='this.owner.showPrevSet()'/>\
+						<hope-action part='hope-listViewer:$prev' appearance='black' label='Previous set' visible='no' onactivate='this.owner.showPrevSet()'/>\
 						<rows/>\
-						<action part='hope-listViewer:$next' appearance='black' label='Next set' visible='no' onactivate='this.owner.showNextSet()'/>\
+						<hope-action part='hope-listViewer:$next' appearance='black' label='Next set' visible='no' onactivate='this.owner.showNextSet()'/>\
 					</hope-container>",
 		
 		// template to draw for each item
