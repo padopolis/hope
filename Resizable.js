@@ -16,11 +16,6 @@ new Mixin("Resizable", {
 		"mouseout" : "onResizeOut"
 	},
 
-	bodyEventMap : {
-		"mousemove" : "onResizingMove",
-		"mouseup" : "onResizingEnd"
-	},
-
 	properties : {
 		// # of pixels for our 'edge'
 		edgeSize : new Attribute({name:"edgeSize", type:"number", value:10, inherit:true}),
@@ -85,10 +80,8 @@ new Mixin("Resizable", {
 		//	 Pass "info" to pre-seed any 
 		onResizeStart : function(event, clone, info) {
 			// bail if we're currently resizing!
-			if (this._resizeInfo) return;
+			if (this._resizeInfo || Event._resizing) return;
 
-			//console.warn("onResizeStart");
-			
 			// if not currently resizable, fire "clickWhenNotResizable" so we can otherwise process.
 			//	??? this is kinda hinky, but useful
 			if (!this.isResizable) {
@@ -149,10 +142,16 @@ new Mixin("Resizable", {
 			element.style.cursor =  document.body.style.cursor = element.getEdgeCursor(edge, info);
 
 			// have the body notify us of events so we can manipulate our size
-			document.body.hookup(Resizable.bodyEventMap, element);
+			this._capturedBodyEvents = {
+				mousemove 	: document.body.capture("mousemove", "onResizingMove", this),
+				mouseup		: document.body.capture("mouseup", "onResizingEnd", this), 
+			};
 	
 			// have the element fire resizeStarted so it can, eg, select itself
 			element.fire("resizeStarted");
+			
+			// flag that we're currently resizing
+			Event._resizing = true;
 		},
 		
 		//PRIVATE
@@ -231,11 +230,18 @@ new Mixin("Resizable", {
 		// Called when the mouse goes up after we've resized.
 		//	Fires event "onResized".
 		onResizingEnd : function(event) {
-			var info = this._resizeInfo;
-			if (!info) return;
+			Event._resizing = false;
 			
 			// clear the body events
-			document.body.unhook(Resizable.bodyEventMap, this);
+			if (this._capturedBodyEvents) {
+				for (var event in this._capturedBodyEvents) {
+					document.body.un(event, this._capturedBodyEvents[event]);
+				}
+				delete this._capturedBodyEvents;
+			}
+		
+			var info = this._resizeInfo;
+			if (!info) return;
 			
 			// reset the cursor
 			this.style.cursor = info.cursor;
@@ -249,6 +255,9 @@ new Mixin("Resizable", {
 			if (info.nextEdge) {
 				this.onResizeStart(null, null, {edge:info.nextEdge});
 			}
+			
+			if (event && event.stop) event.stop();
+			return false;
 		},
 			
 		
