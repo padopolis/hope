@@ -107,6 +107,7 @@ new Mixin("Resizable", {
 			//	create a clone and move it instead.
 			if (element.cloneable && edge === "C" && (Event.alt || clone)) {
 				element = clone = element.clone(true, true);
+				element.attr("isclone",true);
 			}
 
 			info = element._getResizeInfo(element, edge, !!clone, info);
@@ -142,9 +143,9 @@ new Mixin("Resizable", {
 			element.style.cursor =  document.body.style.cursor = element.getEdgeCursor(edge, info);
 
 			// have the body notify us of events so we can manipulate our size
-			this._capturedBodyEvents = {
-				mousemove 	: document.body.capture("mousemove", "onResizingMove", this),
-				mouseup		: document.body.capture("mouseup", "onResizingEnd", this), 
+			element._capturedBodyEvents = {
+				mousemove 	: document.body.capture("mousemove", "onResizingMove", element),
+				mouseup		: document.body.capture("mouseup", "onResizingEnd", element), 
 			};
 	
 			// have the element fire resizeStarted so it can, eg, select itself

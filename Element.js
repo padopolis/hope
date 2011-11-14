@@ -443,7 +443,7 @@ EP.extendIf({
 		}
 	}),
 
-	
+
 	// insert something after another element
 	insertAfter : function(toInsert, existing) {
 		var next = existing.nextSibling;
@@ -584,7 +584,100 @@ EP.extendIf({
 				kid.recurse(method, scope, args);
 			});
 		}
-	}	
+	},
+	
+	
+//
+//	Get HTML to save for this element.
+//
+//	Default is just to return the element's outerHTML, but you can override if you want.
+//
+	
+	// list of attribute names to output FIRST, IN THIS ORDER when saving
+	saveAttrOrder : null,
+	
+	// map of attrName => output method for saving
+	//	if method is a function, we'll call that function as 	element[func](attrValue)
+	//	if method is null or returns null, we'll skip this attribute
+	saveAttrMap : null,
+	
+	// if true, we save whitespace when saving
+	//	if false, whitespace is skipped
+	saveWhiteSpace : true,
+	
+	// return the HTML we should use to save this element
+	getSaveHTML : function(orderedAttrs, skipAttrs) {
+		var tagName = this.tagName.toLowerCase();
+		
+		// short circuit for simple elements
+		if (this.attributes.length === 0 && this.childNodes.length == 0) {
+			return "<"+tagName+"/>";
+		}
+	
+		// output the start tag
+		var startTag = ["<"+tagName], endTag;
+		var orderedAttrs = this.saveAttrOrder;
+		var saveAttrMap = this.saveAttrMap || {};
+		if (this.attributes.length) {
+			if (orderedAttrs) {
+				orderedAttrs.forEach(function(name) {
+					var value = (this.attributes[name] ? this.attributes[name].nodeValue : null);
+					if (saveAttrMap[name]) {
+						if (saveAttrMap[name] == null) return;
+						value = saveAttrMap[name].apply(this, [value]);
+					}
+					if (value != null) startTag.push(name + '="' + value + '"');
+				}, this);
+			}
+			var i = -1, attr, name, attributes = this.attributes;
+			while (attr = attributes[++i]) {
+				name = attr.nodeName;
+				value = attr.nodeValue;
+				
+				// skip derived attributes
+				if (name.charAt(0) === "_") continue;
+				if (orderedAttrs && orderedAttrs.contains(name)) continue;
+				if (saveAttrMap[name]) {
+					if (saveAttrMap[name] == null) continue;
+					value = saveAttrMap[name].apply(this, [value]);
+				}
+				startTag.push(name + '="' + value + '"');
+			}
+		}
+
+		// get HTML for our children		
+		var childHTML = this.getChildrenSaveHTML();
+
+		// output end tag or unary tag end
+		if (childHTML.length === 0) {
+			startTag.push("/>");
+			endTag = "";
+		} else {
+			startTag.push(">");
+			endTag = "</"+tagName+">";
+		}
+		return startTag.join(" ") + childHTML + endTag;
+	},
+
+	getChildrenSaveHTML : function() {
+		// output children in a sub-array
+		var children = [], i = -1, child;
+		while ((child = this.childNodes[++i]) != null) {
+			switch(child.nodeType) {
+				// element
+				case 1:		children.push(child.getSaveHTML()); break;
+				// text node
+				case 3:		// whitespace check
+							if (!this.saveWhiteSpace && /^\s+$/.test(child.nodeValue)) break;
+							children.push(child.nodeValue); break;
+				// comment
+				case 8:		children.push("<!--"+childNode.value+"-->"); break;
+			}
+		}
+		return children.join("");
+	},
+
+	
 });// end extendIf
 
 

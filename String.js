@@ -175,6 +175,11 @@ hope.extendIf(String.prototype, {
 	}
 });
 
+String.makeHTMLSafe = function(str) {
+	if (!str) return "";
+	return (""+str).makeHTMLSafe();
+}
+
 
 // given an object, encode into URL parameters
 String.encodeUrlParameters = function(params) {

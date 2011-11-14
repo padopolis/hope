@@ -350,10 +350,10 @@ Element.prototype.extend({
 	}),
 	
 
-	// @contextMenu:  use this to provide a custom context menu for some element
+	// @menu:  use this to provide a custom context menu for some element
 	//	NOTE: this inherits, so you can set it on your class's prototype.
-	contextMenu : new Attribute({
-		name:"contextmenu", 
+	menu : new Attribute({
+		name:"menu", 
 		inherit:true, 
 		update:false
 	}),

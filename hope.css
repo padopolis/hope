@@ -1915,6 +1915,9 @@ hope-icon[disabled] {
 *[icon=silk-add] > hope-icon {
   background-image: url(theme/silk/add.png);
 }
+*[icon=silk-check] > hope-icon {
+  background-image: url(theme/silk/check.png);
+}
 *[icon=silk-critical] > hope-icon {
   background-image: url(theme/silk/critical.png);
 }
