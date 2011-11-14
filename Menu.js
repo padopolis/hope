@@ -15,17 +15,21 @@
 Script.require("{{hope}}Element-attach.js", function(){
 
 
-// Watch for the "contextmenu" event of any child with a "menu" attribute.
-// NOTE: if the control key is down, we show the normal browser menu instead.  Useful.
+// Watch for the "contextmenu" event on the body, and show the contextmenu for the first
+//	element UP from the target which has a "contextmenu" attribute.
+//
+// NOTE: if the meta (command) key is down, we show the normal browser menu instead.  Useful.
 hope.onReady("document", function() {
-	document.body.onChild(
-		function(){return !!this.contextMenu}, 
+	document.body.on(
 		"contextmenu", 
-		function(event, element) {
+		function(event) {
+			// figure out who has a context menu
+			var target = event.target.selectUp("[contextmenu]", true);
+			if (!target) return;
 			// DEBUG: QUESTIONABLE
-			//	if ctrl key is down, show the standard menu instead of the custom menu
-			if (Event.ctrl) return;		
-			if (hope.Menu.showMenuFor(element) !== CONTINUE) event.stop();
+			//	if meta key is down, show the standard menu instead of the custom menu
+			if (event.metaKey) return;
+			if (hope.Menu.showMenuFor(target) !== CONTINUE) event.stop();
 	});
 });
 
@@ -79,7 +83,7 @@ new Element.Subclass("hope.Menu", {
 		debug : hope.debug("Menu"),
 		
 		showMenuFor : function(element, menuSelector) {
-			if (menuSelector == null) menuSelector = element.contextMenu;
+			if (menuSelector == null) menuSelector = element.attr("contextmenu");
 			var menu = select(menuSelector);
 			if (!menu) return CONTINUE;
 			menu.showForElement(element);
