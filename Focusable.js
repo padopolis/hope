@@ -75,6 +75,8 @@ new hope.Element.Subclass("hope.KeyMap", {
 		},
 		
 		visible : false,
+		template : "<hope-closer/><hope-container></hope-container>",
+		listeners : "mousedown:onMouseDown",
 		
 		addShortcut : function(element) {
 			var shortcut = Shortcut.normalize(element);
@@ -111,6 +113,11 @@ new hope.Element.Subclass("hope.KeyMap", {
 				}
 			}
 			return CONTINUE;
+		},
+		
+		onMouseDown : function() {
+			this.visible = false;
+			return false;
 		}
 	}
 });

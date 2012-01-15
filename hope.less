@@ -212,6 +212,17 @@
 		background-color:rgba(0,0,0,.3);
 	}
 	
+/*** circle-closer-thingie ***/
+	.circleCloser {
+		display:block;
+		position:absolute;
+		width:42px; height:42px;
+		left:-20px; top:-20px;
+		background:url(theme/ios/closebox-large.png) no-repeat;
+		z-index:10;
+		cursor:pointer;	
+	}
+	
 
 /*** ad-hoc tables ***/
 	// set of united rows (more-or-less a table)
@@ -763,7 +774,8 @@
 	hope-itemviewer {
 		.box(vertical,stretch);
 	}
-	itemViewer > hope-container {
+	hope-itemViewer > hope-container {
+		.selectable;
 		.flex;
 		overflow:auto;
 	}
@@ -778,8 +790,52 @@
 	}
 
 /*** hope-keymap ***/
-	hope-keymap {}
+	hope-keymap {
+		z-index:100000;
+		display: block !important;
+		position:absolute;
+		left:100px; top:100px;
+		width:500px; height:500px;
+		background:white;
+		border: 5px solid black;
+		.round(20px);
+	}
+	
+	hope-keymap hope-closer {
+		z-index:2;
+		.circleCloser;
+	}
 
+	hope-keymap hope-container {
+		z-index:1;
+		display: block;
+		width:100%; height:100%;
+		overflow:auto;
+	}
+
+	hope-keymap hope-action {
+		display:block;
+		position:relative;
+		border-bottom:1px solid #eee;
+	}
+
+	hope-keymap hope-action:before,
+	hope-keymap hope-action:after {
+		position:absolute;
+	}
+
+	hope-keymap hope-action:before {
+		width:140px;
+		left:20px;
+		content:attr(shortcut);
+	}
+	
+	hope-keymap hope-action:after {
+		left:160px;
+		right:0;
+		content:attr(description);
+		white-space:nowrap;
+	}
 
 /*** Menu elements ***/
 // menu outer element
@@ -1098,13 +1154,7 @@
 	
 	
 	hope-overlay > hope-mask > hope-border > hope-close {
-		display:block;
-		position:absolute;
-		width:42px; height:42px;
-		left:-20px; top:-20px;
-		background:url(theme/ios/closebox-large.png) no-repeat;
-		z-index:10;
-		cursor:pointer;
+		.circleCloser;
 	}
 	
 	hope-overlay.noclose > hope-mask > hope-border {
@@ -1710,6 +1760,7 @@
 		*[icon=silk-down] > hope-icon			{	background-image:url(theme/silk/down.png);	}
 		*[icon=silk-gear] > hope-icon			{	background-image:url(theme/silk/gear.png);	}
 		*[icon=silk-horizontal] > hope-icon		{	background-image:url(theme/silk/horizontal.png);	}
+		*[icon=silk-info] > hope-icon			{	background-image:url(theme/silk/info.png);	}
 		*[icon=silk-large] > hope-icon 			{	background-image:url(theme/silk/large.png);	}
 		*[icon=silk-left] > hope-icon			{	background-image:url(theme/silk/left.png);	}
 		*[icon=silk-link] > hope-icon			{	background-image:url(theme/silk/link.png);	}

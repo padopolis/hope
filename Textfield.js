@@ -116,7 +116,7 @@ new Element.Subclass("hope.Textfield", {
 			if (value == null) value = "";
 			if (this.trim) value = value.trim();
 			if (this.escape) value = unescape(value);
-			if (this.multiline && this.htmlSafe) value = value.undoHTMLSafe();
+			if (this.htmlSafe) value = value.undoHTMLSafe();
 			if (this.multiline && this.interpretReturns) value = value.replace(/<br>/g, "\n");
 			this.$input.value = value;
 		},
@@ -128,7 +128,7 @@ new Element.Subclass("hope.Textfield", {
 			if (this.identifier) value = value.toIdentifier();
 			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br>");
 			if (this.escape) value = escape(value);
-			if (this.multiline && this.htmlSafe) value = value.makeHTMLSafe();
+			if (this.htmlSafe) value = value.makeHTMLSafe();
 			if (this.specialChars) value = value.specialCharsToEntities();
 			return value;
 		},

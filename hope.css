@@ -5,6 +5,10 @@
 .tapHighlightGold {
   -webkit-tap-highlight-color: rgba(230, 181, 70, 0.5);
 }
+[selectable=yes] {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
 /* shadow from above */
 .verticalShadow {
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.8);
@@ -407,6 +411,18 @@ hope-mask {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+/*** circle-closer-thingie ***/
+.circleCloser {
+  display: block;
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  left: -20px;
+  top: -20px;
+  background: url(theme/ios/closebox-large.png) no-repeat;
+  z-index: 10;
+  cursor: pointer;
+}
 /*** ad-hoc tables ***/
 rows {
   display: table !important;
@@ -462,7 +478,7 @@ input[appearance~=translucent] {
   border-radius: 12px;
   height: 24px;
   border: 0px;
-  background: url(theme/ios/field-searchIcon.png) white no-repeat 5px center;
+  background: url(theme/ios/field-searchIcon.png) #ffffff no-repeat 5px center;
   padding-left: 30px;
   min-width: 80px;
 }
@@ -1004,7 +1020,9 @@ hope-itemviewer {
   -webkit-box-align: stretch;
   -moz-box-align: stretch;
 }
-itemViewer > hope-container {
+hope-itemViewer > hope-container {
+  -moz-user-select: text;
+  -webkit-user-select: text;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
@@ -1014,6 +1032,58 @@ hope-itemviewer > hope-container > rows > row > output {
   cursor: default;
 }
 /*** hope-keymap ***/
+hope-keymap {
+  z-index: 100000;
+  display: block !important;
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  width: 500px;
+  height: 500px;
+  background: white;
+  border: 5px solid black;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+hope-keymap hope-closer {
+  z-index: 2;
+  display: block;
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  left: -20px;
+  top: -20px;
+  background: url(theme/ios/closebox-large.png) no-repeat;
+  z-index: 10;
+  cursor: pointer;
+}
+hope-keymap hope-container {
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+hope-keymap hope-action {
+  display: block;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+hope-keymap hope-action:before, hope-keymap hope-action:after {
+  position: absolute;
+}
+hope-keymap hope-action:before {
+  width: 140px;
+  left: 20px;
+  content: attr(shortcut);
+}
+hope-keymap hope-action:after {
+  left: 160px;
+  right: 0;
+  content: attr(description);
+  white-space: nowrap;
+}
 /*** Menu elements ***/
 hope-menu {
   left: 0;
@@ -1929,6 +1999,9 @@ hope-icon[disabled] {
 }
 *[icon=silk-horizontal] > hope-icon {
   background-image: url(theme/silk/horizontal.png);
+}
+*[icon=silk-info] > hope-icon {
+  background-image: url(theme/silk/info.png);
 }
 *[icon=silk-large] > hope-icon {
   background-image: url(theme/silk/large.png);

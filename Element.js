@@ -671,7 +671,7 @@ EP.extendIf({
 							if (!this.saveWhiteSpace && /^\s+$/.test(child.nodeValue)) break;
 							children.push(child.nodeValue); break;
 				// comment
-				case 8:		children.push("<!--"+childNode.value+"-->"); break;
+				case 8:		children.push("<!--"+child.value+"-->"); break;
 			}
 		}
 		return children.join("");
