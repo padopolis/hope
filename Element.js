@@ -30,11 +30,17 @@ E.toRef = function(){ return "Element" };
 //
 
 // return an ElementList which matches the selector globally
-window.selectAll = document.selectAll = document.getChildren = function selectAll(selector, includeMe) {
+window.selectAll = document.selectAll = document.getChildren = 
+  function selectAll(selector, includeMe) {
 	if (typeof selector !== "string") return selector;
 	var root = (this === window ? document : this);
 	// NOTE: ElementList is declared in ElementList.js
-	var elements = root.querySelectorAll(selector);
+	try {
+		var elements = root.querySelectorAll(selector);
+	} catch (e) {
+		console.debug("Error thrown attempting to query selector ",selector," of ",this,":\n",e);
+		elements = [];
+	}
 	if (window.ElementList) {
 		elements = new ElementList(elements);
 		if (includeMe && root.matches && root.matches(selector)) elements.prepend(root);
@@ -43,14 +49,14 @@ window.selectAll = document.selectAll = document.getChildren = function selectAl
 }
 
 // return a single E which matches the selector globally
-window.select = document.select = document.getChild = function select(selector, error) {
+window.select = document.select = document.getChild = 
+  function select(selector, error) {
 	if (typeof selector !== "string") return selector;
 	var root = (this === window ? document : this), it;
 	try {
 		it = root.querySelector(selector);
 	} catch (e) {
-	debugger;
-		console.debug("Error thrown attempting to query selector ",selector," of ",element,":\n",e);
+		console.debug("Error thrown attempting to query selector ",selector," of ",this,":\n",e);
 	}
 	if (!it && error) throw error;
 	return it;
@@ -298,7 +304,6 @@ EP.extendIf({
 	
 	// return first parent (including us if @includeUs is not false) which matches selector
 	selectUp : function(selector, includeUs) {
-//HACKY
 		if (typeof selector === "string" && selector.charAt(0) === "$") return window[selector];
 		
 		var target = this;

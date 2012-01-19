@@ -214,11 +214,11 @@ Observable.prototype = {
 		} else {
 			var method = as.caller.name || as.caller._name;
 		}
-		method = constructor.prototype[method];
-		if (typeof method === "function") {
-			return method.apply(this, args);
+		var fn = constructor.prototype[method];
+		if (typeof fn === "function") {
+			return fn.apply(this, args);
 		} else {
-			console.warn(this,"as",someClass,"method not found");
+			console.warn(this,"as",someClass,"method '"+method+"' not found");
 		}
 	},
 

@@ -720,7 +720,7 @@
 		border-collapse:separate;
 		table-layout: fixed;
 	}
-	
+
 	hope-listviewer > hope-container > rows > row {
 		cursor: pointer;
 	}
@@ -739,6 +739,26 @@
 	hope-listviewer > hope-container > rows > row > cell {
 		padding:7px 5px;
 	}
+
+
+// horizontal layout
+	hope-listviewer[layout='horizontal'] > hope-container {
+		.box(horizontal,stretch);
+		width:100%; height:100%;
+		overflow-y:hidden;
+		overflow-x:auto;	
+	}
+
+	hope-listviewer[layout='horizontal'] > hope-container > rows {
+		display:inline-block !important;
+		white-space:nowrap;
+		height:100%; width:100%;
+	}
+
+	hope-listviewer[layout='horizontal'] > hope-container > rows > * {
+		display:inline-block !important;
+	}
+
 
 
 /*	inset look	*/
@@ -865,7 +885,7 @@
 // separator between menu items
 	hope-menu hope-separator {
 		display:block;
-		height:4px; overflow:hidden;
+		height:8px; overflow:hidden;
 	}
 
 // group of menuitems -- no visual appearance, use to show/hide/etc a bunch at once
@@ -1794,10 +1814,16 @@
 
 	/* light icons */
 		*[icon=light-hope-action] > hope-icon	{	background-image:url(theme/ios/icon-light-hope-action.png);	width:28px; height:28px; margin-left:4px; margin-right:-5px; margin-bottom:2px; }
-		*[icon=light-left] > hope-icon 	{	background-image:url(theme/ios/icon-light-left.png);	width:16px; height:19px; left: -1px; }
+		*[icon=light-left] > hope-icon 			{	background-image:url(theme/ios/icon-light-left.png);	width:16px; height:19px; left: -1px; }
 		*[icon=light-left]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-left-active.png); }
-		*[icon=light-right] > hope-icon 	{	background-image:url(theme/ios/icon-light-right.png);	width:16px; height:19px; left: 1px; }
+		*[icon=light-right] > hope-icon 		{	background-image:url(theme/ios/icon-light-right.png);	width:16px; height:19px; left: 1px; }
 		*[icon=light-right]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-right-active.png); }
+
+	/* dark icons */
+		*[icon=dark-left] > hope-icon 			{	background-image:url(theme/ios/icon-dark-left.png);	width:16px; height:19px; left: -1px; }
+		*[icon=dark-left]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-left-active.png); }
+		*[icon=dark-right] > hope-icon 			{	background-image:url(theme/ios/icon-dark-right.png);	width:16px; height:19px; left: 1px; }
+		*[icon=dark-right]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-right-active.png); }
 
 
 	/* small-light icons */
@@ -1806,8 +1832,8 @@
 
 
 	/* circle icons */
-		*[icon|=circle] > hope-icon 				{	width:29px; height:29px;	}
-		*[icon=circle-add-blue] > hope-icon 		{	background-image:url(theme/ios/circle-add-blue.png);	}
+		*[icon|=circle] > hope-icon 			{	width:29px; height:29px;	}
+		*[icon=circle-add-blue] > hope-icon 	{	background-image:url(theme/ios/circle-add-blue.png);	}
 		*[icon=circle-add-green] > hope-icon 	{	background-image:url(theme/ios/circle-add-green.png);	}
 		*[icon=circle-checked-red] > hope-icon 	{	background-image:url(theme/ios/circle-checked-red.png);	}
 		*[icon=circle-delete-red] > hope-icon 	{	background-image:url(theme/ios/circle-delete-red.png);	}

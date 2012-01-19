@@ -192,7 +192,7 @@
 	
 	// special: iOS button border image
 	.ButtonBorder(@url) {
-		.borderImage(@url, 0 5 0 5, 0px 5px 0px 5px);
+		.borderImage(@url, 0 5 0 5, 0px 5px 0px 5px, round stretch);
 	}
 
 	
@@ -268,6 +268,12 @@
 		-moz-box-align: @align;		
 	}
 
+	// vertical stretch box
+	.display-box() {
+		display: box !important;
+		display: -webkit-box !important;
+		display: -moz-box !important;
+	}
 
 	.boxDirection(@direction:vertical) {
 		box-orient: @direction;
@@ -306,6 +312,13 @@
 		.boxPack(center);
 		.flex(0);
 	}
+	
+	.centerChildren {
+		.box(horizontal,center);
+		.boxPack(center);
+		width:100%; height:100%;
+	}
+
 	
 	// box flex
 	.flex(@amount:1) {
