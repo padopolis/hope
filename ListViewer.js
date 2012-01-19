@@ -42,11 +42,12 @@ new hope.Section.Subclass("hope.ListViewer", {
 		emptyMessage : Attribute({name:"emptyMessage", inherit:true, value:"No items to show"}),	// TODO: translate
 
 		// "itemMode": how to handle more items than will fit:  "all", "window", "more"
-		itemMode : Attribute({name:"itemMode", value:"all", update:true, inherit:true}),
+		// NOTE: with "all" mode, you'll render ALL of the rows in the list, no matter how long!
+		itemMode : Attribute({name:"itemMode", value:"more", update:true, inherit:true}),
 
-		// max number of rows to show -- for itemMode="window" only
+		// max number of rows to show -- for itemMode="window" or "more" only
 		// TODO:  maxRows of "*" to set maxRows dynamically according to actual size
-		maxRows : Attribute({name:"maxRows", type:"number", update:true, inherit:true, value:0}),
+		maxRows : Attribute({name:"maxRows", type:"number", update:true, inherit:true, value:20}),
 		
 		// first row we're currently displaying -- for itemMode="window" only
 		startRow : Attribute({name:"startRow", type:"number", update:true, inherit:true, value:0}),
