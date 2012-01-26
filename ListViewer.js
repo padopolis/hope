@@ -191,6 +191,8 @@ new hope.Section.Subclass("hope.ListViewer", {
 				var message = this.rowCountMessage.expand(this);
 				this.$rowCounter.html = message;
 			}
+			
+			this.showActions();
 		},
 
 		// return a single, expanded outer HTML element that represents a row for the list item
