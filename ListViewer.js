@@ -269,7 +269,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 					this.initAction(this.nextButtonTemplate);
 				}
 				if (this.$prev) this.$prev.visible = (this.startRow > 0);
-				if (this.$next) this.$next.visible = (this.endRow != listLength);
+				if (this.$next) this.$next.visible = (this.endRow != this.totalRows);
 			} else if (this.itemMode === "more") {
 				if (!this.$more && this.moreButtonTemplate) {
 					this.initAction(this.moreButtonTemplate);
