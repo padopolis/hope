@@ -243,19 +243,44 @@ new hope.Section.Subclass("hope.ListViewer", {
 			this.startRow = Math.min(this.startRow + this.maxRows, this.totalRows-1);
 			this.soon("update");
 		},
+		
+		scrollToRow : function(index) {	
+			if (this.itemMode !== "more") return console.warn("ERROR: scrollToRow() only supported for 'more' itemType");
+			
+			// insert rows until we get to that item, plus a little bit.
+			this.insertMoreRows(index+20);
+			if (!this.$rows) return;
+			
+			// scroll so that item is at the front of the list
+			var element = this.$rows.elements[index-1];
+			if (element) {
+				this.$container.scrollLeft = element.offsetLeft - 10;
+				this.$container.scrollTop  = element.offsetTop - 10;
+			}
+		},
 
 
-		// insert more rows into the current data set
-		insertMoreRows : function() {
+		// Insert more rows into the current data set.
+		//	By default, we add `this.maxRows` to the end.
+		//  Specify a specific place to stop by passing explicit endRow.
+		//
+		// NOTE: we assume the display is starting at row 0
+		insertMoreRows : function(endRow) {
+			// if all displayed, forget it
 			if (this.endRow >= this.totalRows-1) return;
 			
-			var start = this.endRow, 
-				end = Math.min(start + this.maxRows, this.totalRows)
-			;
-			for (var index = start; index < end; index++) {
+			// default endRow and pin to the totalRows
+			if (endRow == null) endRow = this.endRow + this.maxRows;
+			if (endRow > this.totalRows) endRow = this.totalRows;
+
+			// if we're already showing the endRow, forget it
+			if (endRow < this.endRow) return;
+			
+			for (var index = this.endRow; index < endRow; index++) {
 				var $row = this.getItemRow(index);
 				if ($row) this.$rows.append($row);
 			}
+			this.endRow = endRow;
 			this.showActions();
 		},
 
@@ -297,7 +322,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 			} else if (part.contains("more")) {
 				this.$more = action;
 				this.$container.insertAfter(action, $rows);
-				action.on("activate", this.insertMoreRows.bind(this));
+				action.on("activate", function(){this.insertMoreRows()}.bind(this));
 			} else {
 				console.warn("ListViewer.initAction(): unclear what to do with action", action);
 			}
