@@ -64,7 +64,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 			} else if (this.itemMode == "window") {
 				return Math.min(this.startRow + this.maxRows, this.totalRows);
 			} else {
-				return this.$rows.elements.length;
+				return this.startRow + this.$rows.elements.length;
 			}
 		}),
 
@@ -152,7 +152,7 @@ new hope.Section.Subclass("hope.ListViewer", {
 		}),
 		
 		onRowClicked : function(event, row) {
-			var index = row.attr("index");
+			var index = row.attr("_index");
 			if (this.selectable) {
 				this.selectedIndex = index;
 			}
@@ -184,15 +184,12 @@ new hope.Section.Subclass("hope.ListViewer", {
 				if (row) this.$rows.append(row);
 			}
 			
-			this.updateRowIndices();
-			this.fixSelectionHighlight();
-
 			if (this.$rowCounter) {
 				var message = this.rowCountMessage.expand(this);
 				this.$rowCounter.html = message;
 			}
 			
-			this.showActions();
+			this.updateHighlightAndActions();
 		},
 
 		// return a single, expanded outer HTML element that represents a row for the list item
@@ -210,18 +207,18 @@ new hope.Section.Subclass("hope.ListViewer", {
 		// update the row indices to correspond to the list
 		updateRowIndices : function() {
 			var startRow = this.startRow;
-			this.$rows.getChildren("row").forEach(function(row, index) {
-				row.attr("index", index+startRow);
+			this.$rows.elements.forEach(function(row, index) {
+				row.attr("_index", index+startRow);
 			});
 		},
 
 		fixSelectionHighlight : function() {
 			// clear the old hilight
-			var row = this.getChild("row[selected]");
+			var row = this.getChild("rows > *[selected]");
 			if (row) row.attr("selected",null);
 			
 			// show the new highlight
-			row = this.getChild("row[index='"+this.selectedIndex+"']");
+			row = this.getChild("rows *[_index='"+this.selectedIndex+"']");
 			if (row) {
 				row.attr("selected","yes");
 				// make sure the selected row is visible
@@ -280,12 +277,14 @@ new hope.Section.Subclass("hope.ListViewer", {
 				var $row = this.getItemRow(index);
 				if ($row) this.$rows.append($row);
 			}
-			this.endRow = endRow;
-			this.showActions();
+			this.updateHighlightAndActions();
 		},
 
 		// show the appropriate next/prev/more actions depending on the state of the world
-		showActions : function() {
+		updateHighlightAndActions : function() {
+			this.updateRowIndices();
+			this.fixSelectionHighlight();
+
 			if (this.itemMode === "window") {
 				if (!this.$prev && this.prevButtonTemplate) {
 					this.initAction(this.prevButtonTemplate);
