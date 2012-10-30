@@ -117,7 +117,7 @@ new Element.Subclass("hope.Textfield", {
 			if (this.trim) value = value.trim();
 			if (this.escape) value = unescape(value);
 			if (this.htmlSafe) value = value.undoHTMLSafe();
-			if (this.multiline && this.interpretReturns) value = value.replace(/<br>/g, "\n");
+			if (this.multiline && this.interpretReturns) value = value.replace(/<br\/?>/g, "\n");
 			this.$input.value = value;
 		},
 		
@@ -126,7 +126,7 @@ new Element.Subclass("hope.Textfield", {
 			var value = this.$input.value;
 			if (this.trim) value = value.trim();
 			if (this.identifier) value = value.toIdentifier();
-			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br>");
+			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br/>");
 			if (this.escape) value = escape(value);
 			if (this.htmlSafe) value = value.makeHTMLSafe();
 			if (this.specialChars) value = value.specialCharsToEntities();
@@ -223,6 +223,7 @@ new Element.Subclass("hope.Textfield", {
 				this.error = (isValid ? null : "Invalid value");
 				return isValid;
 			}
+			return true;
 		},
 		// if this regex returns a value, the 
 		CURRENCY_VALIDATOR : /^([0-9]*|([0-9]+\.[0-9]{1,2}))$/,
