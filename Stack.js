@@ -48,6 +48,7 @@ new hope.Section.Subclass("hope.Stack", {
 				if (pref) 	oldValue = hope.preference(pref);
 				else		oldValue = this.DATA.selection;
 				if (oldValue !== newValue) {
+//if (newValue === "productEditor") debugger;
 					if (oldValue) this.fire("deselectedItem", oldValue);
 	
 					if (pref) 	hope.preference(pref, newValue);
@@ -76,6 +77,7 @@ new hope.Section.Subclass("hope.Stack", {
 			var element;
 			if (selectedSection) {
 //console.warn(this.id+".onSelectedItem: ",selectedSection);
+//if (selectedSection === "productEditor") debugger;
 				// update the selector button
 				if (element = this.getSelectorFor(selectedSection)) {
 					element.selected = true;
@@ -90,9 +92,16 @@ new hope.Section.Subclass("hope.Stack", {
 
 		// called when one of our items is deselected
 		onDeselectedItem : function(event, oldSection) {
+			var element;
 			if (oldSection) {
-				if (element = this.getSelectorFor(oldSection)) 	element.selected = false;
-				if (element = this.getItem(oldSection))			element.visible = false;
+//console.info(":::",oldSection);
+//if (oldSection === "helpPanel") debugger;
+				if (element = this.getSelectorFor(oldSection)) 	{
+					element.selected = false;
+				}
+				if (element = this.getItem(oldSection)) {
+					element.visible = false;
+				}
 			}
 		},
 

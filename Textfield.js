@@ -117,16 +117,16 @@ new Element.Subclass("hope.Textfield", {
 			if (this.trim) value = value.trim();
 			if (this.escape) value = unescape(value);
 			if (this.htmlSafe) value = value.undoHTMLSafe();
-			if (this.multiline && this.interpretReturns) value = value.replace(/<br>/g, "\n");
+			if (this.multiline && this.interpretReturns) value = value.replace(/<br\/?>/g, "\n");
 			this.$input.value = value;
 		},
 		
-		// return the value actually stored in the input right now
+		// Return the value actually stored in the input right now
 		getInputValue : function() {
 			var value = this.$input.value;
 			if (this.trim) value = value.trim();
 			if (this.identifier) value = value.toIdentifier();
-			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br>");
+			if (this.multiline && this.interpretReturns) value = value.replace(/[\r\n]/g, "<br/>");
 			if (this.escape) value = escape(value);
 			if (this.htmlSafe) value = value.makeHTMLSafe();
 			if (this.specialChars) value = value.specialCharsToEntities();
@@ -209,9 +209,24 @@ new Element.Subclass("hope.Textfield", {
 		
 		// fired when the input value changes
 		onInputChanged : function(event) {
+			if (!this.validate()) return;
 			this._updateValue(this.getInputValue());
 		},
 		
+		// Validate the value in the input field right now.
+		// Returns true if validation passes.
+		// If fails, will set this.error, which should show an error message.
+		validate : function() {
+			var value = this.$input.value;
+			if (this.type === "currency") {
+				var isValid = value.match(this.CURRENCY_VALIDATOR);
+				this.error = (isValid ? null : "Invalid value");
+				return isValid;
+			}
+			return true;
+		},
+		// if this regex returns a value, the 
+		CURRENCY_VALIDATOR : /^([0-9]*|([0-9]+\.[0-9]{1,2}))$/,
 	
 	//
 	//	manage focus/etc in the field
@@ -258,6 +273,8 @@ new Element.Subclass("hope.Textfield", {
 				this.$message.html = this.hint;
 				this.$message.visible = true;
 			} else {
+				this.classList.remove("error");
+				this.$message.className = "";
 				this.$message.visible = false;
 				this.$message.html = "";
 			}

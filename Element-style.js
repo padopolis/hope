@@ -571,16 +571,17 @@ EP.extendIf({
 	revealChild : function(child) {
 		var top = child.offsetTop,
 			bottom = top + child.height,
-			container = this.$container || this,
 			
+			container = this.$container || this,
 			scrollTop = container.scrollTop,
-			scrollBottom = scrollTop + container.height
+			scrollBottom = scrollTop + container.height,
+			
+			isVisible = (top >= scrollTop && bottom <= scrollBottom)
 		;
-		if (top > scrollTop && bottom < scrollBottom) return;
-		
-		if (scrollTop < top) container.scrollTop = top;
-		else if (scrollBottom < top) container.scrollTop = top;
-//console.warn(child, top, bottom, scrollTop, scrollBottom);
+//console.warn(child, "h:", container.height, "t:", top, "sT:", scrollTop, "b:", bottom, "sB:", scrollBottom, "isVisible:", isVisible);		
+		if (isVisible) return;
+//console.warn("setting scrollTop to ",top);
+		container.scrollTop = top;
 	}
 		
 });// end extendIf
