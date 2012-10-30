@@ -146,8 +146,9 @@ new hope.Section.Subclass("hope.ListViewer", {
 				return (this.list ? this.list[this.selectedIndex] : undefined);
 			},
 			set : function(item) {
-//console.warn(this.id+".selection changing to index "+(this.list ? this.list.indexOf(item) : -1), item, this.list);
-				this.selectedIndex = (this.list ? this.list.indexOf(item) : -1);
+				var index = (this.list ? this.list.indexOf(item) : -1);
+//console.warn(this.id+".selection changing to index "+index, item, this.list);
+				this.selectedIndex = index;
 			}
 		}),
 		
