@@ -12,31 +12,31 @@
 		-webkit-box-sizing:content-box;
 		box-sizing:content-box;
 	}
-	
- 
+
+
  	// make things non-selectable
  	.noselect() {
 		-moz-user-select:-moz-none;
 		-webkit-user-select:none;
 
  	}
- 	
+
  	// make this thing accelerated by the GPU
 	.gpuAccelerate {
 //	 	-webkit-transform-style: preserve-3d;
 //-webkit-transform:translate3d(0,0,0);
 //-webkit-transform:translateZ(0)
 	}
- 	
+
  	// remove tap highlight color on ios
  	.noTapHighlight {
-		-webkit-tap-highlight-color: rgba(0,0,0,0); 	
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
  	}
 
 	.tapHighlightGold {
-		-webkit-tap-highlight-color: rgba(230,181,70,0.5); 	
+		-webkit-tap-highlight-color: rgba(230,181,70,0.5);
  	}
- 
+
  	// make things explicitly selectable
  	.selectable() {
 		-moz-user-select:text;
@@ -46,13 +46,13 @@
  	[selectable=yes] {
  		.selectable;
  	}
- 
- 
+
+
  	// round corners in a cross-platform way
 	.round(@radius:5px) {
 		-webkit-border-radius: @radius;
 		-moz-border-radius: @radius;
-		border-radius: @radius;	
+		border-radius: @radius;
 	}
 
 	.roundTop(@radius:5px) {
@@ -123,7 +123,7 @@
 	.verticalShadow {
 		.shadow(0px,3px,7px,rgba(0, 0, 0, 0.8));
 	}
-	
+
 	// normal shadow, specified all at once
 	.boxShadow(@params) {
 		  box-shadow: @params;
@@ -144,15 +144,15 @@
 		-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
 		-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
  	}
- 	
- 	
+
+
 	// outset shadow
  	.outsetShadow {
 		-moz-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
 		-webkit-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
  	}
 
-	
+
 	// nice inset panel look
 	.insetPanel {
 		.fieldShadow;
@@ -162,7 +162,7 @@
 	}
 
 	.insetPanelHeader {
-		padding: 5px;	
+		padding: 5px;
 	}
 
 	.insetPanelContainer {
@@ -173,7 +173,7 @@
 
 	.insetPanelFooter {}
 
- 	
+
 	// poster shadow: both inset and outset
 	.posterShadow() {
 		  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9), inset 2px 0px 5px rgba(0, 0, 0, 0.6;
@@ -182,55 +182,56 @@
 
 
 	// border image
-	.borderImage(@url, @size, @borderSize, @repeat:repeat) {
+	.borderImage(@url; @size; @borderSize; @repeat:fill) {
+		border-style:solid;
 		border-color:transparent;
 		border-width:@borderSize;
-		border-image:@url @size @repeat;
 		-moz-border-image:@url @size @repeat;
 		-webkit-border-image:@url @size @repeat;
-	}
-	
-	// special: iOS button border image
-	.ButtonBorder(@url) {
-		.borderImage(@url, 0 5 0 5, 0px 5px 0px 5px, round stretch);
+		border-image:@url @size @repeat;
 	}
 
-	
+	// special: iOS button border image
+	.ButtonBorder(@url) {
+		.borderImage(@url; 0 5 0 5; 0px 5px 0px 5px; fill);
+	}
+
+
 	// special:  iOS nav-back button
 	.NavBackBorder(@url) {
-		.borderImage(@url, 0 13 0 17, 0px 13px 0px 17px);
+		.borderImage(@url; 0 13 0 17; 0px 13px 0px 17px);
 	}
 
 	// special:  iOS nav-forward button
 	.NavForwardBorder(@url) {
-		.borderImage(@url, 0 17 0 13, 0px 17px 0px 13px);
-	}	
+		.borderImage(@url; 0 17 0 13; 0px 17px 0px 13px);
+	}
 
 
 	// special:  iOS segment control start
 	.SegmentStart(@url) {
-		.borderImage(@url, 0 1 0 6, 0px 1px 0px 6px);
+		.borderImage(@url; 0 1 0 6; 0px 1px 0px 6px);
 	}
 
 	// special:  iOS segment middle
 	.Segment(@url) {
-		.borderImage(@url, 0 1 0 1, 0px 1px 0px 1px);
+		.borderImage(@url; 0 1 0 1; 0px 1px 0px 1px);
 	}
 
 	// special:  iOS segment control end
 	.SegmentEnd(@url) {
-		.borderImage(@url, 0 6 0 1, 0px 6px 0px 1px);
+		.borderImage(@url; 0 6 0 1; 0px 6px 0px 1px);
 	}
-	
+
 	/* standard button height/line-height */
 	.button-ish {
 		.noTapHighlight;
 		display:inline-block;
 		height:30px;
 		line-height: 29px;
-	}	
-	
-	
+	}
+
+
 	// rotate a certain number of degrees
 	.rotate(@degrees) {
 		-moz-transform:rotate(@degrees);
@@ -248,9 +249,9 @@
 		-webkit-transform-origin:@x @y;
 		-moz-transform-origin:@x @y;
 	}
-	
-	
-	
+
+
+
 	// vertical stretch box
 	.box(@direction:vertical, @align:start) {
 		position:relative;
@@ -265,7 +266,7 @@
 
 		box-align: @align;
 		-webkit-box-align: @align;
-		-moz-box-align: @align;		
+		-moz-box-align: @align;
 	}
 
 	// vertical stretch box
@@ -280,11 +281,11 @@
 		-webkit-box-orient: @direction;
 		-moz-box-orient: @direction;
 	}
-	
+
 	.boxAlign( @align:start) {
 		box-align: @align;
 		-webkit-box-align: @align;
-		-moz-box-align: @align;		
+		-moz-box-align: @align;
 	}
 
 	.boxPack(@pack:center) {
@@ -292,7 +293,7 @@
 		-webkit-box-pack: @pack;
 		-moz-box-pack: @pack;
 	}
-	
+
 	.boxChild {
 		display: block;
 		position:relative;
@@ -300,7 +301,7 @@
 		-webkit-box-flex: 0;
 		-moz-box-flex: 0;
 	}
-	
+
 	.hCenterBox {
 		.box(horizontal,start);
 		.boxPack(center);
@@ -312,14 +313,14 @@
 		.boxPack(center);
 		.flex(0);
 	}
-	
+
 	.centerChildren {
 		.box(horizontal,center);
 		.boxPack(center);
 		width:100%; height:100%;
 	}
 
-	
+
 	// box flex
 	.flex(@amount:1) {
 		-webkit-box-flex: @amount;
@@ -336,7 +337,7 @@
 	.noflex {
 		.flex(0);
 	}
-	
+
 	.spring {
 		.flex(1);
 	}

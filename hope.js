@@ -12,7 +12,7 @@ var hope = (window.hope || (window.hope = {}));
 //
 
 //  Get cookie under @name.
-//	Pass @value to set cookie value.  
+//	Pass @value to set cookie value.
 //		- Pass `@value == ""` or `@value == null` to clear the cookie.
 //		- Javascript objects will be converted to/from JSON (this will break with complex objects).
 //		- All other values will be converted to string and `escaped()`/`unescaped()` automatically.
@@ -36,7 +36,7 @@ hope.cookie = function(name, value, expires) {
 			if (value.indexOf("{") === 0 && value.indexOf("}") === value.length-1) value = JSON.parse(value);
 			return value;
 		}
-	} 
+	}
 	// setting/clearing
 	else {
 		if (value == null) 					value = "";
@@ -45,7 +45,7 @@ hope.cookie = function(name, value, expires) {
 
 		// don't change if already the same as what's set now
 		if (value === currentValue && !expires) return;
-		
+
 		// if clearing, set expires to long time ago
 		if (value == "") expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 		// otherwise convert date to expires string
@@ -60,7 +60,7 @@ hope.cookie = function(name, value, expires) {
 
 //
 //	debugging subsystems
-//	
+//
 
 
 // use this to get/set debug flag(s) for different sub systems
@@ -71,7 +71,7 @@ hope.debug = function(what, currentState) {
 	} else {
 		currentState = (hope.cookie("debug."+what) == "true")
 	}
-	
+
 	if (hope.debug.TARGETS[what] === undefined) hope.debug.TARGETS[what] = currentState;
 
 	return currentState;
@@ -90,7 +90,7 @@ document.on = window.on = function(event, handler, capture) {
 
 
 // Call hope.unload(method) to do something when the page is unloaded.
-// NOTE: the unload handlers will be called in reverse order, 
+// NOTE: the unload handlers will be called in reverse order,
 //		 which is generally more predictable.  (eg: instances unloaded before their classes).
 hope.unload = function(handler){hope._unloaders.push(handler)};
 hope._unloaders = [];
@@ -219,7 +219,7 @@ hope.extendKeys = function extendKeys(object, src, keys) {
 }
 
 
-// Variant of `hope.extend()` to be assigned to prototypes, 
+// Variant of `hope.extend()` to be assigned to prototypes,
 //	to add ability to extend an instance via `this.extend()`.
 //	Same hookup semantics as `hope.extend()`.
 hope.extendThis = function(src) {
@@ -229,7 +229,7 @@ hope.extendThis = function(src) {
 	return this;
 }
 
-// Variant of `hope.extendIf()` to be assigned to prototypes, 
+// Variant of `hope.extendIf()` to be assigned to prototypes,
 //	to add ability to extend an instance via `this.extendIf()`.
 //	Same hookup semantics as `hope.extendIf()`.
 hope.extendThisIf = function(src) {
@@ -313,7 +313,7 @@ hope.get = function get(scope, path) {
 		scope = window;
 	}
 	if (typeof path !== "string") return path;
-	
+
 	// hard-code if we path starts with "window." to set scope to window (???)
 	if (path.substr(0,7) === "window.") {
 		scope = window;
@@ -358,9 +358,9 @@ hope.set = function set(scope, path, value) {
 		scope = window;
 	}
 	if (!scope) return;
-	if (!_DOTTED_PATH_PATTERN.test(path)) 
+	if (!_DOTTED_PATH_PATTERN.test(path))
 		throw TypeError("Can only set simple paths: '"+path+"'");
-	
+
 	// add to our hope.GLOBAL_LIST if assigning to window
 	//	this will make sure the reference is cleaned up later
 	if (scope === window) {
@@ -368,11 +368,11 @@ hope.set = function set(scope, path, value) {
 		if (value == null && index !== -1) 		hope.GLOBAL_LIST.splice(index,1);
 		else if (value != null && index == -1) 	hope.GLOBAL_LIST.push(path);
 	}
-	
+
 	path = path.split(".");
 	// short circuit for single property
 	if (path.length === 1) return scope[path[0]] = value;
-	
+
 	// otherwise iterate down property chain
 	var i = -1, last = path.length-1, key;
 	while (key = path[++i]) {
@@ -471,7 +471,7 @@ hope.preference = function preference(key, value) {
 		return _prefsCache[key];
 	}
 	if (value === _prefsCache[key]) return value;
-//TODO: onChange?	
+//TODO: onChange?
 	_prefsCache[key] = value;
 	// NOTE: Safari in iOS 3.2 will throw an error if you try to set a value in localStorage
 	//	which is already set.  So always delete, then re-set if not null/empty.
@@ -493,7 +493,7 @@ hope.preference.number = function(key, value) {
 // store a number as a preference (retrieved as a boolean)
 hope.preference.boolean = function(key, value) {
 	value = hope.preference(key,value);
-	if (value && typeof value == "string") return (value == "true");	
+	if (value && typeof value == "string") return (value == "true");
 	return value;
 }
 

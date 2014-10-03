@@ -9,17 +9,17 @@
 
 	html {
 		width: 100%;
-		height: 100%;	
+		height: 100%;
 	}
-	
+
 	body {
-		margin:0px; 
+		margin:0px;
 		width: 100%;
 		height: 100%;
 		line-height: 1.2;
 	}
 
-	table {	
+	table {
 		font-size:inherit;
 		font-style:inherit;
 		font-variant:inherit;
@@ -36,14 +36,14 @@
 	textarea {
 		.selectable;
 	}
-	
+
 	input[disabled],
-	textarea[disabled] 
+	textarea[disabled]
 	{
 		background-color:#eee;
 		border:1px solid #ccc;
 	}
-	
+
 	/* add flex to an element by giving it a flex attribute */
 	*[flex]		 	{	.urgentFlex(1);	}
 	*[flex='1'] 	{	.urgentFlex(1);	}
@@ -84,7 +84,7 @@
 	{
 		display:inline-block;
 	}
-	
+
 
 
 /*** horizontal and vertical stretch boxes ***/
@@ -103,7 +103,7 @@
 
 	/* add layout=vcenter to make children fill the space vertically and center horizontally */
 	*[layout=vcenter] {}
-	
+
 	*[layout=vcenter] > hope-container,
 	hope-group[layout=vcenter]
 	{
@@ -138,8 +138,8 @@
 //		display: block;
 	}
 
-	/* add layout=center to make children center horizontally and vertically.  
-		You'll need a nested <hope-container> for this to work. 
+	/* add layout=center to make children center horizontally and vertically.
+		You'll need a nested <hope-container> for this to work.
 	*/
 	*[layout=center] {
 		.box(vertical,center);
@@ -162,7 +162,7 @@
 	hope-vbox {
 		.box(vertical,stretch);
 	}
-	
+
 
 
 /*** Blocks of inline javascript or xml ***/
@@ -176,8 +176,8 @@
 		display:none;
 	 }
 
-	hope-dataset {	
-		display:block; 
+	hope-dataset {
+		display:block;
 	}
 
 
@@ -193,7 +193,7 @@
 	{
 		.hCenterBox;
 	}
-	
+
 	hope-vcenter {
 		.vCenterBox;
 	}
@@ -211,7 +211,7 @@
 		width:100%; height:100%;
 		background-color:rgba(0,0,0,.3);
 	}
-	
+
 /*** circle-closer-thingie ***/
 	.circleCloser {
 		display:block;
@@ -220,9 +220,9 @@
 		left:-20px; top:-20px;
 		background:url(theme/ios/closebox-large.png) no-repeat;
 		z-index:10;
-		cursor:pointer;	
+		cursor:pointer;
 	}
-	
+
 
 /*** ad-hoc tables ***/
 	// set of united rows (more-or-less a table)
@@ -236,7 +236,7 @@
 		display:table-row !important;
 		width:100%;
 	}
-	
+
 	row > * {
 		display:table-cell !important;
 		vertical-align:baseline;
@@ -265,14 +265,14 @@
 	input[type=urlfragment],
 	textarea
 	{
-		.fieldShadow;		
+		.fieldShadow;
 		.round(5px);
 		-moz-appearance:none;
 		border:0px;
 		padding:5px;
 		margin: 2px 0;
 	}
-	
+
 	input[appearance~=translucent] {
 		background-color: rgba(255, 255, 255, 0.3);
 		color: white;
@@ -346,7 +346,7 @@
 			white-space:nowrap;
 			background-color:none;
 		}
-		
+
 		hope-action > hope-description {
 			display: none;
 		}
@@ -354,9 +354,9 @@
 		hope-action[disabled] {
 			opacity: .2;
 		}
-		
+
 		hope-action:hover {}
-		
+
 		hope-action:active,
 		hope-action.active
 		{
@@ -372,9 +372,9 @@
 		hope-action[label] {
 			padding:0 10px;
 		}
-		
+
 		hope-action[icon][label] {
-			padding:0 5px;		
+			padding:0 5px;
 		}
 		hope-action[icon][label] > hope-icon {
 			left: -3px;
@@ -426,7 +426,7 @@
 			.ButtonBorder(url(theme/ios/btn-yellow-active.png));
 			color:black;
 		}
-		
+
 
 		hope-action[appearance~=blue] {
 			.ButtonBorder(url(theme/ios/btn-blue.png));
@@ -502,16 +502,16 @@
 		    margin-right:5px;
 		    text-align:center;
 
-			.NavBackBorder(url(theme/ios/nav-back-black.png);
+			.NavBackBorder(url(theme/ios/nav-back-black.png));
 		}
 
 
 		hope-action[appearance~=prev]:active,
 		hope-action[appearance~=prev].active {
-			.NavBackBorder(url(theme/ios/nav-back-black-active.png);
+			.NavBackBorder(url(theme/ios/nav-back-black-active.png));
 		}
-		
-		
+
+
 		hope-action[appearance~=next] {
 			overflow:hidden;
 			color:white;
@@ -519,16 +519,16 @@
 		    padding:0px;
 		    margin-right:5px;
 		    text-align:center;
-			.NavForwardBorder(url(theme/ios/nav-forward-black.png);
+			.NavForwardBorder(url(theme/ios/nav-forward-black.png));
 		}
 
 		hope-action[appearance~=next]:active,
 		hope-action[appearance~=next].active {
-			.NavForwardBorder(url(theme/ios/nav-forward-black-active.png);
+			.NavForwardBorder(url(theme/ios/nav-forward-black-active.png));
 		}
 
-		
-		
+
+
 
 
 /*** hope-scroller for some content ***/
@@ -579,14 +579,14 @@
 			.round(3px);
 //			background:rgba(255,255,255,0.2);
 		}
-		
+
 		hope-scroll-track.horizontal {
 			height:6px;
 			bottom:0px;
 			left:0px;
 			right:0px;
 		}
-	
+
 		hope-scroll-track.vertical {
 			top:0px;
 			right:3px;
@@ -610,17 +610,17 @@
 			background:rgba(255,255,255,0.4);
 		}
 
-	
+
 	/* light appearance */
 		hope-scroll-track[appearance~=dark] {
 //			background:rgba(0,0,0,0.2);
 		}
-	
+
 		hope-scroll-track[appearance~=dark] scroll-thumb {
 			background:rgba(0,0,0,0.7);
 		}
-	
-	
+
+
 /*** Sections: can have hope-header and footers ***/
 	hope-section {
 		.box(vertical,stretch);
@@ -640,7 +640,7 @@
 		hope-section[scroll=vertical] {
 			overflow:hidden;
 		}
-	
+
 		hope-section[scroll=vertical] > hope-container {
 			overflow-y:auto;
 		}
@@ -651,11 +651,11 @@
 	{
 		font-size: 1.5em;
 	}
-	
+
 	label[appearance~=small],
 	hope-value[appearance~=small]
 	{
-		font-size: .8em;	
+		font-size: .8em;
 	}
 
 
@@ -674,41 +674,41 @@
 	hope-editor > hope-container > * {
 		display: block;
 	}
-	
+
 	hope-editor > hope-container > rows > row > label {
 		text-align:right;
 		padding-right: 5px;
 	}
-	
+
 	hope-editor hope-value {
 		font-weight:bold;
 	}
 
 
-	
-	
-	
+
+
+
 /*** Stack: hope-section which shows one item at a time ***/
 	hope-stack {
 		.box(vertical,stretch);
 	}
-	
+
 	// hope-container is the main body of a hope-section, etc.  It sometimes scrolls.
 	hope-stack > hope-container {
 		.flex;
-		.box(vertical,stretch);	
+		.box(vertical,stretch);
 	}
 
 	// hope-container is the main body of a hope-section, etc.  It sometimes scrolls.
 	hope-stack > hope-container > hope-section {}
 
-	
+
 
 /*** ListViewer ***/
 	hope-listviewer {
 		.box(vertical,stretch);
 	}
-	
+
 	hope-listviewer > hope-container {
 		.flex;
 		.box(vertical,stretch);
@@ -726,13 +726,13 @@
 	}
 
 	hope-listviewer > hope-container > rows > row > * {}
-	
+
 	hope-listviewer > hope-container > rows > row[selected] {}
 
 	hope-listviewer > hope-container > rows > row[selected] > * {
 		background:white;
 	}
-	
+
 	hope-listviewer > hope-container > rows > row > label {
 		padding:7px 5px;
 	}
@@ -746,7 +746,7 @@
 		.box(horizontal,stretch);
 		width:100%; height:100%;
 		overflow-y:hidden;
-		overflow-x:auto;	
+		overflow-x:auto;
 	}
 
 	hope-listviewer[layout='horizontal'] > hope-container > rows {
@@ -764,7 +764,7 @@
 /*	inset look	*/
 
 	hope-listviewer[appearance=inset] {}
-	
+
 	hope-listviewer[appearance=inset] > hope-container {}
 
 	hope-listviewer[appearance=inset] > hope-container > rows > row > * {
@@ -777,14 +777,14 @@
 	}
 
 	hope-listviewer[appearance=inset] > hope-container > rows > row[selected] {
-		.outsetShadow;	
+		.outsetShadow;
 		background-color:rgba(255,223,71,.8);
 		.round(3px);
 		font-weight:bold;
 	}
 
 	hope-listviewer[appearance=inset] > hope-container > rows > row[selected] > * {
-		background:transparent;	
+		background:transparent;
 	}
 
 
@@ -799,7 +799,7 @@
 		.flex;
 		overflow:auto;
 	}
-	
+
 	hope-itemviewer > hope-container > rows {}
 	hope-itemviewer > hope-container > rows > row {}
 	hope-itemviewer > hope-container > rows > row > label {}
@@ -820,7 +820,7 @@
 		border: 5px solid black;
 		.round(20px);
 	}
-	
+
 	hope-keymap hope-closer {
 		z-index:2;
 		.circleCloser;
@@ -849,7 +849,7 @@
 		left:20px;
 		content:attr(shortcut);
 	}
-	
+
 	hope-keymap hope-action:after {
 		left:160px;
 		right:0;
@@ -875,11 +875,11 @@
 	}
 
 	.desktop hope-menu {
-//		.shadow();	
+//		.shadow();
 	}
 
 	.mobile hope-menu {
-		font-size:150%;	
+		font-size:150%;
 	}
 
 // separator between menu items
@@ -891,7 +891,7 @@
 // group of menuitems -- no visual appearance, use to show/hide/etc a bunch at once
 	hope-menu hope-group {
 		display:block;
-	}	
+	}
 
 // make actions in popup menus rows with horizontal separators
 	hope-menu hope-action {
@@ -899,8 +899,8 @@
 		width:100%;
 		margin:2px 0px;
 	}
-	
-/* NOT SURE WHY THESE ARE TURNED OFF...	
+
+/* NOT SURE WHY THESE ARE TURNED OFF...
 	hope-menu hope-action:hover {
 		background-color:rgb(255,233,51);
 	}
@@ -916,7 +916,7 @@
 	}
 
 
-	
+
 // menus with icons
 	hope-menu hope-action[icon] {
 		background-repeat:no-repeat;
@@ -954,7 +954,7 @@
 		margin-left:10px;
 		margin-right:10px;
 	}
-	
+
 	hope-toolbar[appearance~=top] {
 		.roundTop(5px);
 	}
@@ -967,8 +967,8 @@
 			background:url(theme/ios/toolbar-black.png) repeat-x;
 			color:white;
 		}
-	
-		
+
+
 		hope-toolbar[appearance~=black] label {
 //			font-weight:bold;
 		}
@@ -994,8 +994,8 @@
 	}
 
 
-/*** Spacer is a fixed-width spacer.  
- 	 Default is 10px wide.  Use style='width:#px' to set width. 
+/*** Spacer is a fixed-width spacer.
+ 	 Default is 10px wide.  Use style='width:#px' to set width.
 ***/
 	hope-spacer {
 		position:relative !important;
@@ -1015,9 +1015,9 @@
 		.flex(1);
 		.box(vertical,stretch);
 	}
-	
+
 	hope-tabgroup > hope-toolbar {}
-	
+
 	hope-tabgroup > hope-container > * {
 		.flex;
 	}
@@ -1035,31 +1035,31 @@
 	    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
 		padding:0px 20px;
 		cursor:pointer;
-		.Segment(url(theme/ios/segment-black.png);
+		.Segment(url(theme/ios/segment-black.png));
 	}
-	
+
 	hope-tabselector hope-tab:first-child {
 		padding-left:15px;
-		.SegmentStart(url(theme/ios/segment-black-start.png);
+		.SegmentStart(url(theme/ios/segment-black-start.png));
 	}
-	
+
 	hope-tabselector hope-tab:last-child {
 		padding-right:15px;
-		.SegmentEnd(url(theme/ios/segment-black-end.png);
+		.SegmentEnd(url(theme/ios/segment-black-end.png));
 	}
 
 
 	// different graphics for selected mode
 	hope-tabselector hope-tab[selected] {
-		.Segment(url(theme/ios/segment-black-selected.png);
+		.Segment(url(theme/ios/segment-black-selected.png));
 	}
 
 	hope-tabselector hope-tab[selected]:first-child {
-		.SegmentStart(url(theme/ios/segment-black-selected-start.png);
+		.SegmentStart(url(theme/ios/segment-black-selected-start.png));
 	}
-	
+
 	hope-tabselector hope-tab[selected]:last-child {
-		.SegmentEnd(url(theme/ios/segment-black-selected-end.png);
+		.SegmentEnd(url(theme/ios/segment-black-selected-end.png));
 	}
 
 
@@ -1106,7 +1106,7 @@
 		top:45px;
 		width:225px;
 	}
-	
+
 	hope-messageboard hope-message {
 		.round(16px);
 		opacity: .9;
@@ -1147,16 +1147,16 @@
 
 
 	hope-overlay {
-		position:absolute;		
+		position:absolute;
 		left:0px; top:0px;
 		width:100%; height:100%;
 		z-index:10000;
 	}
-	
+
 	.desktop hope-overlay {
 		position:fixed;
 	}
-	
+
 	hope-overlay > hope-mask > hope-border {
 		position:relative;
 		display:block;
@@ -1180,12 +1180,12 @@
 		width: 100%; height:100%;
 		.box(vertical,stretch);
 	}
-	
-	
+
+
 	hope-overlay > hope-mask > hope-border > hope-close {
 		.circleCloser;
 	}
-	
+
 	hope-overlay.noclose > hope-mask > hope-border {
 		margin-top:0px;
 	}
@@ -1194,13 +1194,13 @@
 		display:none;
 	}
 
-	
+
 	hope-overlay[appearance~=white] > hope-mask > hope-border {
 		background-color:white;
 	}
 
 	.desktop hope-overlay[appearance~=white] > hope-mask > hope-border {
-		.shadow(5px,5px,5px);	
+		.shadow(5px,5px,5px);
 	}
 
 	hope-overlay[appearance~=white].hasHeader > hope-mask > hope-border > hope-header {
@@ -1235,7 +1235,7 @@
 		padding:10px;
 		color: white;
 	}
-	
+
 	hope-overlay[appearance~=blue] label.head {
 		color:white;
 		text-align:left;
@@ -1243,8 +1243,8 @@
 		font-weight:bold;
 		margin:1em;
 	}
-	
-	
+
+
 /*** form hope-overlay ***/
 	hope-overlay[appearance~=form] > hope-mask > hope-border {
 		background-color:#1b1e2b;
@@ -1284,19 +1284,19 @@
 	}
 
 	hope-section[appearance~=form] > hope-container > row,
-	hope-section[appearance~=form] > hope-container > rows > row 
+	hope-section[appearance~=form] > hope-container > rows > row
 	{
-		
+
 	}
-	
+
 	hope-section[appearance~=form] > hope-container > row > *,
-	hope-section[appearance~=form] > hope-container > rows > row > * 
+	hope-section[appearance~=form] > hope-container > rows > row > *
 	{
 		vertical-align: baseline;
 	}
 
 	hope-section[appearance~=form] > hope-container > row > label,
-	hope-section[appearance~=form] > hope-container > rows > row > label 
+	hope-section[appearance~=form] > hope-container > rows > row > label
 	{
 		text-align:right;
 		font-weight:bold;
@@ -1376,8 +1376,8 @@
 		margin-left:10px;
 		margin-right:-5px;
 	}
-	
-	
+
+
 	hope-panel[appearance~=grey] hope-toolbar label {
 		text-shadow: rgba(255, 255, 255, 0.4) 1px 1px 0;
 		font-size:1.6em;
@@ -1405,9 +1405,9 @@
 		background:#32384e;
 		color:white;
 	}
-	
+
 	hope-panel[appearance~=blue] hope-footer {
-	
+
 	}
 
 
@@ -1438,7 +1438,7 @@
 		height:20px;
 		background:url(theme/ios/popup-black-arrow-top.png) no-repeat top center;
 	}
-	
+
 	hope-popovermenu row label {
 		white-space:nowrap;
 		padding:8px 60px 8px 12px;
@@ -1477,7 +1477,7 @@
 		cursor:pointer;
 		margin:10px;
 	}
-	
+
 	hope-checkswitch div {
 		display:inline-block;
 		position:absolute;
@@ -1507,10 +1507,10 @@
 	}
 
 	hope-webview > iframe {
-		border:0px;	
+		border:0px;
 		background:white;
 	}
-	
+
 	.gecko hope-webview > iframe {
 		.flex;
 	}
@@ -1525,12 +1525,12 @@
 /*** Split pane (divides into horizontally or vertically stacked panes) ***/
 	hope-splitter {
 		position:relative;
-		.box(vertical,stretch);	
+		.box(vertical,stretch);
 		.flex(1);
 	}
 
 	hope-splitter[direction=horizontal] {
-		.box(horizontal,stretch);	
+		.box(horizontal,stretch);
 	}
 
 	// GRR....
@@ -1542,11 +1542,11 @@
 	hope-splitter > splitbar {
 		position:absolute;
 		z-index: 2;
-		left:10px; right:0; 
+		left:10px; right:0;
 		height: 10px;
 		background-color: green;
 	}
-	
+
 	hope-splitter[direction=horizontal] > splitbar {
 		top:0;
 		right: auto;
@@ -1560,7 +1560,7 @@
 	}
 
 	hope-textfield[multiline] {
-		.box(vertical,stretch);	
+		.box(vertical,stretch);
 	}
 
 
@@ -1587,13 +1587,13 @@
 	hope-textfield.error input {
 		background-color:pink;
 	}
-	
+
 	hope-textfield > hope-message {
 		display: block;
 		margin-bottom: 3px;
 		height: 16px;
 	}
-	
+
 	hope-textfield > hope-message.hint {
 		color: #666;
 		font-style: italic;
@@ -1601,7 +1601,7 @@
 		padding-left: 1em;
 		padding-right: 1em;
 	}
-	
+
 	hope-textfield > hope-message.error {
 		color: darkred;
 		font-weight: bold;
@@ -1629,7 +1629,7 @@
 		width: 8em;
 		text-align:right;
 	}
-	
+
 
 	hope-textfield[type=url] input {
 		width:100%;
@@ -1640,7 +1640,7 @@
 	hope-checkbox {
 		display:inline-block;
 	}
-	
+
 	hope-checkbox > hope-group > label {
 		padding:0 5px;
 		cursor:pointer;
@@ -1658,7 +1658,7 @@
 		margin-bottom: 3px;
 		height: 16px;
 	}
-	
+
 	hope-checkbox > hope-message.hint {
 		color: #666;
 		font-style: italic;
@@ -1666,7 +1666,7 @@
 		padding-left: 1em;
 		padding-right: 1em;
 	}
-	
+
 	hope-checkbox > hope-message.error {
 		color: darkred;
 		font-weight: bold;
@@ -1728,8 +1728,8 @@
 	hope-filter {
 		display:block;
 	}
-	
-	
+
+
 	hope-filter-clause {
 		display:inline-block;
 		.ButtonBorder(url(theme/ios/btn-white.png));
@@ -1766,11 +1766,11 @@
 			display:inline-block;
 			position:relative;
 			background-position:left center;
-			background-repeat:no-repeat;		
+			background-repeat:no-repeat;
 			cursor:pointer;
 			vertical-align:middle;
 		}
-		
+
 		hope-icon[disabled] {
 			opacity:.1;
 			cursor:default;
@@ -1862,8 +1862,8 @@
 		*[icon=dot-green] > hope-icon,	hope-icon[icon=dot-green]{	background-image:url(theme/ios/dot-green.png);	}
 		*[icon=dot-grey] > hope-icon,	hope-icon[icon=dot-grey]	{	background-image:url(theme/ios/dot-grey.png);	}
 		*[icon=dot-red] > hope-icon,		hope-icon[icon=dot-red]	{	background-image:url(theme/ios/dot-red.png);	}
-		
-		
+
+
 	/* status dots */
 		*[icon=close] > hope-icon,		hope-icon[icon=close]		{	width: 31px; height: 32px; background-image:url(theme/ios/closebox.png);	}
 

@@ -30,7 +30,7 @@ E.toRef = function(){ return "Element" };
 //
 
 // return an ElementList which matches the selector globally
-window.selectAll = document.selectAll = document.getChildren = 
+window.selectAll = document.selectAll = document.getChildren =
   function selectAll(selector, includeMe) {
 	if (typeof selector !== "string") return selector;
 	var root = (this === window ? document : this);
@@ -49,7 +49,7 @@ window.selectAll = document.selectAll = document.getChildren =
 }
 
 // return a single E which matches the selector globally
-window.select = document.select = document.getChild = 
+window.select = document.select = document.getChild =
   function select(selector, error) {
 	if (typeof selector !== "string") return selector;
 	var root = (this === window ? document : this), it;
@@ -63,40 +63,14 @@ window.select = document.select = document.getChild =
 }
 
 
-// URFF - ios 3.2 doesn't define webkitMatchesSelector
-EP._matches = EP.webkitMatchesSelector ||  EP.mozMatchesSelector;
-
-// define a reasonably quick matches() routine
-if (!EP._matches) {
-	EP._matches = (function() {
-		var parent = document.createElement("div"), 
-			hadParent, matches, i, element
-		;
-		return function(selector) {
-			if (hadParent = !this.parentNode) {
-				parent.appendChild(this);
-				matches = parent.querySelectorAll(selector);
-				parent.removeChild(this);
-			} else {
-				matches = this.parentNode.querySelectorAll(selector);
-			}
-			if (matches.length) {
-				i = -1;
-				while (E = matches[++i]) if (E === this) return true;
-			}
-			return false;
-		}
-	})();
-}
-
 
 //
 //	static methods for Element
-//	
+//
 
 var __CONTAINER = document.createElement("div");
 window.__CONTAINER = __CONTAINER;
-hope.extend(E, {	
+hope.extend(E, {
 	// Create a new element of specified type with @attributes.
 	//	To set innerHTML, pass attribute @html.
 	//	To set value, pass attribute @value.
@@ -117,8 +91,8 @@ hope.extend(E, {
 		if (setupTags !== false) Element.initializeElement(element);
 		return element;
 	},
-	
-	
+
+
 	// Given some HTML, inflate it to an ElementList of nodes (including text nodes).
 	// pass a @selector to pull the first matching element out
 	//	otherwise we'll return an ElementList of the childNodes
@@ -146,7 +120,7 @@ EP.extendIf = hope.extendThisIf;
 //
 //	Data access -- efficiently adding external stuff to an element
 //
-//	- Stick complex stuff (args, arrays, fns) 
+//	- Stick complex stuff (args, arrays, fns)
 //			on element.DATA
 //		rather than on element directly
 //	- cache element.DATA.* in your function for efficiency if referring to it more than once
@@ -178,7 +152,7 @@ EP._setUpData = function () {
 //
 //	data access -- for adding external stuff to an element
 //
-EP.extend({	
+EP.extend({
 	// data NOT inherited from superclasses
 	DATA : new Getter(
 		function getInstanceData() {
@@ -186,7 +160,7 @@ EP.extend({
 			return ELEMENT_INSTANCE_DATA[this.dataId];
 		}
 	),
-	
+
 	//
 	//	unload me!
 	//
@@ -195,7 +169,7 @@ EP.extend({
 		try {
 			// tell all of our children to unload first
 			//	turns out this is pretty fast
-			// YUCK:  Gecko needs the check for this.childNodes.length here 
+			// YUCK:  Gecko needs the check for this.childNodes.length here
 			//			BEFORE you try to get the childElementCount or it will barf
 			if (!this.childrenUnloaded && this.childNodes.length && this.childElementCount > 0) {
 				var i = -1, child, children = this.children;
@@ -205,15 +179,15 @@ EP.extend({
 		} catch (e) {
 			if (hope.debug.unload) console.error(e, this);
 		}
-		
-		var id = this.dataId, 
+
+		var id = this.dataId,
 			data = ELEMENT_INSTANCE_DATA[id]
 		;
 		if (id === -1 || !data) return;
 
 		// clear the constructor pointer -- this is potentially a very big leak
 		this.constructor = this._adapter = null;
-		
+
 		// if we have any updaters, clear them
 		var map = this.unloadMap, property, method;
 		if (map) {
@@ -236,14 +210,14 @@ EP.extend({
 		ELEMENT_INSTANCE_DATA[id] = null;
 		this._unloaded = true;
 	},
-	
+
 	// Map of lowercase attribute name => property name for that attribute.
 	//	Set up automatically if you extend an element with an Attribute
 	unloadMap : new InstanceMap({name:"unloadMap", tupelize:true, inherit:true}),
 });
 
 
-// clean up memory on page unload.  
+// clean up memory on page unload.
 hope.unload(function() {
 	if (hope.debug.unload) console.group("unloading elements");
 	var t0 = new Date().getTime();
@@ -267,6 +241,44 @@ hope.unload(function() {
 
 
 
+// URFF - ios 3.2 doesn't define webkitMatchesSelector
+EP._matches = EP.webkitMatchesSelector ||  EP.mozMatchesSelector || EP.matches;
+
+// define a reasonably quick matches() routine
+if (!EP._matches) {
+	EP._matches = (function() {
+		var parent = document.createElement("div"),
+			hadParent, matches, i, element
+		;
+		return function(selector) {
+			if (hadParent = !this.parentNode) {
+				parent.appendChild(this);
+				matches = parent.querySelectorAll(selector);
+				parent.removeChild(this);
+			} else {
+				matches = this.parentNode.querySelectorAll(selector);
+			}
+			if (matches.length) {
+				i = -1;
+				while (E = matches[++i]) if (E === this) return true;
+			}
+			return false;
+		}
+	})();
+}
+
+// Return true if we match some @selector.
+//	Pass:
+//		- a css selector string or
+//		- a function (called with @this as the element), we match if fn result is truthy
+//  NOTE: we extend
+//	NOTE: won't work in IE
+EP.matches = function(selector) {
+	if (typeof selector === "string") return this._matches(selector);
+	if (typeof selector === "function") return !!selector.apply(this);
+}
+
+
 EP.extendIf({
 
 	//
@@ -287,7 +299,7 @@ EP.extendIf({
 		}
 		return this;
 	},
-	
+
 	// tag name, but ALWAYS lower case
 	tag : Getter(function(){return this.tagName.toLowerCase()}),
 
@@ -298,14 +310,14 @@ EP.extendIf({
 	// return all descendants which match selector
 	// if includeMe is true, includes the element in the potential matches (first)
 	getChildren : document.getChildren,
-	
+
 	// return first descendant which matches selector
 	getChild : document.getChild,
-	
+
 	// return first parent (including us if @includeUs is not false) which matches selector
 	selectUp : function(selector, includeUs) {
 		if (typeof selector === "string" && selector.charAt(0) === "$") return window[selector];
-		
+
 		var target = this;
 		if (includeUs === false) target = target.parentNode;
 		while (target) {
@@ -314,7 +326,7 @@ EP.extendIf({
 			target = target.parentNode;
 		}
 	},
-	
+
 	// return direct children which match the selector
 	selectChildren : function(selector) {
 		if (this.childElementCount === 0) return new ElementList();
@@ -322,31 +334,20 @@ EP.extendIf({
 			return it.matches(selector);
 		});
 	},
-	
-	
+
+
 	// this is a different kind of selection -- selecting the contents visually (eg: for copying)
 	selectContents : function() {
 		// clear the selection
 		var selection = window.getSelection();
 		if (selection.rangeCount > 0) selection.removeAllRanges();
-		
+
 		// create a range with our contents
 		var range = document.createRange();
 		range.selectNodeContents(this);
 
 		// and add it to the selection
 		selection.addRange(range);
-	},
-	
-	
-	// Return true if we match some @selector.  
-	//	Pass:
-	//		- a css selector string or
-	//		- a function (called with @this as the element), we match if fn result is truthy
-	//	NOTE: won't work in IE
-	matches : function(selector) {
-		if (typeof selector === "string") return this._matches(selector);
-		if (typeof selector === "function") return !!selector.apply(this);
 	},
 
 	// return our child number in our parentNode
@@ -372,7 +373,7 @@ EP.extendIf({
 		else				this.setAttribute(name, value);
 		return this;
 	},
-	
+
 	//	return a map of current attributes
 	attrs :  new Property({
 		get : function() {
@@ -382,7 +383,7 @@ EP.extendIf({
 			}
 			return attrs;
 		},
-		
+
 		set : function(attrs) {
 			if (!attrs || typeof attrs !== "object") return;
 			for (var key in attrs) {
@@ -390,7 +391,7 @@ EP.extendIf({
 			}
 		}
 	}),
-	
+
 	// copy all attributes of this element into another element
 	cloneAttrsInto : function(that) {
 		var attrs = this.attrs;
@@ -401,15 +402,15 @@ EP.extendIf({
 			} catch (e) {}
 		}
 	},
-	
-	
+
+
 	// Set/get our innerHTML, either to an HTML string, an individual element or a set of elements
 	//	Use this in preference to setting innerHTML directly to set up Tags in the contents automatically.
 	html : new Property({
 		get : function() {
 			return this.innerHTML;
 		},
-		
+
 		set : function(it) {
 			if (typeof it === "string") {
 				// expand unary tags in the input string
@@ -424,7 +425,7 @@ EP.extendIf({
 			Element.initializeElements(this.children);
 		}
 	}),
-	
+
 	//
 	//	add outerHTML emulation
 	//
@@ -435,12 +436,12 @@ EP.extendIf({
 			var df = range.createContextualFragment(html);
 			this.parentNode.replaceChild(df, this);
 		},
-	
+
 		get : function() {
 			var clone = this.cloneNode(true);
 			clone.innerHTML = this.innerHTML;
-			
-			// NOTE: this may have problems with TRs or TDs, etc 
+
+			// NOTE: this may have problems with TRs or TDs, etc
 			//		 which generate parent context elements (eg: TBODY) automatically.
 			var div = document.createElement("div");
 			div.appendChild(clone);
@@ -455,14 +456,14 @@ EP.extendIf({
 		if (next) 	this.insertBefore(toInsert, next);
 		else		this.appendChild(toInsert);
 		return toInsert;
-	},	
+	},
 
 
 	// Append a single element, an ElementList or html to us.
 	//	@setupTags false to skip setting up tags in the elements.
 	append : function(it, setupTags) {
 		if (!it) return this;
-		if (typeof it === "string") {	
+		if (typeof it === "string") {
 			it = E.inflate(it);
 			if (setupTags !== false) Element.initializeElements(it);
 			if (it.length == 1) it = it[0];
@@ -475,7 +476,7 @@ EP.extendIf({
 		else						throw "trying to append non-element "+it;
 		return it;
 	},
-	
+
 	appendList : function(list) {
 		if (!list || !list.length) return this;
 		for (var i = 0, last = list.length; i < last; i++) {
@@ -484,11 +485,11 @@ EP.extendIf({
 		}
 		return it;
 	},
-	
-	
+
+
 	prepend : function(it, setupTags) {
 		if (!it) return this;
-		if (typeof it === "string") {	
+		if (typeof it === "string") {
 			it = E.inflate(it, false);
 //			if (setupTags !== false) Element.initializeElements(it);
 		}
@@ -499,7 +500,7 @@ EP.extendIf({
 		} else throw "trying to prepend non-element "+it;
 		return it;
 	},
-	
+
 	prependList : function(list) {
 		if (!list || !list.length) return this;
 		var prev = this.firstChild;
@@ -508,8 +509,8 @@ EP.extendIf({
 		}
 		return it;
 	},
-	
-	
+
+
 	//
 	// List of children which are elements, as an ElementList.
 	//	Note:  `element.children`, while similar, doesn't always report children properly!
@@ -525,7 +526,7 @@ EP.extendIf({
 			}
 			return elements;
 		},
-	
+
 		set : function(elements) {
 			this.html = "";
 			if (elements && elements.length) {
@@ -536,27 +537,27 @@ EP.extendIf({
 			}
 		}
 	}),
-	
-	
+
+
 	// empty out all children
 	empty : function() {
 		this.innerHTML = "";
 	},
-	
-	
+
+
 	//
-	//	Clone a node and add to our parent, immediately after us.  
+	//	Clone a node and add to our parent, immediately after us.
 	//	Use this in preference to the built-in cloneNode.
 	//
 	//	@deep is true for deep clone (default) or false for shallow clone.
 	//	If @autoAdd is true, we will append the cloned node to our parent.
 	//
 	//	NOTE: breaks node.in*Data link(s) so new node(s) will get new data cache
-	//	
+	//
 	clone : function(deep, autoAdd) {
 		if (deep == null) deep = true;
 		var it = this.cloneNode(!!deep);
-		
+
 		// clear the node.DATA cache from node and all descendants
 		it.recurse(function() {
 			if (this.hasOwnProperty("dataId")) {
@@ -566,12 +567,12 @@ EP.extendIf({
 		});
 		// initialize the element and its children up as tags
 		Element.initializeElement(it);
-		
+
 		if (autoAdd === true) this.parentNode.appendChild(it);
 		return it;
 	},
-	
-	
+
+
 	// Do something on yourself and all of your element children.
 	//	@method is a function or name of a method on each element to call.
 	//	@this in the method will be the element
@@ -590,35 +591,35 @@ EP.extendIf({
 			});
 		}
 	},
-	
-	
+
+
 //
 //	Get HTML to save for this element.
 //
 //	Default is just to return the element's outerHTML, but you can override if you want.
 //
-	
+
 	// list of attribute names to output FIRST, IN THIS ORDER when saving
 	saveAttrOrder : null,
-	
+
 	// map of attrName => output method for saving
 	//	if method is a function, we'll call that function as 	element[func](attrValue)
 	//	if method is null or returns null, we'll skip this attribute
 	saveAttrMap : null,
-	
+
 	// if true, we save whitespace when saving
 	//	if false, whitespace is skipped
 	saveWhiteSpace : true,
-	
+
 	// return the HTML we should use to save this element
 	getSaveHTML : function(orderedAttrs, skipAttrs) {
 		var tagName = this.tagName.toLowerCase();
-		
+
 		// short circuit for simple elements
 		if (this.attributes.length === 0 && this.childNodes.length == 0) {
 			return "<"+tagName+"/>";
 		}
-	
+
 		// output the start tag
 		var startTag = ["<"+tagName], endTag;
 		var orderedAttrs = this.saveAttrOrder;
@@ -638,7 +639,7 @@ EP.extendIf({
 			while (attr = attributes[++i]) {
 				name = attr.nodeName;
 				value = attr.nodeValue;
-				
+
 				// skip derived attributes
 				if (name.charAt(0) === "_") continue;
 				if (orderedAttrs && orderedAttrs.contains(name)) continue;
@@ -650,7 +651,7 @@ EP.extendIf({
 			}
 		}
 
-		// get HTML for our children		
+		// get HTML for our children
 		var childHTML = this.getChildrenSaveHTML();
 
 		// output end tag or unary tag end
@@ -682,7 +683,7 @@ EP.extendIf({
 		return children.join("");
 	},
 
-	
+
 });// end extendIf
 
 
@@ -753,7 +754,7 @@ EP.extend({
 //
 //	parts:  Sub-parts we manage automatically.
 //			When initializing an element, we pull all visible descendants with a @part
-//			and install them as 
+//			and install them as
 //
 EP.extend({
 	addPart : function(part, partName) {
@@ -764,12 +765,12 @@ EP.extend({
 		part.owner = this;
 		if (!this.unloadMap.parts) this.unloadMap = "parts:_unloadParts";
 	},
-	
+
 	removePart : function(part, partName) {
 		delete this[partName];
 		delete part.owner;
 	},
-	
+
 	_unloadParts : function(parts, data) {
 //console.warn("unloading parts for",this);
 		for (var name in parts) {
@@ -785,7 +786,7 @@ EP.extend({
 
 //
 //	Subclassing Elements: create subclasses for elements to add custom functionality
-//		- create the subclass via:   
+//		- create the subclass via:
 //			Element.Subclass("hope.SomeName", { tag:"sometag", properties:{...} });
 //
 //		- create instances by:
@@ -808,12 +809,12 @@ hope.extend(E, {
 	// map of tag => element subclass constructor
 	TagMap : {},
 
-	// map of selector => element subclass constructor, 
+	// map of selector => element subclass constructor,
 	//	for subclasses which have a more specific selector to match
 	// NOTE: you can only have one tag per selector, and we'll take the first one we find!
 	SelectorMap : {},
 
-	
+
 	// Find the adapter function we should use to adapt a pre-existing @element.
 	// Returns null if an adapter can't be found, or if already adapted.
 	getAdapterFor : function (element) {
@@ -851,7 +852,7 @@ new Class("hope.Element", {
 		}
 		var tag = options.tag;
 		if (!tag) throw "You must provide a tag for your element subclass "+id;
-		
+
 		// create the constructor function in an eval so we can see it in firebug
 		var constructor;
 		eval("constructor = function "+id.toIdentifier()+"(properties) {\n\
@@ -867,7 +868,7 @@ new Class("hope.Element", {
 		// element.tagNames are always reported in upper case
 		tag = tag.toUpperCase();
 		var selector = options.selector;
-		
+
 		if (!selector && _TagMap[tag]) {
 			throw "You can't define two Element subclasses with the tag "+tag;
 		} else if (selector) {
@@ -879,7 +880,7 @@ new Class("hope.Element", {
 		} else {
 			_TagMap[tag] = constructor;
 		}
-		
+
 		// if options.itemContainer is defined, that's a global pointer to the container
 		//	for ALL items.  You'll generally use this with singleton objects.
 		// You can pass a string as the itemContainer and we'll dereference it the first time
@@ -891,19 +892,19 @@ new Class("hope.Element", {
 				return itemContainer;
 			});
 		}
-		
+
 		// if options.itemSelector is defined, that allows us to:
 		//
-		//	1) find an instance of the tag by calling 
+		//	1) find an instance of the tag by calling
 		//			ElementClass.getInstance({props})
 		//
-		//	2) create/find a singleton instance by calling 
+		//	2) create/find a singleton instance by calling
 		//			ElementClass.create({props})
-		//	
+		//
 		if (options.itemSelector) {
 			var itemSelector = constructor.itemSelector = options.itemSelector;
 			var subMatches = itemSelector.match(/{{(.*?)}}/g);
-			
+
 			// return the first instance we find that matches the global itemSelector
 			constructor.getInstance = function(props) {
 				var container = this.itemContainer || document,
@@ -920,7 +921,7 @@ new Class("hope.Element", {
 				return container.getChild(selector);
 			}
 
-			// return all instances we find that match the global itemSelector, 
+			// return all instances we find that match the global itemSelector,
 			//		expanded through properties passed in
 			// pass null props to select all on the page/in the itemContainer
 			constructor.getInstances = function(props) {
@@ -939,7 +940,7 @@ new Class("hope.Element", {
 				}
 				return container.getChildren(selector);
 			}
-			
+
 			// either:
 			//	- return the first instance of which matches {props}, or
 			//	- create one with {props}
@@ -956,10 +957,10 @@ new Class("hope.Element", {
 				return it;
 			}
 		}
-		
+
 		return constructor;
 	},
-	
+
 	makeSubclassPrototype : function(id, options) {
 		var superProto = options["super"].prototype;
 		var proto = document.createElement(options.tag).attr("prototype","yes");
@@ -969,18 +970,18 @@ new Class("hope.Element", {
 		// set 'adapter' since Safari won't allow you to reassign the 'constructor' for an element
 		proto._adapter = options.constructor;
 		proto._setUpData();
-		
+
 		proto.initialized = true;
 		return (options.prototype = proto);
 	},
-	
+
 	"static" : {
 		// default tag
 		tag : "hope-element",
 
 		// if true, we recurse to `adapt()` child elements when we're being `adapt()`ed
 		adaptChildren : true,
-		
+
 		// destroy this class on window unload
 		onUnload : function() {
 			this.prototype._attributeMap = null;			// probably not necessary
